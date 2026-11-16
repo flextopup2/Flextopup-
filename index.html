@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlexTopUp - Buy Cheap Data</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#eef4ff;padding-bottom:80px}
+.splash{position:fixed;inset:0;background:#0b5cff;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;font-size:32px;font-weight:bold}
+.card{background:white;margin:12px;padding:16px;border-radius:14px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+input,select,button{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
+button{background:#0b5cff;color:white;border:none;font-weight:bold;cursor:pointer}
+button.secondary{background:#eef2ff;color:#0b5cff}
+button.logoutBtn{background:#ff3b30 !important;color:white}
+.hidden{display:none}
+.badge{background:#ffe58a;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #ddd;z-index:100}
+.nav div{text-align:center;font-size:12px;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center}
+.price{border:1px solid #eee;padding:10px;border-radius:10px;margin:6px 0;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div id="splash" class="splash">FlexTopUp<small>Cheap Data • Fast Delivery</small></div>
+
+<!-- LOGIN / REGISTER -->
+<div id="authPage" class="card hidden">
+<h2 id="authTitle">Welcome Back</h2>
+<input id="authName" placeholder="Full Name (for Register)" style="display:none">
+<input id="authPhone" placeholder="Phone Number e.g 08031234567" type="tel">
+<input id="authPass" placeholder="Password" type="password">
+<button onclick="handleAuth()" id="authBtn">Login</button>
+<button class="secondary" onclick="toggleAuth()">No account? Create Account</button>
+<p style="font-size:12px;color:#888;text-align:center">One phone number = One account</p>
+</div>
+
+<!-- CUSTOMER APP -->
+<div id="app" class="hidden">
+<!-- TOP - NO LOGOUT HERE -->
+<div class="card top"><div><b id="userName">Hi User</b><br><small id="userPhone"></small></div></div>
+
+<!-- HOME - NO LOGOUT HERE -->
+<div id="page-home">
+<div class="card"><h3>👋 Welcome to FlexTopUp</h3><p>Buy cheap MTN, GLO, Airtel, 9mobile data.</p><button onclick="showPage('buy')">Buy Data Now 📶</button><button class="secondary" onclick="showPage('cash')">Convert Airtime to Cash 💱</button></div>
+<div class="card"><h3>🔥 Today's Prices</h3><div class="price"><span>1GB MTN</span><b>₦400</b></div><div class="price"><span>2GB MTN</span><b>₦780</b></div><div class="price"><span>1GB Airtel</span><b>₦420</b></div><div class="price"><span>1GB Glo</span><b>₦380</b></div></div>
+<div class="card"><h3>How It Works</h3><p>1. Choose data plan<br>2. Pay to OPay: <b>6490743519</b><br>3. Your order go show PENDING<br>4. We approve am in minutes!</p></div>
+</div>
+
+<!-- BUY -->
+<div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><select id="buyNetwork"><option>MTN</option><option>Airtel</option><option>Glo</option><option>9mobile</option></select><select id="buyPlan"><option>1GB MTN - ₦400</option><option>2GB MTN - ₦780</option><option>1GB Airtel - ₦420</option><option>1GB Glo - ₦380</option></select><input id="buyPhone" placeholder="Recipient Number" type="tel"><button onclick="buyData()">Buy Now →</button><div style="background:#fff8d6;padding:12px;border-radius:10px;margin-top:10px;font-size:13px">💳 Pay to OPay: <b>6490743519</b></div></div></div>
+
+<!-- AIRTIME TO CASH -->
+<div id="page-cash" class="hidden"><div class="card"><h3>Airtime to Cash 💱</h3><input placeholder="Your Phone"><input placeholder="Amount" type="number"><button onclick="alert('Request sent!')">Request Cash</button></div></div>
+
+<!-- ORDERS -->
+<div id="page-orders" class="hidden"><div class="card"><h3>📋 My Orders</h3><div id="ordersList"></div><p id="noOrder" style="color:#888">You have no orders yet.</p></div></div>
+
+<!-- SUPPORT - LOGOUT ONLY HERE -->
+<div id="page-support" class="hidden"><div class="card"><h3>🎧 Support</h3><p><b>WhatsApp:</b> 0803-XXX-XXXX<br><b>OPay:</b> 6490743519</p><button class="secondary">Chat on WhatsApp</button><hr><h3>🚪 Account</h3><p>Want to logout from this phone?</p><button class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
+
+</div>
+
+<div class="nav"><div onclick="showPage('home')">🏠<br>Home</div><div onclick="showPage('buy')">📶<br>Buy Data</div><div onclick="showPage('cash')">💱<br>Airtime to Cash</div><div onclick="showPage('orders')">📋<br>Orders</div><div onclick="showPage('support')">🎧<br>Support</div></div>
+
+<script>
+let users=JSON.parse(localStorage.getItem('ft_users')||'[]');
+let orders=JSON.parse(localStorage.getItem('ft_orders')||'[]');
+let currentUser=JSON.parse(localStorage.getItem('ft_current')||'null');
+let isLoginMode=true;
+// Clear old fake orders
+if(localStorage.getItem('ft_clean_v3')!=='yes'){ orders=orders.filter(o=>o&&o.userPhone&&o.plan); localStorage.setItem('ft_orders',JSON.stringify(orders)); localStorage.setItem('ft_clean_v3','yes'); }
+setTimeout(()=>{document.getElementById('splash').style.display='none'; checkSession();},2000);
+function checkSession(){ if(currentUser){showApp();} else {document.getElementById('authPage').classList.remove('hidden');} }
+function toggleAuth(){ isLoginMode=!isLoginMode; document.getElementById('authTitle').innerText=isLoginMode?'Welcome Back':'Create Account'; document.getElementById('authBtn').innerText=isLoginMode?'Login':'Create Account'; document.getElementById('authName').style.display=isLoginMode?'none':'block'; }
+function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10);}
+function handleAuth(){
+  let name=document.getElementById('authName').value.trim();
+  let phone=document.getElementById('authPhone').value.trim();
+  let pass=document.getElementById('authPass').value.trim();
+  if(!phone||!pass){alert('Enter phone and password');return;}
+  let cPhone=cleanPhone(phone);
+  if(isLoginMode){
+    let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass);
+    if(!found){alert('Wrong phone or password');return;}
+    currentUser=found; localStorage.setItem('ft_current',JSON.stringify(found)); showApp();
+  } else {
+    // RULE 1: ONE NUMBER = ONE ACCOUNT
+    let exists=users.find(u=>cleanPhone(u.phone)===cPhone);
+    if(exists){alert('❌ This number don already register before! Please Login. One number = One account.');return;}
+    if(!name){alert('Enter Full Name');return;}
+    let nu={name,phone,pass}; users.push(nu); localStorage.setItem('ft_users',JSON.stringify(users));
+    currentUser=nu; localStorage.setItem('ft_current',JSON.stringify(nu)); alert('Welcome '+name); showApp();
+  }
+}
+function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userName').innerText='Hi '+currentUser.name; document.getElementById('userPhone').innerText=currentUser.phone; showPage('home'); renderOrders(); }
+// RULE 2: LOGOUT - ONLY FROM SUPPORT PAGE
+function logout(){ if(confirm('Are you sure you want to logout?')){ localStorage.removeItem('ft_current'); location.reload(); } }
+function showPage(p){ ['home','buy','cash','orders','support'].forEach(id=>{let el=document.getElementById('page-'+id); if(el) el.classList.add('hidden');}); let t=document.getElementById('page-'+p); if(t) t.classList.remove('hidden'); if(p==='orders') renderOrders(); window.scrollTo(0,0); }
+function buyData(){ let plan=document.getElementById('buyPlan').value; let rec=document.getElementById('buyPhone').value.trim(); if(!rec){alert('Enter recipient number');return;} let o={id:Date.now(),plan,recipient:rec,userPhone:currentUser.phone,userName:currentUser.name,status:'PENDING',date:new Date().toLocaleString()}; orders.push(o); localStorage.setItem('ft_orders',JSON.stringify(orders)); alert('Order placed! Pay to OPay 6490743519'); showPage('orders'); }
+function renderOrders(){ let list=document.getElementById('ordersList'); list.innerHTML=''; let mine=orders.filter(o=>cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)); document.getElementById('noOrder').style.display=mine.length?'none':'block'; mine.reverse().forEach(o=>{ list.innerHTML+=`<div style="border:1px solid #eee;padding:12px;border-radius:10px;margin-bottom:8px"><b>${o.plan}</b><br><span class="badge">${o.status}</span><br><small>To: ${o.recipient} • ${o.date}</small></div>`; }); }
+</script>
+</body>
+</html>
