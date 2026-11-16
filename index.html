@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlexTopUp - Buy Data Sharp Sharp</title>
+<title>FlexTopUp</title>
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
-body{margin:0;background:#f4f6fb;padding-bottom:85px}
-.splash{position:fixed;inset:0;background:#0b4aa8;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;font-size:34px;font-weight:900;animation:hideSplash 0.5s ease 2s forwards}
-@keyframes hideSplash{to{opacity:0;visibility:hidden}}
+body{margin:0;background:#f4f6fb;padding-bottom:90px}
+.splash{position:fixed;inset:0;background:#0b4aa8;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;font-size:34px;font-weight:900;animation:hideSplash .5s ease 1.5s forwards;pointer-events:none}
+@keyframes hideSplash{to{opacity:0;visibility:hidden;pointer-events:none}}
 .card{background:white;margin:12px;padding:16px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-input,select,button{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
+input,button{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
 button{background:#0b5cff;color:white;border:none;font-weight:bold;cursor:pointer}
 button.secondary{background:#eef2ff;color:#0b5cff}
-button.logoutBtn{background:#ff3b30 !important}
 button.green{background:#00a651}
+button.logoutBtn{background:#ff3b30 !important}
 button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;padding:6px 12px;font-size:12px;margin:0}
 .hidden{display:none !important}
-.badge{background:#ffe58a;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
-.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #ddd;z-index:100}
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #ddd;z-index:100}
 .nav div{text-align:center;font-size:11px;cursor:pointer;color:#555}
 .nav .active{color:#0b5cff;font-weight:bold}
 .topHeader{display:flex;align-items:center;gap:10px;padding:16px 12px 0}
@@ -54,25 +53,23 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 .profileIcon{font-size:22px;padding:8px;background:#eef2ff;border-radius:50%;cursor:pointer;min-width:42px;text-align:center}
 .notifItem{border-left:4px solid #ffd500;background:#fffbe6;padding:12px;border-radius:10px;margin-bottom:10px}
 .notifItem.success{border-left-color:#00c853;background:#eaffef}
-.toast{position:fixed;top:16px;left:12px;right:12px;background:#111;color:white;padding:14px;border-radius:12px;z-index:1000;display:none;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.toast{position:fixed;top:16px;left:12px;right:12px;background:#111;color:white;padding:14px;border-radius:12px;z-index:1000;display:none}
 .opayRow{display:flex;align-items:center;gap:8px;background:#fff8d6;padding:10px;border-radius:10px;margin-top:8px}
-.statusRow{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
-.statusPill{padding:6px 10px;border-radius:12px;font-size:12px;font-weight:bold}
 </style>
 </head>
 <body>
 <div id="toast" class="toast"></div>
 <div id="splash" class="splash">⚡ FlexTopUp<small style="font-size:14px;font-weight:400">Cheap Data • Fast Delivery</small></div>
 
-<!-- LOGIN / REGISTER - VISIBLE BY DEFAULT - NO WHITE SCREEN -->
+<!-- LOGIN + REGISTER - ONE NUMBER = ONE ACCOUNT -->
 <div id="authPage" class="card">
 <div style="text-align:center;font-size:40px">⚡</div><h2 style="text-align:center;color:#0a2a7a">FlexTopUp</h2>
 <h3 id="authTitle" style="text-align:center">Welcome Back</h3>
 <input id="authName" placeholder="Full Name (for Register)" style="display:none">
 <input id="authPhone" placeholder="Phone Number e.g 08031234567" type="tel">
 <input id="authPass" placeholder="Password" type="password">
-<button onclick="handleAuth()" id="authBtn">Login</button>
-<button class="secondary" onclick="toggleAuth()">No account? Create Account</button>
+<button type="button" onclick="handleAuth()" id="authBtn">Login</button>
+<button type="button" class="secondary" onclick="toggleAuth()">No account? Create Account</button>
 <p style="font-size:12px;color:#888;text-align:center">One phone number = One account</p>
 </div>
 
@@ -82,7 +79,7 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <!-- HOME -->
 <div id="page-home">
 <p style="padding:0 12px;margin:8px 0 0">Welcome, <b id="userName2">David</b>! 👋<br><b style="font-size:20px;color:#0a2a7a">Ready to stay connected?</b><br><small id="userPhone2" style="color:#888"></small></p>
-<div class="refer"><div><b>🎁 Refer & Earn<br>500MB FREE</b><br><small>Invite friends and earn instantly</small></div><button class="shareBtn" onclick="showPage('refer')">Share Now</button></div>
+<div class="refer"><div><b>🎁 Refer & Earn<br>500MB FREE</b><br><small>Invite friends and earn instantly</small></div><button type="button" class="shareBtn" onclick="showPage('refer')">Share Now</button></div>
 <div class="buyBox"><span class="fast">⚡ Fast Delivery 1-5 Mins</span><h2>Buy Data<br>Sharp Sharp ⚡</h2><p style="font-size:14px;margin:8px 0 0">Choose Data Plan</p>
 <div class="planGrid">
 <div class="plan" onclick="selectPlan(this,'500MB - ₦200')"><b>500MB - ₦200</b><br><small>Valid for 1 day</small></div>
@@ -99,18 +96,18 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <button type="button" class="netBtn" onclick="selectNet(this,'Glo')">🟢 Glo</button>
 <button type="button" class="netBtn" onclick="selectNet(this,'9Mobile')">🟢 9Mobile</button>
 </div>
-<div class="card" style="margin:12px 0"><input id="buyPhone" placeholder="Recipient Number e.g 0803..." type="tel"><button onclick="buyData()">Buy Now → Pay to OPay 6490743519</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><p style="font-size:12px;color:#666;text-align:center">Copy OPay number, pay, order go show PENDING!</p></div></div>
-<div class="contactRow"><div>🟢 WhatsApp:<br><b>07078269788</b></div><div>🟣 OPay:<br><b>6490743519</b> <button class="copyBtn" onclick="copyNum('6490743519')">Copy</button></div></div>
+<div class="card" style="margin:12px 0"><input id="buyPhone" placeholder="Recipient Number e.g 0803..." type="tel"><button type="button" onclick="buyData()">Buy Now → Pay to OPay 6490743519</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button type="button" class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><p style="font-size:12px;color:#666;text-align:center">Copy OPay number, pay, order go show PENDING!</p></div></div>
+<div class="contactRow"><div>🟢 WhatsApp:<br><b>07078269788</b></div><div>🟣 OPay:<br><b>6490743519</b> <button type="button" class="copyBtn" onclick="copyNum('6490743519')">Copy</button></div></div>
 </div>
 
-<!-- PROFILE - PRESS 👤 -->
-<div id="page-profile" class="hidden"><div class="card" style="text-align:center"><div style="font-size:60px">👤</div><h2 id="profileName">User</h2><p id="profilePhone" style="color:#888"></p><hr><p style="text-align:left">📋 Total Orders: <b id="profileOrders">0</b><br>🔔 Notifications: <b id="profileNotif">0</b><br>🎁 Referral: <b>500MB FREE</b></p><button onclick="openNotif()">🔔 View Notifications</button><button class="secondary" onclick="showPage('home')">← Back to Home</button><button class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
+<!-- PROFILE -->
+<div id="page-profile" class="hidden"><div class="card" style="text-align:center"><div style="font-size:60px">👤</div><h2 id="profileName">User</h2><p id="profilePhone" style="color:#888"></p><hr><p style="text-align:left">📋 Total Orders: <b id="profileOrders">0</b><br>🔔 Notifications: <b id="profileNotif">0</b><br>🎁 Referral: <b>500MB FREE</b></p><button type="button" onclick="openNotif()">🔔 View Notifications</button><button type="button" class="secondary" onclick="showPage('home')">← Back to Home</button><button type="button" class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
 
-<!-- NOTIFICATIONS - PRESS 🔔 -->
-<div id="page-notif" class="hidden"><div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><p id="noNotif" style="color:#888">No notifications yet.</p><button class="secondary" onclick="showPage('home')">← Back to Home</button><button class="secondary" onclick="clearNotif()">Clear All</button></div></div>
+<!-- NOTIFICATIONS - BELL -->
+<div id="page-notif" class="hidden"><div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><p id="noNotif" style="color:#888">No notifications yet.</p><button type="button" class="secondary" onclick="showPage('home')">← Back to Home</button><button type="button" class="secondary" onclick="clearNotif()">Clear All</button></div></div>
 
 <!-- BUY DATA -->
-<div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><p>Use Home to choose plan sharp sharp.</p><button onclick="showPage('home')">Go to Home →</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div></div></div>
+<div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><p>Use Home to choose plan sharp sharp.</p><button type="button" onclick="showPage('home')">Go to Home →</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button type="button" class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div></div></div>
 
 <!-- AIRTIME TO CASH -->
 <div id="page-cash" class="hidden">
@@ -118,8 +115,8 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div style="padding:0 12px">
 <div style="background:#d6e9ff;padding:12px;border-radius:10px;font-size:13px"><b>ℹ️ Send Airtime To Correct Number Per Network</b><br>Send only to the number for the selected network. Wrong number = lost airtime.</div>
 <h3>1. Select Network & Send Airtime</h3>
-<div class="cashNet"><div><div style="font-size:22px">🟡 <b>MTN</b></div><small>Send airtime to</small><br><b style="font-size:18px">07078269788</b></div><div><span style="background:#00c853;color:white;padding:4px 8px;border-radius:10px;font-size:11px">✅ Active</span><br><button class="secondary" style="width:auto;margin-top:6px" onclick="copyNum('07078269788')">📋 Copy</button></div></div>
-<div class="cashNet glo"><div><div style="font-size:22px">🟢 <b>Glo</b></div><small>Send airtime to</small><br><b style="font-size:18px">08111275146</b></div><div><span style="background:#00c853;color:white;padding:4px 8px;border-radius:10px;font-size:11px">✅ Active</span><br><button class="secondary" style="width:auto;margin-top:6px" onclick="copyNum('08111275146')">📋 Copy</button></div></div>
+<div class="cashNet"><div><div style="font-size:22px">🟡 <b>MTN</b></div><small>Send airtime to</small><br><b style="font-size:18px">07078269788</b></div><div><span style="background:#00c853;color:white;padding:4px 8px;border-radius:10px;font-size:11px">✅ Active</span><br><button type="button" class="secondary" style="width:auto;margin-top:6px" onclick="copyNum('07078269788')">📋 Copy</button></div></div>
+<div class="cashNet glo"><div><div style="font-size:22px">🟢 <b>Glo</b></div><small>Send airtime to</small><br><b style="font-size:18px">08111275146</b></div><div><span style="background:#00c853;color:white;padding:4px 8px;border-radius:10px;font-size:11px">✅ Active</span><br><button type="button" class="secondary" style="width:auto;margin-top:6px" onclick="copyNum('08111275146')">📋 Copy</button></div></div>
 <h3>2. Other Networks</h3><div class="cashOther"><div>🔴 <b>Airtel</b><br><small style="background:#ffd500;padding:2px 8px;border-radius:10px">Coming Soon</small></div><div>🟢 <b>9Mobile</b><br><small style="background:#ddd;padding:2px 8px;border-radius:10px">Contact Support</small></div></div>
 <h3>1. Select Network</h3>
 <div class="networkRow">
@@ -129,14 +126,13 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <button type="button" class="netBtn" onclick="selectNet(this,'9Mobile')">🟢 9Mobile</button>
 </div>
 <h3>2. Enter Airtime Amount</h3>
-<div style="background:#eaffef;padding:14px;border-radius:12px">Amount (₦)<br><input id="cashAmount" type="number" placeholder="₦10,000" value="10000" oninput="calcCash()"><small>Min: ₦100 • Max: ₦50,000<br>Rate: 85% • Fee: ₦<span id="cashFee">1500</span> (15%) • Instant payout to OPay</small></div>
+<div style="background:#eaffef;padding:14px;border-radius:12px">Amount (₦)<br><input id="cashAmount" type="number" value="10000" oninput="calcCash()"><small>Min: ₦100 • Max: ₦50,000<br>Rate: 85% • Fee: ₦<span id="cashFee">1500</span> (15%) • Instant payout to OPay</small></div>
 <div style="background:#eaf2ff;padding:10px;border-radius:10px;margin-top:8px;font-size:13px">ℹ️ Rate: ₦85 per ₦100 airtime</div>
-<h3>3. You will receive</h3><div class="calcBox"><b id="cashReceive">₦8,500 Cash</b><br><small>Processing fee: NO extra • You receive =85%</small></div>
+<h3>3. You will receive</h3><div class="calcBox"><b id="cashReceive">₦8,500 Cash</b><br><small>Processing fee: NO • You receive =85%</small></div>
 <h3>4. Send the Airtime to this number</h3>
-<div class="opayRow" style="background:white;border:1px solid #ddd"><span>📞 <b id="cashSendNumber">07078269788</b></span><button class="copyBtn" onclick="copyNum(document.getElementById('cashSendNumber').innerText)">📋 Copy</button></div>
+<div class="opayRow" style="background:white;border:1px solid #ddd"><span>📞 <b id="cashSendNumber">07078269788</b></span><button type="button" class="copyBtn" onclick="copyNum(document.getElementById('cashSendNumber').innerText)">📋 Copy</button></div>
 <p style="font-size:12px">Send the exact amount to the number above from your selected network.</p>
-<div class="statusRow"><span>Status:</span><span class="statusPill" style="background:#ffe58a">⏳ PENDING</span><span class="statusPill" style="background:#b6f3c8">✅ SUCCESSFUL</span></div>
-<div style="display:flex;gap:8px"><button class="green" onclick="sendAirtime()">✅ I Have Sent Airtime</button><button class="secondary" onclick="showPage('orders')">Check Status</button></div>
+<div style="display:flex;gap:8px"><button type="button" class="green" onclick="sendAirtime()">✅ I Have Sent Airtime</button><button type="button" class="secondary" onclick="showPage('orders')">Check Status</button></div>
 <div style="margin-top:10px"><b>Recent Status:</b><div id="recentStatus" style="margin-top:6px"></div></div>
 <p style="font-size:12px;color:#888;text-align:center">WhatsApp 07078269788 • Email flextopup2@gmail.com • OPay 6490743519<br>Ensure you use correct network number. Support 8am - 10pm daily.</p>
 </div></div>
@@ -145,15 +141,15 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div id="page-orders" class="hidden"><div class="card"><h3>📋 My Orders</h3><div id="ordersList"></div><p id="noOrder" style="color:#888">You have no orders yet.</p></div></div>
 
 <!-- REFER -->
-<div id="page-refer" class="hidden"><div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite friends. When they buy data, you earn 500MB FREE!</p><div style="background:#f0f0f0;padding:10px;border-radius:10px;font-size:13px">https://flextopup2.github.io/Flextopup-/</div><button onclick="alert('Link copied! Share am for WhatsApp!')">Share Now</button></div></div>
+<div id="page-refer" class="hidden"><div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite friends. When they buy data, you earn 500MB FREE!</p><div style="background:#f0f0f0;padding:10px;border-radius:10px;font-size:13px">https://flextopup2.github.io/Flextopup-/</div><button type="button" onclick="alert('Link copied! Share am for WhatsApp!')">Share Now</button></div></div>
 
 <!-- SUPPORT -->
 <div id="page-support" class="hidden">
 <div style="background:#cfe6ff;border-radius:14px;padding:16px;margin:12px;display:flex;gap:10px"><div style="font-size:32px">💬</div><div><b style="font-size:18px">Need Help?<br>Chat with us.</b><br><small>Our support team is here to help you 24/7</small></div></div>
-<div class="supportCard"><div>🟢 <b>WhatsApp:</b><br>07078269788</div><button class="green" style="width:auto">Chat Now 💬</button></div>
-<div class="supportCard"><div>✉️ <b>Email:</b><br>flextopup2@gmail.com</div><button class="secondary" style="width:auto">Send Email ✉️</button></div>
-<div class="supportCard"><div>🏦 <b>OPay Payment:</b><br>6490743519 <button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><span style="background:#fff3a0;padding:6px 10px;border-radius:10px;font-size:12px">Active</span></div>
-<div class="card"><h3>❓ FAQ</h3><div class="faqItem" onclick="alert('Choose plan on Home, copy OPay 6490743519, pay, we approve am in 1-5 mins!')">› How do I purchase airtime/data? ›</div><div class="faqItem" onclick="alert('Pending means we never confirm your payment yet. Wait 1-5 mins or chat us.')">› Why is my transaction pending? ›</div><div class="faqItem" onclick="alert('Go to Airtime to Cash, send airtime to MTN 07078269788 or Glo 08111275146, you go receive 85% cash!')">› How to cash out to bank? ›</div><button class="secondary" style="border:1px solid #00a651;color:#00a651" onclick="alert('Report sent! We go reply for WhatsApp.')">⚠️ Report Issue</button><hr><h3>🚪 Account</h3><button class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div>
+<div class="supportCard"><div>🟢 <b>WhatsApp:</b><br>07078269788</div><button type="button" class="green" style="width:auto">Chat Now 💬</button></div>
+<div class="supportCard"><div>✉️ <b>Email:</b><br>flextopup2@gmail.com</div><button type="button" class="secondary" style="width:auto">Send Email ✉️</button></div>
+<div class="supportCard"><div>🏦 <b>OPay Payment:</b><br>6490743519 <button type="button" class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><span style="background:#fff3a0;padding:6px 10px;border-radius:10px;font-size:12px">Active</span></div>
+<div class="card"><h3>❓ FAQ</h3><div class="faqItem" onclick="alert('Choose plan on Home, copy OPay 6490743519, pay, we approve am in 1-5 mins!')">› How do I purchase airtime/data? ›</div><div class="faqItem" onclick="alert('Pending means we never confirm your payment yet. Wait 1-5 mins or chat us.')">› Why is my transaction pending? ›</div><div class="faqItem" onclick="alert('Go to Airtime to Cash, send airtime to MTN 07078269788 or Glo 08111275146, you go receive 85% cash!')">› How to cash out to bank? ›</div><button type="button" class="secondary" style="border:1px solid #00a651;color:#00a651" onclick="alert('Report sent! We go reply for WhatsApp.')">⚠️ Report Issue</button><hr><h3>🚪 Account</h3><button type="button" class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div>
 </div>
 </div>
 
@@ -166,15 +162,15 @@ try{ orders=JSON.parse(localStorage.getItem('ft_orders')||'[]'); }catch(e){ orde
 try{ notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]'); }catch(e){ notifs=[]; }
 try{ currentUser=JSON.parse(localStorage.getItem('ft_current')||'null'); }catch(e){ currentUser=null; }
 let isLoginMode=true, selectedPlan='1GB - ₦400', selectedNet='MTN';
-let lastActiveOnLoad = parseInt(localStorage.getItem('ft_last_active')||'0');
-if(currentUser && lastActiveOnLoad && (Date.now()-lastActiveOnLoad)>60000){ try{localStorage.removeItem('ft_current');}catch(e){} currentUser=null; }
 function hideSplash(){ let s=document.getElementById('splash'); if(s) s.style.display='none'; }
-function checkSession(){ try{ if(currentUser){ showApp(); } else { let a=document.getElementById('authPage'); if(a) a.classList.remove('hidden'); } }catch(e){ let a=document.getElementById('authPage'); if(a) a.classList.remove('hidden'); } }
-function forceShow(){ hideSplash(); checkSession(); }
-setTimeout(forceShow,1500); setTimeout(forceShow,3000); setTimeout(forceShow,4000);
+function checkSession(){ if(currentUser){ showApp(); } else { document.getElementById('authPage').classList.remove('hidden'); } }
+setTimeout(()=>{hideSplash(); checkSession();},1500);
+setTimeout(()=>{hideSplash(); checkSession();},3000);
 function toggleAuth(){ isLoginMode=!isLoginMode; document.getElementById('authTitle').innerText=isLoginMode?'Welcome Back':'Create Account'; document.getElementById('authBtn').innerText=isLoginMode?'Login':'Create Account'; document.getElementById('authName').style.display=isLoginMode?'none':'block'; }
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10);}
-function handleAuth(){ let name=document.getElementById('authName').value.trim(); let phone=document.getElementById('authPhone').value.trim(); let pass=document.getElementById('authPass').value.trim(); if(!phone||!pass){alert('Enter phone and password');return;} let cPhone=cleanPhone(phone); if(isLoginMode){ let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass); if(!found){alert('Wrong phone or password');return;} currentUser=found; try{localStorage.setItem('ft_current',JSON.stringify(found)); localStorage.setItem('ft_last_active',Date.now().toString());}catch(e){} showApp(); } else { let exists=users.find(u=>cleanPhone(u.phone)===cPhone); if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;} if(!name){alert('Enter Full Name');return;} let nu={name,phone,pass}; users.push(nu); try{localStorage.setItem('ft_users',JSON.stringify(users));}catch(e){} currentUser=nu; try{localStorage.setItem('ft_current',JSON.stringify(nu)); localStorage.setItem('ft_last_active',Date.now().toString());}catch(e){} alert('Welcome '+name); showApp(); } }
+function handleAuth(){ let name=document.getElementById('authName').value.trim(); let phone=document.getElementById('authPhone').value.trim(); let pass=document.getElementById('authPass').value.trim(); if(!phone||!pass){alert('Enter phone and password');return;} let cPhone=cleanPhone(phone); if(isLoginMode){ let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass); if(!found){alert('Wrong phone or password. If you never register, press No account? Create Account first!');return;} currentUser=found; try{localStorage.setItem('ft_current',JSON.stringify(found));}catch(e){} showApp(); } else { let exists=users.find(u=>cleanPhone(u.phone)===cPhone); if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;} if(!name){alert('Enter Full Name');return;} let nu={name,phone,pass}; users.push(nu); try{localStorage.setItem('ft_users',JSON.stringify(users));}catch(e){} currentUser=nu; try{localStorage.setItem('ft_current',JSON.stringify(nu));}catch(e){} alert('Welcome '+name+'! Account created!'); showApp(); } }
 function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userName2').innerText=currentUser.name; document.getElementById('userPhone2').innerText=currentUser.phone; showPage('home'); renderOrders(); renderNotif(); renderRecent(); }
 function logout(){ if(confirm('Are you sure you want to logout?')){ try{localStorage.removeItem('ft_current');}catch(e){} location.reload(); } }
-function openNotif(){ if(!currentUser) return; renderNotif(); showPage(
+function openNotif(){ if(!currentUser) return; renderNotif(); showPage('notif'); }
+function openProfile(){ if(!currentUser) return; document.getElementById('profileName').innerText=currentUser.name; document.getElementById('profilePhone').innerText=currentUser.phone; document.getElementById('profileOrders').innerText=orders.filter(o=>cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)).length; document.getElementById('profileNotif').innerText=notifs.filter(n=>cleanPhone(n.phone)===cleanPhone(currentUser.phone)).length; showPage('profile'); }
+function showPage(p){ ['home','buy','cash','orders','refer','support','notif','profile'].forEach(id
