@@ -7,8 +7,7 @@
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
 body{margin:0;background:#f4f6fb;padding-bottom:90px}
-.splash{position:fixed;inset:0;background:#0b4aa8;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;font-size:34px;font-weight:900;animation:hideSplash .5s ease 1.5s forwards;pointer-events:none}
-@keyframes hideSplash{to{opacity:0;visibility:hidden;pointer-events:none}}
+.splash{position:fixed;inset:0;background:#0b4aa8;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;font-size:34px;font-weight:900;pointer-events:none}
 .card{background:white;margin:12px;padding:16px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 input,button{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
 button{background:#0b5cff;color:white;border:none;font-weight:bold;cursor:pointer}
@@ -61,22 +60,21 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div id="toast" class="toast"></div>
 <div id="splash" class="splash">⚡ FlexTopUp<small style="font-size:14px;font-weight:400">Cheap Data • Fast Delivery</small></div>
 
-<!-- LOGIN + REGISTER - ONE NUMBER = ONE ACCOUNT -->
+<!-- LOGIN + REGISTER -->
 <div id="authPage" class="card">
 <div style="text-align:center;font-size:40px">⚡</div><h2 style="text-align:center;color:#0a2a7a">FlexTopUp</h2>
 <h3 id="authTitle" style="text-align:center">Welcome Back</h3>
 <input id="authName" placeholder="Full Name (for Register)" style="display:none">
 <input id="authPhone" placeholder="Phone Number e.g 08031234567" type="tel">
 <input id="authPass" placeholder="Password" type="password">
-<button type="button" onclick="handleAuth()" id="authBtn">Login</button>
-<button type="button" class="secondary" onclick="toggleAuth()">No account? Create Account</button>
+<button type="button" id="authBtn" onclick="handleAuth()">Login</button>
+<button type="button" class="secondary" id="toggleBtn" onclick="toggleAuth()">No account? Create Account</button>
 <p style="font-size:12px;color:#888;text-align:center">One phone number = One account</p>
 </div>
 
 <div id="app" class="hidden">
 <div class="topHeader"><div class="logo">⚡</div><div class="logoText">FlexTopUp</div><div style="margin-left:auto;display:flex;gap:10px;align-items:center"><div class="bell" onclick="openNotif()">🔔<span id="bellCount" class="bellCount hidden">0</span></div><div class="profileIcon" onclick="openProfile()">👤</div></div></div>
 
-<!-- HOME -->
 <div id="page-home">
 <p style="padding:0 12px;margin:8px 0 0">Welcome, <b id="userName2">David</b>! 👋<br><b style="font-size:20px;color:#0a2a7a">Ready to stay connected?</b><br><small id="userPhone2" style="color:#888"></small></p>
 <div class="refer"><div><b>🎁 Refer & Earn<br>500MB FREE</b><br><small>Invite friends and earn instantly</small></div><button type="button" class="shareBtn" onclick="showPage('refer')">Share Now</button></div>
@@ -100,16 +98,12 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div class="contactRow"><div>🟢 WhatsApp:<br><b>07078269788</b></div><div>🟣 OPay:<br><b>6490743519</b> <button type="button" class="copyBtn" onclick="copyNum('6490743519')">Copy</button></div></div>
 </div>
 
-<!-- PROFILE -->
 <div id="page-profile" class="hidden"><div class="card" style="text-align:center"><div style="font-size:60px">👤</div><h2 id="profileName">User</h2><p id="profilePhone" style="color:#888"></p><hr><p style="text-align:left">📋 Total Orders: <b id="profileOrders">0</b><br>🔔 Notifications: <b id="profileNotif">0</b><br>🎁 Referral: <b>500MB FREE</b></p><button type="button" onclick="openNotif()">🔔 View Notifications</button><button type="button" class="secondary" onclick="showPage('home')">← Back to Home</button><button type="button" class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
 
-<!-- NOTIFICATIONS - BELL -->
 <div id="page-notif" class="hidden"><div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><p id="noNotif" style="color:#888">No notifications yet.</p><button type="button" class="secondary" onclick="showPage('home')">← Back to Home</button><button type="button" class="secondary" onclick="clearNotif()">Clear All</button></div></div>
 
-<!-- BUY DATA -->
 <div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><p>Use Home to choose plan sharp sharp.</p><button type="button" onclick="showPage('home')">Go to Home →</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button type="button" class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div></div></div>
 
-<!-- AIRTIME TO CASH -->
 <div id="page-cash" class="hidden">
 <div class="cashHeader"><div style="display:flex;gap:10px;align-items:center"><div style="font-size:30px">⚡</div><div><b style="font-size:18px">Convert Your Airtime To Cash Instantly</b><br><small>✅ Verified • Secure</small></div></div><p style="font-size:13px">Get cash for your airtime in minutes. Fast. Secure. Trusted.</p><p style="font-size:13px;color:#0a7a2e">✅ Typical payout in 2-5 minutes</p></div>
 <div style="padding:0 12px">
@@ -137,13 +131,10 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <p style="font-size:12px;color:#888;text-align:center">WhatsApp 07078269788 • Email flextopup2@gmail.com • OPay 6490743519<br>Ensure you use correct network number. Support 8am - 10pm daily.</p>
 </div></div>
 
-<!-- ORDERS -->
 <div id="page-orders" class="hidden"><div class="card"><h3>📋 My Orders</h3><div id="ordersList"></div><p id="noOrder" style="color:#888">You have no orders yet.</p></div></div>
 
-<!-- REFER -->
 <div id="page-refer" class="hidden"><div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite friends. When they buy data, you earn 500MB FREE!</p><div style="background:#f0f0f0;padding:10px;border-radius:10px;font-size:13px">https://flextopup2.github.io/Flextopup-/</div><button type="button" onclick="alert('Link copied! Share am for WhatsApp!')">Share Now</button></div></div>
 
-<!-- SUPPORT -->
 <div id="page-support" class="hidden">
 <div style="background:#cfe6ff;border-radius:14px;padding:16px;margin:12px;display:flex;gap:10px"><div style="font-size:32px">💬</div><div><b style="font-size:18px">Need Help?<br>Chat with us.</b><br><small>Our support team is here to help you 24/7</small></div></div>
 <div class="supportCard"><div>🟢 <b>WhatsApp:</b><br>07078269788</div><button type="button" class="green" style="width:auto">Chat Now 💬</button></div>
@@ -162,15 +153,15 @@ try{ orders=JSON.parse(localStorage.getItem('ft_orders')||'[]'); }catch(e){ orde
 try{ notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]'); }catch(e){ notifs=[]; }
 try{ currentUser=JSON.parse(localStorage.getItem('ft_current')||'null'); }catch(e){ currentUser=null; }
 let isLoginMode=true, selectedPlan='1GB - ₦400', selectedNet='MTN';
-function hideSplash(){ let s=document.getElementById('splash'); if(s) s.style.display='none'; }
+function removeSplash(){ let s=document.getElementById('splash'); if(s) s.remove(); }
 function checkSession(){ if(currentUser){ showApp(); } else { document.getElementById('authPage').classList.remove('hidden'); } }
-setTimeout(()=>{hideSplash(); checkSession();},1500);
-setTimeout(()=>{hideSplash(); checkSession();},3000);
+setTimeout(function(){ removeSplash(); checkSession(); },800);
+setTimeout(function(){ removeSplash(); checkSession(); },2000);
 function toggleAuth(){ isLoginMode=!isLoginMode; document.getElementById('authTitle').innerText=isLoginMode?'Welcome Back':'Create Account'; document.getElementById('authBtn').innerText=isLoginMode?'Login':'Create Account'; document.getElementById('authName').style.display=isLoginMode?'none':'block'; }
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10);}
-function handleAuth(){ let name=document.getElementById('authName').value.trim(); let phone=document.getElementById('authPhone').value.trim(); let pass=document.getElementById('authPass').value.trim(); if(!phone||!pass){alert('Enter phone and password');return;} let cPhone=cleanPhone(phone); if(isLoginMode){ let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass); if(!found){alert('Wrong phone or password. If you never register, press No account? Create Account first!');return;} currentUser=found; try{localStorage.setItem('ft_current',JSON.stringify(found));}catch(e){} showApp(); } else { let exists=users.find(u=>cleanPhone(u.phone)===cPhone); if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;} if(!name){alert('Enter Full Name');return;} let nu={name,phone,pass}; users.push(nu); try{localStorage.setItem('ft_users',JSON.stringify(users));}catch(e){} currentUser=nu; try{localStorage.setItem('ft_current',JSON.stringify(nu));}catch(e){} alert('Welcome '+name+'! Account created!'); showApp(); } }
+function handleAuth(){ let name=document.getElementById('authName').value.trim(); let phone=document.getElementById('authPhone').value.trim(); let pass=document.getElementById('authPass').value.trim(); if(!phone||!pass){alert('Enter phone and password');return;} let cPhone=cleanPhone(phone); if(isLoginMode){ let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass); if(!found){alert('Wrong phone or password. If you never register, press No account? Create Account first!');return;} currentUser=found; try{localStorage.setItem('ft_current',JSON.stringify(found)); localStorage.setItem('ft_last_active',Date.now().toString());}catch(e){} showApp(); } else { let exists=users.find(u=>cleanPhone(u.phone)===cPhone); if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;} if(!name){alert('Enter Full Name');return;} let nu={name,phone,pass}; users.push(nu); try{localStorage.setItem('ft_users',JSON.stringify(users));}catch(e){} currentUser=nu; try{localStorage.setItem('ft_current',JSON.stringify(nu)); localStorage.setItem('ft_last_active',Date.now().toString());}catch(e){} alert('Welcome '+name+'! Account created!'); showApp(); } }
 function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userName2').innerText=currentUser.name; document.getElementById('userPhone2').innerText=currentUser.phone; showPage('home'); renderOrders(); renderNotif(); renderRecent(); }
 function logout(){ if(confirm('Are you sure you want to logout?')){ try{localStorage.removeItem('ft_current');}catch(e){} location.reload(); } }
 function openNotif(){ if(!currentUser) return; renderNotif(); showPage('notif'); }
 function openProfile(){ if(!currentUser) return; document.getElementById('profileName').innerText=currentUser.name; document.getElementById('profilePhone').innerText=currentUser.phone; document.getElementById('profileOrders').innerText=orders.filter(o=>cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)).length; document.getElementById('profileNotif').innerText=notifs.filter(n=>cleanPhone(n.phone)===cleanPhone(currentUser.phone)).length; showPage('profile'); }
-function showPage(p){ ['home','buy','cash','orders','refer','support','notif','profile'].forEach(id
+function showPage(p){ ['home','buy','cash','orders','refer','support','notif','profile'].forEach(id=>{let el=document.getElementById('page-'+id); if(el) el.classList.add('hidden');}); let t=document.getElementById('page-'+p); if(t) t.classList.remove(
