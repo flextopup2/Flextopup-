@@ -50,8 +50,9 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 .calcBox b{color:#0a7a2e;font-size:22px}
 .faqItem{padding:10px 0;border-bottom:1px solid #eee;cursor:pointer}
 .supportCard{display:flex;justify-content:space-between;align-items:center;padding:14px;background:white;border-radius:14px;margin:10px 12px;box-shadow:0 1px 6px rgba(0,0,0,.06)}
-.bell{position:relative;font-size:24px;cursor:pointer}
-.bellCount{position:absolute;top:-6px;right:-8px;background:#ff3b30;color:white;font-size:11px;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.bell{position:relative;font-size:24px;cursor:pointer;padding:8px;background:#eef2ff;border-radius:50%}
+.bellCount{position:absolute;top:-4px;right:-4px;background:#ff3b30;color:white;font-size:11px;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;padding:0 4px}
+.profileIcon{font-size:22px;padding:8px;background:#eef2ff;border-radius:50%;cursor:pointer}
 .notifItem{border-left:4px solid #ffd500;background:#fffbe6;padding:12px;border-radius:10px;margin-bottom:10px}
 .notifItem.success{border-left-color:#00c853;background:#eaffef}
 .toast{position:fixed;top:16px;left:12px;right:12px;background:#111;color:white;padding:14px;border-radius:12px;z-index:1000;display:none;box-shadow:0 4px 20px rgba(0,0,0,.3)}
@@ -64,7 +65,7 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div id="toast" class="toast"></div>
 <div id="splash" class="splash">⚡ FlexTopUp<small style="font-size:14px;font-weight:400">Cheap Data • Fast Delivery</small></div>
 
-<!-- AUTH - RULE 1: ONE NUMBER = ONE ACCOUNT -->
+<!-- AUTH - RULE: ONE NUMBER = ONE ACCOUNT -->
 <div id="authPage" class="card hidden">
 <div style="text-align:center;font-size:40px">⚡</div><h2 style="text-align:center;color:#0a2a7a">FlexTopUp</h2>
 <h3 id="authTitle" style="text-align:center">Welcome Back</h3>
@@ -77,9 +78,9 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 </div>
 
 <div id="app" class="hidden">
-<div class="topHeader"><div class="logo">⚡</div><div class="logoText">FlexTopUp</div><div style="margin-left:auto;display:flex;gap:14px;align-items:center"><div class="bell" onclick="showPage('notif')">🔔<span id="bellCount" class="bellCount hidden">0</span></div><div style="font-size:22px">👤</div></div></div>
+<div class="topHeader"><div class="logo">⚡</div><div class="logoText">FlexTopUp</div><div style="margin-left:auto;display:flex;gap:10px;align-items:center"><div class="bell" onclick="openNotif()">🔔<span id="bellCount" class="bellCount hidden">0</span></div><div class="profileIcon" onclick="openProfile()">👤</div></div></div>
 
-<!-- 1. HOME - LIKE YOUR PICTURE 1 -->
+<!-- HOME -->
 <div id="page-home">
 <p style="padding:0 12px;margin:8px 0 0">Welcome, <b id="userName2">David</b>! 👋<br><b style="font-size:20px;color:#0a2a7a">Ready to stay connected?</b><br><small id="userPhone2" style="color:#888"></small></p>
 <div class="refer"><div><b>🎁 Refer & Earn<br>500MB FREE</b><br><small>Invite friends and earn instantly</small></div><button class="shareBtn" onclick="showPage('refer')">Share Now</button></div>
@@ -99,17 +100,20 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <button type="button" class="netBtn" onclick="selectNet(this,'Glo')">🟢 Glo</button>
 <button type="button" class="netBtn" onclick="selectNet(this,'9Mobile')">🟢 9Mobile</button>
 </div>
-<div class="card" style="margin:12px 0"><input id="buyPhone" placeholder="Recipient Number e.g 0803..." type="tel"><button onclick="buyData()">Buy Now →</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><p style="font-size:12px;color:#666;text-align:center">Copy OPay number, pay, order go show PENDING!</p></div></div>
+<div class="card" style="margin:12px 0"><input id="buyPhone" placeholder="Recipient Number e.g 0803..." type="tel"><button onclick="buyData()">Buy Now → Pay to OPay 6490743519</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div><p style="font-size:12px;color:#666;text-align:center">Copy OPay number, pay, order go show PENDING!</p></div></div>
 <div class="contactRow"><div>🟢 WhatsApp:<br><b>07078269788</b></div><div>🟣 OPay:<br><b>6490743519</b> <button class="copyBtn" onclick="copyNum('6490743519')">Copy</button></div></div>
 </div>
 
-<!-- NOTIFICATIONS - RULE 5 -->
-<div id="page-notif" class="hidden"><div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><p id="noNotif" style="color:#888">No notifications yet.</p><button class="secondary" onclick="clearNotif()">Clear All</button></div></div>
+<!-- PROFILE - PRESS 👤 -->
+<div id="page-profile" class="hidden"><div class="card" style="text-align:center"><div style="font-size:60px">👤</div><h2 id="profileName">User</h2><p id="profilePhone" style="color:#888"></p><hr><p style="text-align:left">📋 Total Orders: <b id="profileOrders">0</b><br>🔔 Notifications: <b id="profileNotif">0</b><br>🎁 Referral: <b>500MB FREE</b></p><button onclick="openNotif()">🔔 View Notifications</button><button class="secondary" onclick="showPage('home')">← Back to Home</button><button class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
+
+<!-- NOTIFICATIONS - PRESS 🔔 -->
+<div id="page-notif" class="hidden"><div class="card"><h3>🔔 Notifications</h3><div id="notifList"></div><p id="noNotif" style="color:#888">No notifications yet.</p><button class="secondary" onclick="showPage('home')">← Back to Home</button><button class="secondary" onclick="clearNotif()">Clear All</button></div></div>
 
 <!-- BUY DATA -->
 <div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><p>Use Home to choose plan sharp sharp.</p><button onclick="showPage('home')">Go to Home →</button><div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div></div></div>
 
-<!-- 2 & 4. AIRTIME TO CASH - LIKE YOUR PICTURE 2 + 4 COMBINED -->
+<!-- AIRTIME TO CASH -->
 <div id="page-cash" class="hidden">
 <div class="cashHeader"><div style="display:flex;gap:10px;align-items:center"><div style="font-size:30px">⚡</div><div><b style="font-size:18px">Convert Your Airtime To Cash Instantly</b><br><small>✅ Verified • Secure</small></div></div><p style="font-size:13px">Get cash for your airtime in minutes. Fast. Secure. Trusted.</p><p style="font-size:13px;color:#0a7a2e">✅ Typical payout in 2-5 minutes</p></div>
 <div style="padding:0 12px">
@@ -134,7 +138,7 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <p style="font-size:12px">Send the exact amount to the number above from your selected network.</p>
 <div class="statusRow"><span>Status:</span><span class="statusPill" style="background:#ffe58a">⏳ PENDING</span><span class="statusPill" style="background:#b6f3c8">✅ SUCCESSFUL</span></div>
 <div style="display:flex;gap:8px"><button class="green" onclick="sendAirtime()">✅ I Have Sent Airtime</button><button class="secondary" onclick="showPage('orders')">Check Status</button></div>
-<div style="margin-top:10px"><b>Recent Status:</b><div id="recentStatus" style="margin-top:6px"></div><p style="font-size:12px;color:#888">Example: PENDING - ₦5,000 → ₦4,250 • SUCCESSFUL - ₦2,000 → ₦1,700</p></div>
+<div style="margin-top:10px"><b>Recent Status:</b><div id="recentStatus" style="margin-top:6px"></div></div>
 <p style="font-size:12px;color:#888;text-align:center">WhatsApp 07078269788 • Email flextopup2@gmail.com • OPay 6490743519<br>Ensure you use correct network number. Support 8am - 10pm daily.</p>
 </div></div>
 
@@ -144,7 +148,7 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <!-- REFER -->
 <div id="page-refer" class="hidden"><div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite friends. When they buy data, you earn 500MB FREE!</p><div style="background:#f0f0f0;padding:10px;border-radius:10px;font-size:13px">https://flextopup2.github.io/Flextopup-/</div><button onclick="alert('Link copied! Share am for WhatsApp!')">Share Now</button></div></div>
 
-<!-- 3. SUPPORT - LIKE YOUR PICTURE 3 + RULE 2: LOGOUT ONLY HERE -->
+<!-- SUPPORT -->
 <div id="page-support" class="hidden">
 <div style="background:#cfe6ff;border-radius:14px;padding:16px;margin:12px;display:flex;gap:10px"><div style="font-size:32px">💬</div><div><b style="font-size:18px">Need Help?<br>Chat with us.</b><br><small>Our support team is here to help you 24/7</small></div></div>
 <div class="supportCard"><div>🟢 <b>WhatsApp:</b><br>07078269788</div><button class="green" style="width:auto">Chat Now 💬</button></div>
@@ -162,7 +166,6 @@ let orders=JSON.parse(localStorage.getItem('ft_orders')||'[]');
 let notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]');
 let currentUser=JSON.parse(localStorage.getItem('ft_current')||'null');
 let isLoginMode=true, selectedPlan='1GB - ₦400', selectedNet='MTN';
-// RULE 7: AUTO-LOGOUT CHECK ON LOAD - 1 MIN
 let lastActiveOnLoad = parseInt(localStorage.getItem('ft_last_active')||'0');
 if(currentUser && lastActiveOnLoad && (Date.now()-lastActiveOnLoad)>60000){ localStorage.removeItem('ft_current'); currentUser=null; }
 setTimeout(()=>{document.getElementById('splash').style.display='none'; checkSession();},1500);
@@ -172,8 +175,6 @@ function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10);}
 function handleAuth(){ let name=document.getElementById('authName').value.trim(); let phone=document.getElementById('authPhone').value.trim(); let pass=document.getElementById('authPass').value.trim(); if(!phone||!pass){alert('Enter phone and password');return;} let cPhone=cleanPhone(phone); if(isLoginMode){ let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass); if(!found){alert('Wrong phone or password');return;} currentUser=found; localStorage.setItem('ft_current',JSON.stringify(found)); localStorage.setItem('ft_last_active',Date.now().toString()); showApp(); } else { let exists=users.find(u=>cleanPhone(u.phone)===cPhone); if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;} if(!name){alert('Enter Full Name');return;} let nu={name,phone,pass}; users.push(nu); localStorage.setItem('ft_users',JSON.stringify(users)); currentUser=nu; localStorage.setItem('ft_current',JSON.stringify(nu)); localStorage.setItem('ft_last_active',Date.now().toString()); alert('Welcome '+name); showApp(); } }
 function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userName2').innerText=currentUser.name; document.getElementById('userPhone2').innerText=currentUser.phone; showPage('home'); renderOrders(); renderNotif(); checkOrderUpdates(); renderRecent(); }
 function logout(){ if(confirm('Are you sure you want to logout?')){ localStorage.removeItem('ft_current'); location.reload(); } }
-function showPage(p){ ['home','buy','cash','orders','refer','support','notif'].forEach(id=>{let el=document.getElementById('page-'+id); if(el) el.classList.add('hidden');}); let t=document.getElementById('page-'+p); if(t) t.classList.remove('hidden'); if(p==='orders') renderOrders(); if(p==='notif') renderNotif(); if(p==='cash') renderRecent(); window.scrollTo(0,0); }
-function navGo(el,p){ document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active')); el.classList.add('active'); showPage(p); }
-function selectPlan(el,plan){ document.querySelectorAll('.plan').forEach(d=>d.classList.remove('selected')); el.classList.add('selected'); selectedPlan=plan; document.getElementById('selectedPlanText').innerText='Selected: '+plan; }
-function selectNet(el,net){ document.querySelectorAll('.netBtn').forEach(d=>d.classList.remove('selected')); el.classList.add('selected'); selectedNet=net; let num = net==='Glo' ? '08111275146' : net==='MTN' ? '07078269788' : 'Contact Support'; let nEl=document.getElementById('cashSendNumber'); if(nEl) nEl.innerText=num; }
-function addNotif(title,msg,type){ notifs.push({id:Date.now(),title,msg,type,phone:currentUser.phone,date:new Date().toLocaleString(),read:false}); localStorage.setItem('f
+function openNotif(){ if(!currentUser) return; renderNotif(); showPage('notif'); }
+function openProfile(){ if(!currentUser) return; document.getElementById('profileName').innerText=currentUser.name; document.getElementById('profilePhone').innerText=currentUser.phone; document.getElementById('profileOrders').innerText=orders.filter(o=>cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)).length; document.getElementById('profileNotif').innerText=notifs.filter(n=>cleanPhone(n.phone)===cleanPhone(currentUser.phone)).length; showPage('profile'); }
+function showPage(p){ ['home','buy','cash','orders','refer','support','notif','profile'].forEac
