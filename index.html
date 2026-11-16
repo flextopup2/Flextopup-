@@ -1,1 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlexTopUp - Buy Data Sharp Sharp</title>
+<style>
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#f4f6fb;padding-bottom:80px}
+.splash{position:fixed;inset:0;background:#0b5cff;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;font-size:34px;font-weight:bold}
+.card{background:white;margin:12px;padding:16px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+input,select,button{width:100%;padding:12px;margin:7px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
+button{background:#0b5cff;color:white;border:none;font-weight:bold;cursor:pointer}
+button.secondary{background:#eef2ff;color:#0b5cff}
+button.logoutBtn{background:#ff3b30 !important}
+.hidden{display:none}
+.badge{background:#ffe58a;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:bold}
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #ddd;z-index:100}
+.nav div{text-align:center;font-size:12px;cursor:pointer}
+.nav .active{color:#0b5cff;font-weight:bold}
+/* NEW BEAUTIFUL DASHBOARD */
+.topHeader{display:flex;align-items:center;gap:10px;padding:16px 12px 0}
+.logo{width:52px;height:52px;background:linear-gradient(135deg,#00c6ff,#0b5cff);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.logoText{font-size:32px;font-weight:900;color:#0a2a7a;letter-spacing:-1px}
+.refer{background:#ffd500;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center;margin:12px}
+.refer b{font-size:15px}
+.shareBtn{background:#00a651 !important;width:auto;padding:8px 14px;font-size:13px}
+.buyBox{background:#1a8cff;border-radius:16px;padding:16px;color:white;margin:12px}
+.buyBox h2{margin:0;font-size:24px;line-height:1.2}
+.fast{background:#00c853;color:white;padding:6px 10px;border-radius:20px;font-size:12px;font-weight:bold;float:right}
+.planGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.plan{background:white;color:#111;padding:12px;border-radius:12px;cursor:pointer;border:2px solid transparent}
+.plan.selected{border-color:#ffd500;background:#fffbe6}
+.plan b{font-size:14px}
+.plan small{font-size:11px;color:#555}
+.networkRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.netBtn{background:white;color:#111;border:1px solid #ddd;width:auto;padding:8px 12px;border-radius:20px;font-weight:bold}
+.netBtn.selected{background:#0b5cff;color:white;border-color:#0b5cff}
+.best{margin-top:12px;background:white;border-radius:12px;padding:10px;color:#111}
+.best span{background:#00c853;color:white;padding:2px 8px;border-radius:10px;font-size:11px}
+.contactRow{display:flex;gap:10px;margin:12px}
+.contactRow div{flex:1;background:white;padding:10px;border-radius:12px;font-size:13px;text-align:center}
+</style>
+</head>
+<body>
+<div id="splash" class="splash">⚡ FlexTopUp<small style="font-size:14px">Cheap Data • Fast Delivery</small></div>
 
+<!-- AUTH -->
+<div id="authPage" class="card hidden">
+<h2 id="authTitle">Welcome Back</h2>
+<input id="authName" placeholder="Full Name (for Register)" style="display:none">
+<input id="authPhone" placeholder="Phone Number e.g 08031234567" type="tel">
+<input id="authPass" placeholder="Password" type="password">
+<button onclick="handleAuth()" id="authBtn">Login</button>
+<button class="secondary" onclick="toggleAuth()">No account? Create Account</button>
+<p style="font-size:12px;color:#888;text-align:center">One phone number = One account</p>
+</div>
+
+<!-- APP -->
+<div id="app" class="hidden">
+<div class="topHeader"><div class="logo">⚡</div><div class="logoText">FlexTopUp</div><div style="margin-left:auto;font-size:22px">🔔 👤</div></div>
+
+<!-- HOME = THIS BEAUTIFUL DASHBOARD -->
+<div id="page-home">
+<p style="padding:0 12px;margin:8px 0 0">Welcome, <b id="userName2">User</b>! 👋<br><b style="font-size:20px;color:#0a2a7a">Ready to stay connected?</b><br><small id="userPhone2" style="color:#888"></small></p>
+
+<div class="refer"><div><b>🎁 Refer & Earn<br>500MB FREE</b><br><small>Invite friends and earn instantly</small></div><button class="shareBtn" onclick="showPage('refer')">Share Now</button></div>
+
+<div class="buyBox">
+<span class="fast">⚡ Fast Delivery 1-5 Mins</span>
+<h2>Buy Data<br>Sharp Sharp ⚡</h2>
+<p style="font-size:14px;margin:8px 0 0">Choose Data Plan</p>
+<div class="planGrid" id="planGrid">
+<div class="plan" onclick="selectPlan(this,'500MB - ₦200')"><b>500MB - ₦200</b><br><small>Valid for 1 day</small></div>
+<div class="plan selected" onclick="selectPlan(this,'1GB - ₦400')"><b>1GB - ₦400</b><br><small>Valid for 2 days</small></div>
+<div class="plan" onclick="selectPlan(this,'2GB - ₦600')"><b>2GB - ₦600</b><br><small>Valid for 4 days</small></div>
+<div class="plan" onclick="selectPlan(this,'5GB - ₦1500')"><b>5GB - ₦1500</b><br><small>Valid for 7 days</small></div>
+<div class="plan" onclick="selectPlan(this,'5GB - ₦1500')"><b>5GB - ₦1500</b><br><small>Valid for 7 days</small></div>
+<div class="plan" onclick="selectPlan(this,'10GB - ₦3000')"><b>10GB - ₦3000</b><br><small>Valid for 30 days</small></div>
+</div>
+<div class="best"><span>Best Value</span><br><small id="selectedPlanText">Selected: 1GB - ₦400</small></div>
+</div>
+
+<div style="padding:0 12px"><h3 style="margin:6px 0">Select Network</h3>
+<div class="networkRow">
+<button type="button" class="netBtn selected" onclick="selectNet(this,'MTN')">🟡 MTN</button>
+<button type="button" class="netBtn" onclick="selectNet(this,'Airtel')">🔴 Airtel</button>
+<button type="button" class="netBtn" onclick="selectNet(this,'Glo')">🟢 Glo</button>
+<button type="button" class="netBtn" onclick="selectNet(this,'9Mobile')">🟢 9Mobile</button>
+</div>
+<div class="card" style="margin:12px 0"><input id="buyPhone" placeholder="Recipient Number e.g 0803..." type="tel"><button onclick="buyData()">Buy Now → Pay to OPay 6490743519</button><p style="font-size:12px;color:#666;text-align:center">1. Choose plan & network<br>2. Pay to OPay: <b>6490743519</b><br>3. Your order go show PENDING, we approve am in minutes!</p></div>
+</div>
+
+<div class="contactRow"><div>🟢 WhatsApp:<br><b>07078269788</b></div><div>🟣 OPay:<br><b>6490743519</b></div></div>
+</div>
+
+<!-- BUY -->
+<div id="page-buy" class="hidden"><div class="card"><h3>Buy Data 📶</h3><p>Use Home to choose plan sharp sharp.</p><button onclick="showPage('home')">Go to Home →</button></div></div>
+
+<!-- ORDERS -->
+<div id="page-orders" class="hidden"><div class="card"><h3>📋 My Orders</h3><div id="ordersList"></div><p id="noOrder" style="color:#888">You have no orders yet.</p></div></div>
+
+<!-- REFER -->
+<div id="page-refer" class="hidden"><div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite your friends to FlexTopUp. When they buy data, you earn 500MB FREE!</p><p>Your Referral Link:</p><div style="background:#f0f0f0;padding:10px;border-radius:10px;font-size:13px">https://flextopup2.github.io/Flextopup-/</div><button onclick="alert('Link copied! Share am for WhatsApp!')">Share Now</button></div></div>
+
+<!-- SUPPORT - LOGOUT ONLY HERE -->
+<div id="page-support" class="hidden"><div class="card"><h3>🎧 Support</h3><p><b>WhatsApp:</b> 07078269788<br><b>OPay:</b> 6490743519</p><button class="secondary">Chat on WhatsApp</button><hr><h3>🚪 Account</h3><button class="logoutBtn" onclick="logout()">🚪 LOGOUT</button></div></div>
+</div>
+
+<div class="nav"><div class="active" onclick="navGo(this,'home')">🏠<br>Home</div><div onclick="navGo(this,'buy')">📶<br>Buy Data</div><div onclick="navGo(this,'orders')">📋<br>Orders</div><div onclick="navGo(this,'refer')">🎁<br>Refer</div><div onclick="navGo(this,'support')">🎧<br>Support</div></div>
+
+<script>
+let users=JSON.parse(localStorage.getItem('ft_users')||'[]');
+let orders=JSON.parse(localStorage.getItem('ft_orders')||'[]');
+let currentUser=JSON.parse(localStorage.getItem('ft_current')||'null');
+let isLoginMode=true;
+let selectedPlan='1GB - ₦400', selectedNet='MTN';
+setTimeout(()=>{document.getElementById('splash').style.display='none'; checkSession();},1800);
+function checkSession(){ if(currentUser){showApp();} else {document.getElementById('authPage').classList.remove('hidden');} }
+function toggleAuth(){ isLoginMode=!isLoginMode; document.getElementById('authTitle').innerText=isLoginMode?'Welcome Back':'Create Account'; document.getElementById('authBtn').innerText=isLoginMode?'Login':'Create Account'; document.getElementById('authName').style.display=isLoginMode?'none':'block'; }
+function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10);}
+function handleAuth(){
+  let name=document.getElementById('authName').value.trim();
+  let phone=document.getElementById('authPhone').value.trim();
+  let pass=document.getElementById('authPass').value.trim();
+  if(!phone||!pass){alert('Enter phone and password');return;}
+  let cPhone=cleanPhone(phone);
+  if(isLoginMode){
+    let found=users.find(u=>cleanPhone(u.phone)===cPhone&&u.pass===pass);
+    if(!found){alert('Wrong phone or password');return;}
+    currentUser=found; localStorage.setItem('ft_current',JSON.stringify(found)); showApp();
+  } else {
+    let exists=users.find(u=>cleanPhone(u.phone)===cPhone);
+    if(exists){alert('❌ This number don already register! One number = One account. Please Login.');return;}
+    if(!name){alert('Enter Full Name');return;}
+    let nu={name,phone,pass}; users.push(nu); localStorage.setItem('ft_users',JSON.stringify(users));
+    currentUser=nu; localStorage.setItem('ft_current',JSON.stringify(nu)); alert('Welcome '+name); showApp();
+  }
+}
+function showApp(){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); document.getElementById('userName2').innerText=currentUser.name; document.getElementById('userPhone2').innerText=currentUser.phone; showPage('home'); renderOrders(); }
+function logout(){ if(confirm('Are you sure you want to logout?')){ localStorage.removeItem('ft_current'); location.reload(); } }
+function showPage(p){ ['home','buy','orders','refer','support'].forEach(id=>{let el=document.getElementById('page-'+id); if(el) el.classList.add('hidden');}); let t=document.getElementById('page-'+p); if(t) t.classList.remove('hidden'); if(p==='orders') renderOrders(); window.scrollTo(0,0); }
+function navGo(el,p){ document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active')); el.classList.add('active'); showPage(p); }
+function selectPlan(el,plan){ document.querySelectorAll('.plan').forEach(d=>d.classList.remove('selected')); el.classList.add('selected'); selectedPlan=plan; document.getElementById('selectedPlanText').innerText='Selected: '+plan; }
+function selectNet(el,net){ document.querySelectorAll('.netBtn').forEach(d=>d.classList.remove('selected')); el.classList.add('selected'); selectedNet=net; }
+function buyData(){ let rec=document.getElementById('buyPhone').value.trim(); if(!rec){alert('Enter recipient number');return;} let o={id:Date.now(),plan:selectedNet+' '+selectedPlan,recipient:rec,userPhone:currentUser.phone,userName:currentUser.name,status:'PENDING',date:new Date().toLocaleString()}; orders.push(o); localStorage.setItem('ft_orders',JSON.stringify(orders)); alert('Order placed! Pay to OPay 6490743519'); showPage('orders'); }
+function renderOrders(){ let list=document.getElementById('ordersList'); list.innerHTML=''; let mine=orders.filter(o=>cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)); document.getElementById('noOrder').style.display=mine.length?'none':'block'; mine.reverse().forEach(o=>{ list.innerHTML+=`<div style="border:1px solid #eee;padding:12px;border-radius:10px;margin-bottom:8px"><b>${o.plan}</b><br><span class="badge">${o.status}</span><br><small>To: ${o.recipient} • ${o.date}</small></div>`; }); }
+</script>
+</body>
+</html>
