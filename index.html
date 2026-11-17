@@ -35,56 +35,51 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 .dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .linkBtn{background:none;border:none;color:#0b5cff;font-weight:bold;cursor:pointer;text-decoration:underline;font-size:14px;padding:8px}
 .supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
-#splash{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0b4db3,#00a651);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;cursor:pointer;animation:splashHide 0.5s ease 2.2s forwards}
-@keyframes splashHide{to{opacity:0;visibility:hidden}}
-#splash .logo{font-size:70px;background:#fff;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 .authTab{display:flex;gap:8px;margin-bottom:12px}
 .authTab button{flex:1;padding:12px;border-radius:10px;border:1px solid #ddd;background:#eee;font-weight:bold;cursor:pointer;font-size:15px}
 .authTab button.active{background:#0b4db3;color:#fff;border-color:#0b4db3}
+/* SPLASH - PERFECT: e go DELETE itself, no block */
+#splash{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0b4db3,#00a651);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;cursor:pointer}
+#splash .logo{font-size:70px;background:#fff;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
-<div id="splash" onclick="this.style.display='none'"><div class="logo">⚡</div><h1 style="font-size:38px;margin:14px 0 0">FlexTopUp</h1><p style="margin:6px 0;font-size:15px;opacity:.9">Buy Data Cheap & Fast</p><p style="font-size:12px;opacity:.7;margin-top:20px">Loading... Tap to skip</p></div>
+<!-- SPLASH LOGO - TAP TO SKIP, AUTO DELETE AFTER 1.8s -->
+<div id="splash" onclick="removeSplash()"><div class="logo">⚡</div><h1 style="font-size:38px;margin:14px 0 0">FlexTopUp</h1><p style="margin:6px 0;font-size:15px;opacity:.9">Buy Data Cheap & Fast</p><p style="font-size:12px;opacity:.7;margin-top:20px">Loading... Tap to skip</p></div>
 
 <div class="phone">
 <div class="header"><div><b style="font-size:20px">⚡ FlexTopUp</b><br><small>Buy Data Cheap & Fast</small></div><div onclick="showPage('notif')" style="cursor:pointer;font-size:22px">🔔 <span id="notifCount" style="background:#ff0000;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px">0</span></div></div>
 
-<!-- LOGIN / REGISTER - SEPARATE NOW -->
 <div id="authPage" class="card">
 <h2 style="text-align:center">Welcome to FlexTopUp 👋</h2>
 <div class="authTab">
-<button id="tabLogin" class="active" onclick="switchAuth('login')">🔵 LOGIN</button>
-<button id="tabRegister" onclick="switchAuth('register')">🟢 REGISTER</button>
+<button type="button" id="tabLogin" class="active" onclick="switchAuth('login')">🔵 LOGIN</button>
+<button type="button" id="tabRegister" onclick="switchAuth('register')">🟢 REGISTER</button>
 </div>
-
-<!-- LOGIN FORM -->
 <div id="loginForm">
 <p style="text-align:center;font-size:13px;color:#666">Already get account? Login here.</p>
 <input id="loginPhone" placeholder="Phone e.g 07078269788" type="tel">
 <input id="loginPass" type="password" placeholder="Password">
-<button class="main" onclick="doLogin()">🔵 LOGIN TO MY ACCOUNT</button>
-<div style="text-align:center"><button class="linkBtn" onclick="showForgot()">🔑 Forgot Password? Click here to Reset</button></div>
+<button type="button" class="main" onclick="doLogin()">🔵 LOGIN TO MY ACCOUNT</button>
+<div style="text-align:center"><button type="button" class="linkBtn" onclick="showForgot()">🔑 Forgot Password? Click here to Reset</button></div>
 <div id="forgotBox" style="display:none;background:#fffbe6;border:1px solid #ffd500;border-radius:12px;padding:12px;margin-top:10px">
 <b>🔑 Reset Your Password</b>
 <input id="forgotPhone" placeholder="Your Phone e.g 07078269788" type="tel">
 <input id="forgotNewPass" type="password" placeholder="New Password">
 <input id="forgotConfirmPass" type="password" placeholder="Confirm New Password">
-<button class="main" style="background:#00a651" onclick="resetPassword()">✅ Reset Password Now</button>
-<button class="linkBtn" onclick="hideForgot()">← Back to Login</button>
+<button type="button" class="main" style="background:#00a651" onclick="resetPassword()">✅ Reset Password Now</button>
+<button type="button" class="linkBtn" onclick="hideForgot()">← Back to Login</button>
 </div>
 <p style="font-size:12px;text-align:center">No account yet? Press <b>REGISTER</b> for top 👆</p>
 </div>
-
-<!-- REGISTER FORM -->
 <div id="registerForm" style="display:none">
 <p style="text-align:center;font-size:13px;color:#666">New customer? Create account here. One Number = One Person.</p>
 <input id="regName" placeholder="Your Full Name e.g David">
 <input id="regPhone" placeholder="Phone e.g 07078269788" type="tel">
 <input id="regPass" type="password" placeholder="Create Password (4 digits)">
-<button class="main" style="background:#00a651" onclick="doRegister()">🟢 CREATE MY ACCOUNT</button>
+<button type="button" class="main" style="background:#00a651" onclick="doRegister()">🟢 CREATE MY ACCOUNT</button>
 <p style="font-size:12px;text-align:center">Already get account? Press <b>LOGIN</b> for top 👆</p>
 </div>
-
 <p style="font-size:12px;text-align:center">Need Help? WhatsApp: <b>07078269788</b> | Email: <b>flextopup2@gmail.com</b></p>
 <p style="font-size:11px;text-align:center;color:#888">🔒 Auto Logout: If you no touch app for 1 minute, e go logout.</p>
 </div>
@@ -94,53 +89,45 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <small>👋 Hi, <span id="userName">User</span> | <span id="userPhoneShow"></span></small>
 <h1>₦<span id="walletBal">0</span></h1>
 <small>Wallet Balance</small><br>
-<button onclick="showPage('fund')">+ Fund Wallet</button>
-<button onclick="showPage('cash')" style="background:#fff">💱 Airtime to Cash</button>
+<button type="button" onclick="showPage('fund')">+ Fund Wallet</button>
+<button type="button" onclick="showPage('cash')" style="background:#fff">💱 Airtime to Cash</button>
 </div>
-
 <div id="page-home" class="section">
 <h2>Buy Data 📶 <span style="font-size:12px;color:#888">Choose Network</span></h2>
 <div class="netTabs">
-<button class="netTab active" id="ctab-MTN" onclick="setCustNet('MTN')">🟡 MTN</button>
-<button class="netTab" id="ctab-GLO" onclick="setCustNet('GLO')">🟢 GLO</button>
-<button class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button>
-<button class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button>
+<button type="button" class="netTab active" id="ctab-MTN" onclick="setCustNet('MTN')">🟡 MTN</button>
+<button type="button" class="netTab" id="ctab-GLO" onclick="setCustNet('GLO')">🟢 GLO</button>
+<button type="button" class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button>
+<button type="button" class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button>
 </div>
 <p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only.</p>
 <div id="plansList"></div>
 <div class="card" style="margin:14px 0"><b>Buy For Another Number?</b><input id="buyPhone" placeholder="Recipient Number e.g 0803..."><p style="font-size:11px;color:#888;margin:0">Leave empty to buy for yourself.</p></div>
 </div>
-
 <div id="page-fund" class="section" style="display:none">
-<div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button></div>
+<div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button type="button" class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button></div>
 </div>
-
 <div id="page-cash" class="section" style="display:none">
-<div class="card"><h2>💱 Airtime to Cash</h2><p style="font-size:13px">Send Airtime to: <b>07078269788 (MTN)</b></p><select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000"><input id="cashPhone" placeholder="Number you send from"><button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button></div>
+<div class="card"><h2>💱 Airtime to Cash</h2><p style="font-size:13px">Send Airtime to: <b>07078269788 (MTN)</b></p><select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000"><input id="cashPhone" placeholder="Number you send from"><button type="button" class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button></div>
 </div>
-
 <div id="page-history" class="section" style="display:none"><h2>📜 My Orders</h2><div id="historyList"></div></div>
 <div id="page-notif" class="section" style="display:none"><h2>🔔 Notifications</h2><div id="notifList"></div></div>
-
 <div id="page-settings" class="section" style="display:none">
 <div class="card"><h2>⚙️ Settings</h2><p style="font-size:13px;color:#666">Your account settings only.</p><p><b>Name:</b> <span id="setName"></span><br><b>Phone:</b> <span id="setPhone"></span><br><b>Wallet:</b> ₦<span id="setWallet"></span></p></div>
-<div class="card"><h3 style="margin:0">🔑 Change Password</h3><p style="font-size:12px;color:#666">Change your password anytime.</p><button class="main" style="background:#ffd500;color:#000" onclick="changePasswordInside()">🔑 Change My Password</button></div>
-<button class="main" style="background:#111" onclick="logout()">Logout</button>
+<div class="card"><h3 style="margin:0">🔑 Change Password</h3><p style="font-size:12px;color:#666">Change your password anytime.</p><button type="button" class="main" style="background:#ffd500;color:#000" onclick="changePasswordInside()">🔑 Change My Password</button></div>
+<button type="button" class="main" style="background:#111" onclick="logout()">Logout</button>
 <p style="font-size:12px;text-align:center;color:#888">Need help? Go to Support tab →</p>
 </div>
-
 <div id="page-support" class="section" style="display:none">
 <div class="card"><h2>💬 Support / Help Centre</h2><p style="font-size:13px;color:#666">Talk to us anytime.</p>
-<div class="supportRow"><span style="font-size:26px">💚</span><div style="flex:1"><b>WhatsApp Us</b><br><small>07078269788</small></div><button style="background:#25D366;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.open('https://wa.me/2347078269788?text=Hello%20FlexTopUp%2C%20I%20need%20help','_blank')">Chat</button></div>
-<div class="supportRow"><span style="font-size:26px">📧</span><div style="flex:1"><b>Email Us</b><br><small>flextopup2@gmail.com</small></div><button style="background:#0b5cff;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='mailto:flextopup2@gmail.com?subject=FlexTopUp%20Help'">Email</button></div>
-<div class="supportRow"><span style="font-size:26px">📞</span><div style="flex:1"><b>Call Us</b><br><small>07078269788</small></div><button style="background:#00a651;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='tel:07078269788'">Call</button></div>
+<div class="supportRow"><span style="font-size:26px">💚</span><div style="flex:1"><b>WhatsApp Us</b><br><small>07078269788</small></div><button type="button" style="background:#25D366;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.open('https://wa.me/2347078269788?text=Hello%20FlexTopUp%2C%20I%20need%20help','_blank')">Chat</button></div>
+<div class="supportRow"><span style="font-size:26px">📧</span><div style="flex:1"><b>Email Us</b><br><small>flextopup2@gmail.com</small></div><button type="button" style="background:#0b5cff;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='mailto:flextopup2@gmail.com?subject=FlexTopUp%20Help'">Email</button></div>
+<div class="supportRow"><span style="font-size:26px">📞</span><div style="flex:1"><b>Call Us</b><br><small>07078269788</small></div><button type="button" style="background:#00a651;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='tel:07078269788'">Call</button></div>
 <div class="supportRow"><span style="font-size:26px">💰</span><div style="flex:1"><b>OPay Payment</b><br><small>6490743519 — FlexTopUp</small></div></div>
 </div>
 <div class="card"><h3>❓ Common Questions</h3><p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts.</p><p style="font-size:13px"><b>2. I forget password?</b><br>For Login page, press Forgot Password.</p><p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve.</p></div>
 </div>
-
 </div>
-
 <div class="bottomNav" id="bottomNav" style="display:none">
 <div id="nav-home" class="active" onclick="showPage('home')">🏠<br>Home</div>
 <div id="nav-fund" onclick="showPage('fund')">💰<br>Fund</div>
@@ -152,6 +139,8 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 </div>
 </div>
 <script>
+function removeSplash(){var s=document.getElementById('splash');if(s&&s.parentNode){s.parentNode.removeChild(s);}}
+setTimeout(removeSplash,1800);
 var defaultPlans=[
 {name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},
 {name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},
@@ -171,9 +160,9 @@ var custNet='MTN';
 var plans=[];var orders=[];var users=[];var wallets={};var notifs=[];var currentUser=null;
 var lastActivity=Date.now();
 function resetTimer(){lastActivity=Date.now();}
-['click','touchstart','keydown','scroll'].forEach(function(ev){document.addEventListener(ev,resetTimer,true)});
+document.addEventListener('click',resetTimer);
+document.addEventListener('touchstart',resetTimer);
 setInterval(function(){if(currentUser && (Date.now()-lastActivity>60000)){alert('🔒 You don stay idle for 1 minute. You don auto logout. Login again.');logout();}},5000);
-setTimeout(function(){var s=document.getElementById('splash');if(s)s.style.display='none';},2000);
 function switchAuth(mode){
 document.getElementById('loginForm').style.display=(mode==='login'?'block':'none');
 document.getElementById('registerForm').style.display=(mode==='register'?'block':'none');
@@ -202,7 +191,6 @@ loadAll();
 for(var i=0;i<users.length;i++){if(cleanPhone(users[i].phone)===cleanPhone(phone)){alert('This phone don already register! Press LOGIN for top to login.');switchAuth('login');document.getElementById('loginPhone').value=phone;return}}
 currentUser={name:name,phone:phone,pass:pass};users.push(currentUser);localStorage.setItem('ft_users',JSON.stringify(users));localStorage.setItem('ft_current',JSON.stringify(currentUser));addNotif('Welcome to FlexTopUp 🎉','Your account don create. Fund wallet to buy data.');resetTimer();showApp();
 }
-function signup(){switchAuth('login')}
 function showForgot(){document.getElementById('forgotBox').style.display='block';var p=document.getElementById('loginPhone').value.trim();if(p)document.getElementById('forgotPhone').value=p;}
 function hideForgot(){document.getElementById('forgotBox').style.display='none';}
 function resetPassword(){
@@ -231,5 +219,4 @@ alert('✅ Password don change!');
 function logout(){localStorage.removeItem('ft_current');location.reload()}
 function showApp(){loadAll();if(!currentUser){document.getElementById('authPage').style.display='block';document.getElementById('mainApp').style.display='none';document.getElementById('bottomNav').style.display='none';return}document.getElementById('authPage').style.display='none';document.getElementById('mainApp').style.display='block';document.getElementById('bottomNav').style.display='flex';document.getElementById('userName').innerText=currentUser.name;document.getElementById('userPhoneShow').innerText=currentUser.phone;renderAll();showPage('home')}
 function setCustNet(n){custNet=n;document.querySelectorAll('.netTab').forEach(function(b){b.classList.remove('active')});document.getElementById('ctab-'+n).classList.add('active');document.getElementById('custNetLabel').innerText=n;renderAll()}
-function dotClass(net){if(net==='MTN')return 'dotMTN';if(net==='GLO')return 'dotGLO';if(net==='AIRTEL')return 'dotAIRTEL';return 'dot9MOBILE'}
-function dotLetter(net){if(net==='MTN')return 'M';if(net==='GLO')return 'G';if(ne
+function dotClass(net){if(net==='MTN')retur
