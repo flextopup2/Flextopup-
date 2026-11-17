@@ -34,6 +34,33 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 .dotAIRTEL{width:36px;height:36px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
+/* NEW CASH DESIGN LIKE YOUR PICTURE */
+.cashHeader{display:flex;align-items:center;gap:10px}
+.cashHeader h2{flex:1;text-align:center;margin:0;font-size:22px;color:#111}
+.cashBack{font-size:24px;cursor:pointer}
+.cashHelp{width:28px;height:28px;border:1.5px solid #111;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;cursor:pointer}
+.verified{background:#00a651;color:#fff;font-size:10px;padding:3px 7px;border-radius:6px}
+.warnBox{background:#dbeafe;border-radius:12px;padding:12px;display:flex;gap:8px}
+.cashNetCard{border-radius:14px;padding:14px;margin-top:12px;display:flex;gap:12px;align-items:center;position:relative;cursor:pointer}
+.cashNetCard.mtn{background:#ffcc00}
+.cashNetCard.glo{background:#00c853;color:#fff}
+.cashLogo{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0}
+.cashLogo.mtn{background:#0033a0;color:#fff;border:3px solid #fff}
+.cashLogo.glo{background:#006400;color:#fff;border:3px solid #fff}
+.activeBadge{position:absolute;top:10px;right:10px;background:#fff;color:#00a651;font-size:11px;font-weight:bold;padding:3px 8px;border-radius:20px}
+.activeBadge.glo{background:#fff;color:#00a651}
+.otherGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.otherCard{background:#e5e7eb;border-radius:12px;padding:14px;display:flex;gap:8px;align-items:center;opacity:.9}
+.otherCard b{font-size:15px}
+.coming{background:#facc15;font-size:11px;padding:3px 8px;border-radius:10px;font-weight:bold}
+.contact{background:#d1d5db;font-size:11px;padding:3px 8px;border-radius:10px;font-weight:bold}
+.amountBox{background:#e8f5e9;border:1px solid #00a651;border-radius:12px;padding:12px;margin-top:12px}
+.amountBox input{background:transparent;border:none;padding:0;font-size:26px;font-weight:900;width:100%;outline:none}
+.cashBtnRow{display:flex;gap:10px;margin-top:12px}
+.cashBtnRow button{flex:1}
+.btnBlue{background:#0b5cff;color:#fff;border:none;padding:13px;border-radius:10px;font-weight:bold;cursor:pointer}
+.btnOutline{background:#fff;color:#0b5cff;border:1.5px solid #0b5cff;padding:13px;border-radius:10px;font-weight:bold;cursor:pointer}
+.cashFooter{background:#eef2ff;border-radius:12px;padding:10px;display:flex;justify-content:space-between;gap:6px;font-size:11px;text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
@@ -62,10 +89,37 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 
 <div id="page-fund" class="section" style="display:none"><div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><p style="font-size:13px">2. Enter amount you send:</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button><p style="font-size:12px;color:#888">Money NO go enter wallet until Admin confirm am. You go get notification.</p></div></div>
 
-<div id="page-cash" class="section" style="display:none"><div class="card"><h2>💱 Airtime to Cash</h2><p style="font-size:13px">Send Airtime to: <b>07078269788 (MTN)</b><br>We go pay you cash to your wallet / OPay.</p><select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000"><input id="cashPhone" placeholder="Number you send from"><button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button></div></div>
+<!-- AIRTIME TO CASH - YOUR PICTURE DESIGN -->
+<div id="page-cash" class="section" style="display:none">
+<div class="card" style="margin:14px 0">
+<div class="cashHeader"><span class="cashBack" onclick="showPage('home')">‹</span><h2>Airtime to Cash</h2><span class="cashHelp" onclick="showPage('support')">?</span></div>
+<div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span style="font-size:28px">⚡</span><b style="font-size:26px">FlexTopUp</b><span class="verified">✓ Verified • Secure</span></div>
+<div class="warnBox" style="margin-top:12px"><span>ℹ️</span><div><b style="font-size:13px">Send Airtime To Correct Number Per Network</b><br><small>Send only to the number for the selected network.<br>Wrong number = lost airtime.</small></div></div>
+
+<h3 style="margin:16px 0 0">1. Select Network & Send Airtime</h3>
+<div class="cashNetCard mtn" onclick="selectCashNet('MTN','07078269788')"><div class="cashLogo mtn">MTN</div><div style="flex:1"><b style="font-size:22px">MTN</b><br><small>Send airtime to</small><br><b style="font-size:20px">07078269788</b></div><span class="activeBadge">✓ Active</span><span style="font-size:22px">📋</span></div>
+<div class="cashNetCard glo" onclick="selectCashNet('GLO','08111275146')"><div class="cashLogo glo">Glo</div><div style="flex:1"><b style="font-size:22px">Glo</b><br><small>Send airtime to</small><br><b style="font-size:20px">08111275146</b></div><span class="activeBadge glo">✓ Active</span><span style="font-size:22px">📋</span></div>
+
+<h3 style="margin:16px 0 0">2. Other Networks</h3>
+<div class="otherGrid">
+<div class="otherCard"><span style="font-size:24px">🔴</span><div><b>Airtel</b><br><span class="coming">Coming Soon</span></div></div>
+<div class="otherCard"><span style="font-size:24px">🟢</span><div><b>9Mobile</b><br><span class="contact" onclick="showPage('support')">Contact Support</span></div></div>
+</div>
+
+<h3 style="margin:16px 0 0">3. Enter Details</h3>
+<div class="amountBox"><small>Amount (₦)</small><input id="cashAmount" type="number" placeholder="₦0" value="4250" oninput="calcCash()"><small>Min: ₦100 • Max: ₦50,000</small><br><small><b>Rate: 85% • Fee: <span id="cashFee">₦750 (15%)</span> • Instant payout to OPay</b></small><br><small>You will receive: <b id="cashReceive" style="color:#00a651;font-size:16px">₦3,612</b></small></div>
+
+<select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select>
+<input id="cashPhone" placeholder="Number you send from">
+<p style="font-size:13px;margin:8px 0">Status: &nbsp; <span class="badge pend">🕐 PENDING</span> &nbsp; <span class="badge succ">✓ SUCCESSFUL</span></p>
+<div class="cashBtnRow"><button class="btnBlue" onclick="airtimeToCash()">✓ I Have Sent Airtime</button><button class="btnOutline" onclick="showPage('history')">Check Status</button></div>
+
+<div class="cashFooter"><div>💚 WhatsApp<br><b>07078269788</b></div><div>✉️ Email<br><b>flextopup2@gmail.com</b></div><div>💰 OPay<br><b>6490743519</b></div></div>
+<p style="font-size:11px;text-align:center;color:#888">Ensure you use the correct network number. Support is available 8am - 10pm daily.</p>
+</div>
+</div>
 
 <div id="page-history" class="section" style="display:none"><h2>📜 My Orders</h2><div id="historyList"></div></div>
-
 <div id="page-notif" class="section" style="display:none"><h2>🔔 Notifications</h2><div id="notifList"></div></div>
 
 <div id="page-settings" class="section" style="display:none">
@@ -84,7 +138,6 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 </div>
 <div class="card"><h3>❓ Common Questions</h3><p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts.</p><p style="font-size:13px"><b>2. I forget password?</b><br>Go Settings → Change Password.</p><p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve.</p></div>
 </div>
-
 </div>
 
 <div class="bottomNav" id="bottomNav" style="display:none">
@@ -105,19 +158,12 @@ function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
 function getBalance(){if(!currentUser)return 0;return wallets[cleanPhone(currentUser.phone)]||0}
 function setBalance(v){wallets[cleanPhone(currentUser.phone)]=v;localStorage.setItem('ft_wallets',JSON.stringify(wallets))}
 function addNotif(title,msg){if(!currentUser)return;notifs.push({title:title,msg:msg,phone:currentUser.phone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notifs))}
+function copyNum(t){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){alert('Copied: '+t)})}else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');alert('Copied: '+t)}catch(e){prompt('Copy:',t)}document.body.removeChild(ta)}}
+function selectCashNet(net,num){document.getElementById('cashNet').value=net;copyNum(num)}
+function calcCash(){var amt=parseFloat(document.getElementById('cashAmount').value||0);var rec=Math.round(amt*0.85);var fee=Math.round(amt*0.15);document.getElementById('cashReceive').innerText='₦'+rec.toLocaleString();document.getElementById('cashFee').innerText='₦'+fee.toLocaleString()+' (15%)'}
 function signup(){var name=document.getElementById('authName').value.trim();var phone=document.getElementById('authPhone').value.trim();var pass=document.getElementById('authPass').value.trim();if(!phone||!pass){alert('Enter Phone and Password');return}loadAll();var found=null;for(var i=0;i<users.length;i++){if(cleanPhone(users[i].phone)===cleanPhone(phone))found=users[i]}if(found){if(found.pass&&found.pass!==pass){alert('Wrong Password for this number! One Number One Person.');return}currentUser=found;if(name)currentUser.name=name;}else{if(!name){alert('Enter Your Name for new account');return}currentUser={name:name,phone:phone,pass:pass};users.push(currentUser);localStorage.setItem('ft_users',JSON.stringify(users));addNotif('Welcome to FlexTopUp 🎉','Your account don create. Fund wallet to buy data.');}localStorage.setItem('ft_current',JSON.stringify(currentUser));showApp();}
 function changePass(){var o=prompt('Enter OLD password:');if(!o)return;loadAll();var idx=-1;for(var i=0;i<users.length;i++){if(cleanPhone(users[i].phone)===cleanPhone(currentUser.phone))idx=i}if(idx===-1){alert('Account not found');return}if(users[idx].pass&&users[idx].pass!==o){alert('Old password wrong!');return}var np=prompt('Enter NEW password:');if(!np||np.length<4){alert('Min 4 digits');return}var cf=prompt('Confirm NEW password:');if(np!==cf){alert('No match!');return}users[idx].pass=np;localStorage.setItem('ft_users',JSON.stringify(users));currentUser.pass=np;localStorage.setItem('ft_current',JSON.stringify(currentUser));alert('Password don change!');}
 function logout(){localStorage.removeItem('ft_current');location.reload()}
 function showApp(){loadAll();if(!currentUser){document.getElementById('authPage').style.display='block';document.getElementById('mainApp').style.display='none';document.getElementById('bottomNav').style.display='none';return}document.getElementById('authPage').style.display='none';document.getElementById('mainApp').style.display='block';document.getElementById('bottomNav').style.display='flex';document.getElementById('userName').innerText=currentUser.name;document.getElementById('userPhoneShow').innerText=currentUser.phone;renderAll();showPage('home')}
 function setCustNet(n){custNet=n;document.querySelectorAll('.netTab').forEach(function(b){b.classList.remove('active')});document.getElementById('ctab-'+n).classList.add('active');document.getElementById('custNetLabel').innerText=n;renderAll()}
-function dotClass(net){if(net==='MTN')return 'dotMTN';if(net==='GLO')return 'dotGLO';if(net==='AIRTEL')return 'dotAIRTEL';return 'dot9MOBILE'}
-function dotLetter(net){if(net==='MTN')return 'M';if(net==='GLO')return 'G';if(net==='AIRTEL')return 'A';return '9'}
-function renderAll(){loadAll();if(!currentUser)return;document.getElementById('walletBal').innerText=getBalance().toLocaleString();var pl=document.getElementById('plansList');pl.innerHTML='';var filtered=plans.filter(function(p){return p.network===custNet});if(filtered.length===0)pl.innerHTML='<p>No '+custNet+' plans yet.</p>';for(var i=0;i<filtered.length;i++){pl.innerHTML+='<div class="planCard"><div style="display:flex;gap:10px;align-items:center"><div class="'+dotClass(filtered[i].network)+'">'+dotLetter(filtered[i].network)+'</div><div><b>'+filtered[i].network+' '+filtered[i].name+'</b><br><small>'+filtered[i].valid+'</small></div></div><div style="text-align:right"><b>₦'+filtered[i].price.toLocaleString()+'</b><br><button class="buyBtn" onclick="buyPlan('+plans.indexOf(filtered[i])+')">Buy</button></div></div>'}var hl=document.getElementById('historyList');hl.innerHTML='';var mine=orders.filter(function(o){return cleanPhone(o.userPhone)===cleanPhone(currentUser.phone)}).reverse();if(mine.length===0)hl.innerHTML='<p>No orders yet.</p>';for(var h=0;h<mine.length;h++){var cls=mine[h].status==='SUCCESSFUL'?'succ':mine[h].status==='PENDING'?'pend':'rej';hl.innerHTML+='<div class="card"><b>'+mine[h].plan+'</b><br><small>To: '+mine[h].recipient+' | '+mine[h].date+'</small><br><span class="badge '+cls+'">'+mine[h].status+'</span></div>'}var nl=document.getElementById('notifList');nl.innerHTML='';var myN=notifs.filter(function(n){return cleanPhone(n.phone)===cleanPhone(currentUser.phone)}).reverse();document.getElementById('notifCount').innerText=myN.length;if(myN.length===0)nl.innerHTML='<p>No notifications.</p>';for(var n2=0;n2<myN.length;n2++){nl.innerHTML+='<div class="card"><b>'+myN[n2].title+'</b><br><small>'+myN[n2].msg+'<br>'+myN[n2].date+'</small></div>'}}
-function buyPlan(idx){loadAll();if(!currentUser){alert('Login first');return}var p=plans[idx];var recip=document.getElementById('buyPhone').value.trim()||currentUser.phone;if(getBalance()<p.price){alert('Wallet low! Fund wallet first. Balance ₦'+getBalance()+' Need ₦'+p.price);showPage('fund');return}if(!confirm('Buy '+p.network+' '+p.name+' for ₦'+p.price+' to '+recip+'?'))return;setBalance(getBalance()-p.price);var o={plan:p.network+' '+p.name+' — ₦'+p.price,recipient:recip,userPhone:currentUser.phone,status:'PENDING',date:new Date().toLocaleString()};orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));addNotif('Order Pending ⏳','Your '+p.network+' '+p.name+' to '+recip+' dey wait Admin approve.');renderAll();alert('Order sent! Wait Admin approve.');showPage('history')}
-function fundWallet(){if(!currentUser){alert('Login first');return}var amt=parseFloat(document.getElementById('fundAmount').value||0);if(!amt||amt<100){alert('Enter amount Min ₦100');return}var o={plan:'Wallet Fund ₦'+amt,recipient:'Wallet',userPhone:currentUser.phone,status:'PENDING',amount:amt,date:new Date().toLocaleString()};orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));addNotif('Wallet Funding Pending ⏳','You send ₦'+amt+' to OPay 6490743519. Admin go confirm am, money go enter wallet.');alert('✅ You don send ₦'+amt+'! Wait Admin confirm.');showPage('home');renderAll()}
-function airtimeToCash(){if(!currentUser){alert('Login first');return}var amt=parseFloat(document.getElementById('cashAmount').value||0);var net=document.getElementById('cashNet').value;var from=document.getElementById('cashPhone').value.trim();if(!amt||!from){alert('Enter amount and number you send from');return}var o={plan:'Airtime to Cash '+net+' ₦'+amt+' from '+from,recipient:'Cash',userPhone:currentUser.phone,status:'PENDING',date:new Date().toLocaleString()};orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));addNotif('Airtime to Cash Pending ⏳','Your '+net+' ₦'+amt+' dey wait Admin confirm.');alert('Submitted! Admin go confirm and pay you.');showPage('history');renderAll()}
-function showPage(p){['home','fund','cash','history','notif','settings','support'].forEach(function(x){document.getElementById('page-'+x).style.display=(x===p?'block':'none')});['home','fund','cash','history','notif','settings','support'].forEach(function(x){var el=document.getElementById('nav-'+x);if(el)el.classList.toggle('active',x===p)});if(p==='settings'&&currentUser){document.getElementById('setName').innerText=currentUser.name;document.getElementById('setPhone').innerText=currentUser.phone;document.getElementById('setWallet').innerText=getBalance().toLocaleString();}window.scrollTo(0,0);}
-loadAll();showApp();
-</script>
-</body>
-</html>
+function dotClass(net
