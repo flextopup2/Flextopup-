@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlexTopUp - Best Data App</title>
+<title>FlexTopUp - First Dashboard</title>
 <style>
 body{margin:0;font-family:Arial;background:#f4f6fb;padding:16px;padding-bottom:90px}
 .card{background:white;padding:16px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,.1);margin-bottom:12px}
@@ -23,6 +23,9 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 .plan{border:2px solid #eee;padding:10px;border-radius:10px;cursor:pointer;margin:5px 0}
 .plan.selected{border-color:#ffd500;background:#fffbe6}
 .toast{position:fixed;top:16px;left:12px;right:12px;background:#111;color:white;padding:14px;border-radius:12px;z-index:1000;display:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.box{background:white;padding:16px;border-radius:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:pointer}
+.box b{display:block;margin-top:6px}
 </style>
 </head>
 <body>
@@ -30,7 +33,7 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 
 <div id="authPage" class="card">
 <h1 style="text-align:center;color:#0a2a7a">⚡ FlexTopUp</h1>
-<p style="text-align:center;color:#666">Best Data App - Fast, Cheap, Reliable</p>
+<p style="text-align:center;color:#666">First Dashboard - Back!</p>
 <h3 id="authTitle" style="text-align:center">Welcome Back</h3>
 <input id="authName" placeholder="Full Name (for Register)" style="display:none">
 <input id="authPhone" placeholder="Phone Number" type="tel">
@@ -44,8 +47,18 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="color:#0a2a7a">⚡ FlexTopUp</h2><div style="display:flex;gap:10px"><div class="bell" id="bellIcon">🔔<span id="bellCount" class="bellCount hidden">0</span></div><div class="bell" id="profileIcon">👤</div></div></div>
 
 <div id="page-home">
-<div class="top"><h2>Welcome, <span id="userName2">Friend</span>! 👋</h2><p id="userPhone2"></p><p>Ready to stay connected?</p></div>
-<div class="card" style="margin-top:12px"><h3>Buy Data Sharp Sharp ⚡</h3>
+<!-- FIRST DASHBOARD TOP -->
+<div class="top"><h2>Welcome, <span id="userName2">Friend</span>! 👋</h2><p id="userPhone2"></p><p style="font-size:13px;opacity:.9">Wallet Balance</p><h1 style="margin:4px 0">₦0.00</h1><p>Ready to stay connected?</p></div>
+
+<!-- FIRST DASHBOARD 4 BOXES -->
+<div class="grid">
+<div class="box" onclick="document.getElementById('buySection').scrollIntoView({behavior:'smooth'})"><div style="font-size:28px">📶</div><b>Buy Data</b><small>MTN • Airtel • Glo</small></div>
+<div class="box" onclick="showPage('cash')"><div style="font-size:28px">💱</div><b>Airtime to Cash</b><small>Get 85% Cash</small></div>
+<div class="box" onclick="showPage('orders')"><div style="font-size:28px">📋</div><b>My Orders</b><small>Track Orders</small></div>
+<div class="box" onclick="copyNum('Join FlexTopUp! Buy cheap data here: https://flextopup2.github.io/FlexTopUp-New/')"><div style="font-size:28px">🎁</div><b>Refer & Earn</b><small>500MB FREE</small></div>
+</div>
+
+<div class="card" id="buySection" style="margin-top:12px"><h3>Buy Data Sharp Sharp ⚡</h3>
 <select id="networkSelect"><option>MTN</option><option>Airtel</option><option>Glo</option><option>9Mobile</option></select>
 <div class="plan selected" onclick="selectPlan(this,'1GB - ₦400')"><b>1GB - ₦400</b> - 2 days</div>
 <div class="plan" onclick="selectPlan(this,'500MB - ₦200')"><b>500MB - ₦200</b> - 1 day</div>
@@ -56,7 +69,6 @@ button.copyBtn{background:#ffd500 !important;color:#111 !important;width:auto;pa
 <button id="buyBtn">Buy Now → Pay to OPay 6490743519</button>
 <div class="opayRow"><span>💳 OPay: <b>6490743519</b></span><button class="copyBtn" onclick="copyNum('6490743519')">📋 Copy</button></div>
 </div>
-<div class="card"><h3>🎁 Refer & Earn 500MB FREE</h3><p>Invite your guy, make e buy, you collect 500MB FREE!</p><button class="secondary" onclick="copyNum('Join FlexTopUp! Buy cheap data here: https://flextopup2.github.io/FlexTopUp-New/')">📋 Copy Refer Link</button></div>
 </div>
 
 <div id="page-cash" class="hidden">
