@@ -58,7 +58,7 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <div class="netTabs"><button class="netTab active" id="ctab-MTN" onclick="setCustNet('MTN')">🟡 MTN</button><button class="netTab" id="ctab-GLO" onclick="setCustNet('GLO')">🟢 GLO</button><button class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button><button class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button></div>
 <p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only — price different for each network.</p>
 <div id="plansList"></div>
-<div class="card" style="margin:14px 0"><b>Buy For Another Number?</b><input id="buyPhone" placeholder="Recipient Number e.g 0803..."><p style="font-size:11px;color:#888;margin:0">Leave empty to buy for yourself. Enter number to buy for another person.</p></div></div>
+<div class="card" style="margin:14px 0"><b>Enter Number</b><input id="buyPhone" placeholder="Enter Number e.g 0803..."></div></div>
 
 <div id="page-fund" class="section" style="display:none"><div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><p style="font-size:13px">2. Enter amount you send:</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button><p style="font-size:12px;color:#888">Money NO go enter wallet until Admin confirm am. You go get notification.</p></div></div>
 
@@ -85,10 +85,6 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <div class="card"><h3>❓ Common Questions</h3><p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts.</p><p style="font-size:13px"><b>2. I forget password?</b><br>Go Settings → Change Password.</p><p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve.</p></div>
 </div>
 
-<div class="section" style="padding-bottom:10px">
-<button class="main" style="background:#111" onclick="logout()">Logout</button>
-<button class="main" style="background:#eee;color:#111" onclick="window.location.href='admin.html'">Admin Login →</button>
-</div>
 </div>
 
 <div class="bottomNav" id="bottomNav" style="display:none">
@@ -102,7 +98,7 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 </div>
 </div>
 <script>
-var defaultPlans=[{name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},{name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},{name:"2GB",price:600,valid:"Valid 4 days",network:"MTN"},{name:"5GB",price:1500,valid:"Valid 7 days",network:"MTN"},{name:"1GB",price:350,valid:"Valid 2 days",network:"GLO"},{name:"2GB",price:550,valid:"Valid 4 days",network:"GLO"},{name:"5GB",price:1300,valid:"Valid 7 days",network:"GLO"},{name:"1GB",price:450,valid:"Valid 2 days",network:"AIRTEL"},{name:"2GB",price:700,valid:"Valid 4 days",network:"AIRTEL"},{name:"5GB",price:1600,valid:"Valid 7 days",network:"AIRTEL"},{name:"1GB",price:500,valid:"Valid 2 days",network:"9MOBILE"},{name:"2GB",price:800,valid:"Valid 4 days",network:"9MOBILE"},{name:"5GB",price:1800,valid:"Valid 7 days",network:"9MOBILE"}];
+var defaultPlans=[{name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},{name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},{name:"2GB",price:600,valid:"Valid 4 days",network:"MTN"},{name:"5GB",price:1500,valid:"Valid 7 days",network:"MTN"},{name:"10GB",price:3000,valid:"Valid 30 days",network:"MTN"},{name:"1GB",price:350,valid:"Valid 2 days",network:"GLO"},{name:"2GB",price:550,valid:"Valid 4 days",network:"GLO"},{name:"5GB",price:1300,valid:"Valid 7 days",network:"GLO"},{name:"1GB",price:450,valid:"Valid 2 days",network:"AIRTEL"},{name:"2GB",price:700,valid:"Valid 4 days",network:"AIRTEL"},{name:"5GB",price:1600,valid:"Valid 7 days",network:"AIRTEL"},{name:"1GB",price:500,valid:"Valid 2 days",network:"9MOBILE"},{name:"2GB",price:800,valid:"Valid 4 days",network:"9MOBILE"},{name:"5GB",price:1800,valid:"Valid 7 days",network:"9MOBILE"}];
 var custNet='MTN';var plans=[];var orders=[];var users=[];var wallets={};var notifs=[];var currentUser=null;
 function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}for(var i=0;i<plans.length;i++){if(!plans[i].network)plans[i].network='MTN'}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){notifs=[]}try{currentUser=JSON.parse(localStorage.getItem('ft_current')||'null')}catch(e){currentUser=null}}
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
