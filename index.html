@@ -35,19 +35,20 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 .dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .linkBtn{background:none;border:none;color:#0b5cff;font-weight:bold;cursor:pointer;text-decoration:underline;font-size:14px;padding:8px}
 .supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
-/* SPLASH LOGO */
-#splash{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0b4db3,#00a651);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+/* SPLASH - FIXED: CSS go hide am even if JS fail */
+#splash{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0b4db3,#00a651);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;cursor:pointer;animation:splashHide 0.5s ease 2.2s forwards}
+@keyframes splashHide{to{opacity:0;visibility:hidden}}
 #splash .logo{font-size:70px;background:#fff;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
 
-<!-- SPLASH LOGO SCREEN -->
-<div id="splash">
+<!-- SPLASH - TAP TO SKIP -->
+<div id="splash" onclick="this.style.display='none'">
 <div class="logo">⚡</div>
 <h1 style="font-size:38px;margin:14px 0 0">FlexTopUp</h1>
 <p style="margin:6px 0;font-size:15px;opacity:.9">Buy Data Cheap & Fast</p>
-<p style="font-size:12px;opacity:.7;margin-top:20px">Loading...</p>
+<p style="font-size:12px;opacity:.7;margin-top:20px">Loading... Tap to skip</p>
 </div>
 
 <div class="phone">
@@ -154,7 +155,6 @@ var defaultPlans=[
 var custNet='MTN';
 var plans=[];var orders=[];var users=[];var wallets={};var notifs=[];var currentUser=null;
 var lastActivity=Date.now();
-// AUTO LOGOUT AFTER 1 MINUTE - RESET ON ANY TOUCH
 function resetTimer(){lastActivity=Date.now();}
 ['click','touchstart','keydown','scroll'].forEach(function(ev){document.addEventListener(ev,resetTimer,true)});
 setInterval(function(){
@@ -163,7 +163,6 @@ alert('🔒 You don stay idle for 1 minute. You don auto logout for security. Lo
 logout();
 }
 },5000);
-// SPLASH LOGO - HIDE AFTER 2 SECONDS
 setTimeout(function(){var s=document.getElementById('splash');if(s)s.style.display='none';},2000);
 function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}for(var i=0;i<plans.length;i++){if(!plans[i].network)plans[i].network='MTN'}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){notifs=[]}try{currentUser=JSON.parse(localStorage.getItem('ft_current')||'null')}catch(e){currentUser=null}}
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
@@ -224,7 +223,4 @@ var nl=document.getElementById('notifList');nl.innerHTML='';
 var myN=notifs.filter(function(n){return cleanPhone(n.phone)===cleanPhone(currentUser.phone)}).reverse();
 document.getElementById('notifCount').innerText=myN.length;
 if(myN.length===0)nl.innerHTML='<p>No notifications.</p>';
-for(var n2=0;n2<myN.length;n2++){nl.innerHTML+='<div class="card"><b>'+myN[n2].title+'</b><br><small>'+myN[n2].msg+'<br>'+myN[n2].date+'</small></div>'}
-}
-function buyPlan(idx){
-loadAll();var p=plans[idx];var recip=document.getE
+for(var n2=0;n2<myN.length;n2++){nl.innerHTML+='<div class="card"><b>'+myN[n2].title+'</b><br><small>'+myN[n2].msg+'<
