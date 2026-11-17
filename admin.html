@@ -16,7 +16,7 @@ body{margin:0;font-family:Arial;background:#e9edf2;display:flex;justify-content:
 .section h2{margin:0;display:flex;justify-content:space-between;align-items:center;font-size:19px;color:#0a2a7a}
 .badgeBlue{background:#0b5cff;color:#fff;font-size:12px;padding:5px 10px;border-radius:20px}
 .planRow{display:flex;align-items:center;gap:10px;border:1px solid #eee;padding:10px;border-radius:12px;margin-top:10px;background:#fff}
-.planIcon{width:36px;height:36px;background:#0b5cff;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.planIcon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:#fff;font-weight:bold}
 .planRow b{flex:1;font-size:15px}
 .editBtn{background:#ffd500;border:none;padding:7px 10px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer}
 .delBtn{background:#ffecec;border:none;padding:7px 8px;border-radius:20px;font-size:12px;cursor:pointer}
@@ -28,97 +28,77 @@ body{margin:0;font-family:Arial;background:#e9edf2;display:flex;justify-content:
 .rule{background:#00a651;color:#fff;padding:12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin:14px 14px 0}
 .statsRow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px}
 .stat{padding:14px 6px;border-radius:12px;text-align:center}.stat b{font-size:26px;display:block}
-input{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:15px}
+input,select{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:15px;background:#fff}
 button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0b5cff;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:6px}
 .walletPending{border:2px solid #ffd500;background:#fffbe6}
-.footer{display:flex;justify-content:space-between;padding:0 14px;font-size:12px;font-weight:bold}
+.netTabs{display:flex;gap:6px;margin-top:12px}
+.netTab{flex:1;padding:10px 4px;border-radius:10px;border:1px solid #ddd;background:#f1f1f1;font-weight:bold;font-size:13px;cursor:pointer;text-align:center}
+.netTab.active{background:#0b4db3;color:#fff;border-color:#0b4db3}
+.netMTN{background:#FFCC00;color:#000}.netGLO{background:#00a651}.netAIRTEL{background:#ff0000}.net9MOBILE{background:#006400}
 </style>
 </head>
 <body>
 <div class="phone">
-
 <div class="header"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:24px">🛡️</span><div><b>Admin Panel - FlexTopUp</b><br><small>Welcome Admin</small></div></div><div class="avatar">A</div></div>
-
-<div class="welcome"><span style="font-size:22px">✨</span><div><b>Welcome Admin</b><p>Manage plans, orders, and stats below ✨</p></div></div>
-
-<!-- LOGIN -->
-<div id="adminLogin" class="section">
-<input id="adminPin" type="password" placeholder="Enter Admin PIN - 1234">
-<button class="main" onclick="adminLogin()">Enter Admin Panel</button>
-<p style="font-size:12px;text-align:center;color:#888">OPay: 6490743519 | WhatsApp: 07078269788</p>
-</div>
-
+<div class="welcome"><span style="font-size:22px">✨</span><div><b>Welcome Admin</b><p>MTN, Glo, Airtel, 9mobile — different price ✨</p></div></div>
+<div id="adminLogin" class="section"><input id="adminPin" type="password" placeholder="Enter Admin PIN - 1234"><button class="main" onclick="adminLogin()">Enter Admin Panel</button><p style="font-size:12px;text-align:center;color:#888">OPay: 6490743519 | WhatsApp: 07078269788</p></div>
 <div id="adminDash" style="display:none">
 
-<!-- EDIT PLANS -->
-<div class="section">
-<h2>📝 Edit Plans <span class="badgeBlue" id="planCount">5 plans</span></h2>
+<div class="section"><h2>📝 Edit Plans <span class="badgeBlue" id="planCount">0 plans</span></h2>
+<div class="netTabs">
+<button class="netTab active" id="tab-MTN" onclick="setNet('MTN')">🟡 MTN</button>
+<button class="netTab" id="tab-GLO" onclick="setNet('GLO')">🟢 GLO</button>
+<button class="netTab" id="tab-AIRTEL" onclick="setNet('AIRTEL')">🔴 AIRTEL</button>
+<button class="netTab" id="tab-9MOBILE" onclick="setNet('9MOBILE')">🟢 9MOBILE</button>
+</div>
 <div id="plansList"></div>
-<div style="background:#f8f9ff;padding:12px;border-radius:12px;margin-top:12px">
-<b>+ Add New Plan</b>
-<input id="newName" placeholder="e.g 3GB">
-<input id="newPrice" type="number" placeholder="Price e.g 900">
-<input id="newValid" placeholder="Validity e.g Valid 5 days">
-<button class="main" style="background:#00a651" onclick="addPlan()">➕ Add Plan</button>
-<p style="font-size:11px;color:#888;text-align:center">After you add/edit, customer app go see new price.</p>
-</div>
-</div>
+<div style="background:#f8f9ff;padding:12px;border-radius:12px;margin-top:12px"><b id="addTitle">+ Add New MTN Plan</b>
+<select id="newNet"><option value="MTN">MTN</option><option value="GLO">GLO</option><option value="AIRTEL">AIRTEL</option><option value="9MOBILE">9MOBILE</option></select>
+<input id="newName" placeholder="e.g 1GB"><input id="newPrice" type="number" placeholder="Price e.g 400"><input id="newValid" placeholder="Validity e.g Valid 2 days"><button class="main" style="background:#00a651" onclick="addPlan()">➕ Add Plan</button></div></div>
 
-<!-- WALLET FUNDING - CONFIRM -->
-<div class="section">
-<h2>💰 Wallet Funding — Confirm Payment</h2>
-<p style="font-size:12px;color:#666;margin:4px 0">Customer don send money to OPay 6490743519. Accept am, money go enter their wallet.</p>
-<div id="walletList"></div>
-</div>
-
-<!-- PENDING ORDERS -->
-<div class="section">
-<h2>🕐 Orders — Pending Orders</h2>
-<div id="ordersList"></div>
-</div>
-
-<!-- AIRTIME TO CASH -->
-<div class="section">
-<h2>💱 Airtime to Cash</h2>
-<div id="cashList"></div>
-</div>
-
+<div class="section"><h2>💰 Wallet Funding — Confirm Payment</h2><p style="font-size:12px;color:#666;margin:4px 0">Customer don send money to OPay 6490743519. Accept am, money go enter their wallet.</p><div id="walletList"></div></div>
+<div class="section"><h2>🕐 Orders — Pending Orders</h2><div id="ordersList"></div></div>
+<div class="section"><h2>💱 Airtime to Cash</h2><div id="cashList"></div></div>
 <div class="rule"><div><b>🛡️ One Number One Person rule</b><br><small>Only one account per phone number is allowed</small></div><span style="background:#fff;color:#00a651;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold">i</span></div>
-
-<!-- STATS -->
 <div class="section"><h2>Stats 📊</h2></div>
-<div class="statsRow">
-<div class="stat" style="background:#4aa8ff;color:#fff"><span>🏠</span><br><small>Total Orders</small><b id="totalOrders">0</b></div>
-<div class="stat" style="background:#ffd500"><span>🕐</span><br><small>Pending</small><b id="pendingCount">0</b></div>
-<div class="stat" style="background:#7ed957"><span>✅</span><br><small>Successful</small><b id="successCount">0</b></div>
-</div>
-
-<!-- USERS -->
+<div class="statsRow"><div class="stat" style="background:#4aa8ff;color:#fff"><small>Total Orders</small><b id="totalOrders">0</b></div><div class="stat" style="background:#ffd500"><small>Pending</small><b id="pendingCount">0</b></div><div class="stat" style="background:#7ed957"><small>Successful</small><b id="successCount">0</b></div></div>
 <div class="section"><h3>👥 All Users + Wallet</h3><div id="usersList"></div></div>
-
-<div class="footer"><span>🟢 WhatsApp: 07078269788</span><span>🔵 OPay: 6490743519</span></div>
-
-<div class="section">
-<button class="main" style="background:#00a651" onclick="renderAll()">🔄 Refresh</button>
-<button class="main" style="background:#111" onclick="location.reload()">Logout Admin</button>
-<button class="main" style="background:#eee;color:#111" onclick="window.location.href='index.html'">← Back to Customer App</button>
-</div>
-
+<div class="section"><button class="main" style="background:#00a651" onclick="renderAll()">🔄 Refresh</button><button class="main" style="background:#111" onclick="location.reload()">Logout Admin</button><button class="main" style="background:#eee;color:#111" onclick="window.location.href='index.html'">← Back to Customer App</button></div>
 </div>
 </div>
-
 <script>
-var defaultPlans=[{name:"500MB",price:200,valid:"Valid 1 day"},{name:"1GB",price:400,valid:"Valid 2 days"},{name:"2GB",price:600,valid:"Valid 4 days"},{name:"5GB",price:1500,valid:"Valid 7 days"},{name:"10GB",price:3000,valid:"Valid 30 days"}];
+var currentNet='MTN';
+var defaultPlans=[
+{name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},
+{name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},
+{name:"2GB",price:600,valid:"Valid 4 days",network:"MTN"},
+{name:"5GB",price:1500,valid:"Valid 7 days",network:"MTN"},
+{name:"1GB",price:350,valid:"Valid 2 days",network:"GLO"},
+{name:"2GB",price:550,valid:"Valid 4 days",network:"GLO"},
+{name:"5GB",price:1300,valid:"Valid 7 days",network:"GLO"},
+{name:"1GB",price:450,valid:"Valid 2 days",network:"AIRTEL"},
+{name:"2GB",price:700,valid:"Valid 4 days",network:"AIRTEL"},
+{name:"5GB",price:1600,valid:"Valid 7 days",network:"AIRTEL"},
+{name:"1GB",price:500,valid:"Valid 2 days",network:"9MOBILE"},
+{name:"2GB",price:800,valid:"Valid 4 days",network:"9MOBILE"},
+{name:"5GB",price:1800,valid:"Valid 7 days",network:"9MOBILE"}
+];
 var plans=[];var orders=[];var users=[];var wallets={};
-function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}}
+function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}for(var i=0;i<plans.length;i++){if(!plans[i].network)plans[i].network='MTN'}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}}
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
 function getWalletAmt(o){if(o.amount) return o.amount;var m=(o.plan||'').match(/₦([\d,]+)/);return m?parseInt(m[1].replace(/,/g,'')):0}
 function adminLogin(){if(document.getElementById('adminPin').value==='1234'){document.getElementById('adminLogin').style.display='none';document.getElementById('adminDash').style.display='block';renderAll()}else alert('Wrong PIN! PIN na 1234')}
-function savePlans(){localStorage.setItem('ft_plans',JSON.stringify(plans));renderAll();alert('Plan Saved ✅ Customer go see new price!')}
+function savePlans(){localStorage.setItem('ft_plans',JSON.stringify(plans));renderAll();alert('Plan Saved ✅')}
+function setNet(n){currentNet=n;document.querySelectorAll('.netTab').forEach(function(b){b.classList.remove('active')});document.getElementById('tab-'+n).classList.add('active');document.getElementById('addTitle').innerText='+ Add New '+n+' Plan';document.getElementById('newNet').value=n;renderAll();}
+function netIcon(net){if(net==='MTN')return 'netMTN';if(net==='GLO')return 'netGLO';if(net==='AIRTEL')return 'netAIRTEL';return 'net9MOBILE'}
+function netLetter(net){if(net==='MTN')return 'M';if(net==='GLO')return 'G';if(net==='AIRTEL')return 'A';return '9'}
 function renderAll(){
 loadAll();
-var pl=document.getElementById('plansList');pl.innerHTML='';document.getElementById('planCount').innerText=plans.length+' plans';
-for(var i=0;i<plans.length;i++){pl.innerHTML+='<div class="planRow"><div class="planIcon">📶</div><b>'+plans[i].name+' — ₦'+plans[i].price.toLocaleString()+'<br><small style="font-weight:normal;color:#888">'+plans[i].valid+'</small></b><button class="editBtn" onclick="editPlan('+i+')">✏️ Edit Price</button><button class="delBtn" onclick="deletePlan('+i+')">🗑️</button></div>';}
+var pl=document.getElementById('plansList');pl.innerHTML='';document.getElementById('planCount').innerText=plans.length+' plans total';
+var filtered=[];var filteredIdx=[];
+for(var i=0;i<plans.length;i++){if(plans[i].network===currentNet){filtered.push(plans[i]);filteredIdx.push(i)}}
+if(filtered.length===0)pl.innerHTML='<p style="font-size:13px;color:#888">No '+currentNet+' plans yet. Add one below.</p>';
+for(var k=0;k<filtered.length;k++){var realIdx=filteredIdx[k];pl.innerHTML+='<div class="planRow"><div class="planIcon '+netIcon(filtered[k].network)+'">'+netLetter(filtered[k].network)+'</div><b>'+filtered[k].network+' '+filtered[k].name+' — ₦'+filtered[k].price.toLocaleString()+'<br><small style="font-weight:normal;color:#888">'+filtered[k].valid+'</small></b><button class="editBtn" onclick="editPlan('+realIdx+')">✏️ Edit</button><button class="delBtn" onclick="deletePlan('+realIdx+')">🗑️</button></div>';}
 var wl=document.getElementById('walletList');wl.innerHTML='';
 var wPend=orders.filter(function(o){return o.plan.indexOf('Wallet Fund')!==-1 && o.status==='PENDING'});
 if(wPend.length===0) wl.innerHTML='<p style="font-size:13px;color:#888">No wallet payment waiting. All confirmed ✅</p>';
@@ -138,24 +118,14 @@ var ul=document.getElementById('usersList');ul.innerHTML='';
 if(users.length===0)ul.innerHTML='<p style="font-size:13px">No users yet.</p>';
 for(var u=0;u<users.length;u++){var bal=wallets[cleanPhone(users[u].phone)]||0;ul.innerHTML+='<div class="planRow"><div class="planIcon" style="background:#00a651">👤</div><b>'+users[u].name+'<br><small style="font-weight:normal">'+users[u].phone+' | Wallet ₦'+bal.toLocaleString()+'</small></b><button class="editBtn" onclick="addMoney(\''+cleanPhone(users[u].phone)+'\')">+ Add</button></div>';}
 }
-function editPlan(i){var np=prompt('New Price for '+plans[i].name+'? Current ₦'+plans[i].price,plans[i].price);if(!np)return;var nn=prompt('New Name? e.g 1GB',plans[i].name);if(nn)plans[i].name=nn;var nv=prompt('New Validity? e.g Valid 2 days',plans[i].valid);if(nv)plans[i].valid=nv;plans[i].price=parseInt(np);savePlans();}
-function deletePlan(i){if(confirm('Delete '+plans[i].name+'?')){plans.splice(i,1);savePlans();}}
-function addPlan(){var n=document.getElementById('newName').value.trim();var p=parseInt(document.getElementById('newPrice').value);var v=document.getElementById('newValid').value.trim()||'Valid 7 days';if(!n||!p){alert('Enter Name and Price');return}plans.push({name:n,price:p,valid:v});document.getElementById('newName').value='';document.getElementById('newPrice').value='';document.getElementById('newValid').value='';savePlans();}
-function approveWallet(idx){
-var amt=getWalletAmt(orders[idx]);
-var phone=cleanPhone(orders[idx].userPhone);
-wallets[phone]=(wallets[phone]||0)+amt;
-localStorage.setItem('ft_wallets',JSON.stringify(wallets));
-orders[idx].status='SUCCESSFUL';localStorage.setItem('ft_orders',JSON.stringify(orders));
-var notifs=[];try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){}
-notifs.push({title:'Wallet Funded ✅',msg:'Admin don confirm your ₦'+amt.toLocaleString()+'! Your wallet balance don update.',phone:orders[idx].userPhone,date:new Date().toLocaleString()});
-localStorage.setItem('ft_notifs',JSON.stringify(notifs));
-renderAll();alert('✅ ₦'+amt+' added to '+orders[idx].userPhone+' wallet!');
-}
+function editPlan(i){var np=prompt('New Price for '+plans[i].network+' '+plans[i].name+'? Current ₦'+plans[i].price,plans[i].price);if(!np)return;var nn=prompt('New Name? e.g 1GB',plans[i].name);if(nn)plans[i].name=nn;var nv=prompt('New Validity? e.g Valid 2 days',plans[i].valid);if(nv)plans[i].valid=nv;plans[i].price=parseInt(np);savePlans();}
+function deletePlan(i){if(confirm('Delete '+plans[i].network+' '+plans[i].name+'?')){plans.splice(i,1);savePlans();}}
+function addPlan(){var net=document.getElementById('newNet').value;var n=document.getElementById('newName').value.trim();var p=parseInt(document.getElementById('newPrice').value);var v=document.getElementById('newValid').value.trim()||'Valid 7 days';if(!n||!p){alert('Enter Name and Price');return}plans.push({name:n,price:p,valid:v,network:net});document.getElementById('newName').value='';document.getElementById('newPrice').value='';document.getElementById('newValid').value='';currentNet=net;savePlans();setNet(net);}
+function approveWallet(idx){var amt=getWalletAmt(orders[idx]);var phone=cleanPhone(orders[idx].userPhone);wallets[phone]=(wallets[phone]||0)+amt;localStorage.setItem('ft_wallets',JSON.stringify(wallets));orders[idx].status='SUCCESSFUL';localStorage.setItem('ft_orders',JSON.stringify(orders));var notifs=[];try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){}notifs.push({title:'Wallet Funded ✅',msg:'Admin don confirm your ₦'+amt.toLocaleString()+'! Your wallet balance don update.',phone:orders[idx].userPhone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notifs));renderAll();alert('✅ ₦'+amt+' added to '+orders[idx].userPhone+' wallet!');}
 function approve(idx){orders[idx].status='SUCCESSFUL';localStorage.setItem('ft_orders',JSON.stringify(orders));var notifs=[];try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){}notifs.push({title:'Order Approved ✅',msg:'Your '+orders[idx].plan+' don approve!',phone:orders[idx].userPhone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notifs));renderAll();}
 function reject(idx){orders[idx].status='REJECTED';localStorage.setItem('ft_orders',JSON.stringify(orders));renderAll();}
 function addMoney(phoneClean){var amt=parseFloat(prompt('How much you want add for this user? e.g 1000'));if(!amt)return;wallets[phoneClean]=(wallets[phoneClean]||0)+amt;localStorage.setItem('ft_wallets',JSON.stringify(wallets));renderAll();alert('Added ₦'+amt);}
 loadAll();
 </script>
 </body>
-  </html>
+</html>
