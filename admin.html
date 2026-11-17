@@ -1,131 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - FlexTopUp</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#e9edf2;display:flex;justify-content:center}
-.phone{width:100%;max-width:420px;background:#fff;min-height:100vh;padding-bottom:20px}
-.header{background:#0b4db3;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
-.avatar{width:34px;height:34px;background:#00c853;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.welcome{background:#d6eaff;margin:0 14px;margin-top:-8px;padding:14px;border-radius:12px;display:flex;gap:10px;align-items:center}
-.welcome b{font-size:18px;color:#0a2a7a}
-.section{padding:14px 14px 0}
-.section h2{margin:0;display:flex;justify-content:space-between;align-items:center;font-size:19px;color:#0a2a7a}
-.badgeBlue{background:#0b5cff;color:#fff;font-size:12px;padding:5px 10px;border-radius:20px}
-.planRow{display:flex;align-items:center;gap:10px;border:1px solid #eee;padding:10px;border-radius:12px;margin-top:10px;background:#fff}
-.planIcon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:#fff;font-weight:bold}
-.planRow b{flex:1;font-size:15px}
-.editBtn{background:#ffd500;border:none;padding:7px 10px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer}
-.delBtn{background:#ffecec;border:none;padding:7px 8px;border-radius:20px;font-size:12px;cursor:pointer}
-.orderCard{border:1px solid #eee;padding:12px;border-radius:14px;margin-top:10px;background:#fff}
-.pending{background:#ffd500;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:bold}
-.btnRow{display:flex;gap:8px;margin-top:10px}
-.accept{flex:1;background:#00a651;color:#fff;border:none;padding:10px;border-radius:10px;font-weight:bold;cursor:pointer}
-.reject{flex:1;background:#fff;color:#d32f2f;border:1px solid #f5a5a5;padding:10px;border-radius:10px;font-weight:bold;cursor:pointer}
-.rule{background:#00a651;color:#fff;padding:12px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin:14px 14px 0}
-.statsRow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:14px}
-.stat{padding:14px 6px;border-radius:12px;text-align:center}.stat b{font-size:26px;display:block}
-input,select{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:15px;background:#fff}
-button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0b5cff;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:6px}
-.walletPending{border:2px solid #ffd500;background:#fffbe6}
-.netTabs{display:flex;gap:6px;margin-top:12px}
-.netTab{flex:1;padding:10px 4px;border-radius:10px;border:1px solid #ddd;background:#f1f1f1;font-weight:bold;font-size:13px;cursor:pointer;text-align:center}
-.netTab.active{background:#0b4db3;color:#fff;border-color:#0b4db3}
-.netMTN{background:#FFCC00;color:#000}.netGLO{background:#00a651}.netAIRTEL{background:#ff0000}.net9MOBILE{background:#006400}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexTopUp Admin</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#e9edf2;font-family:Arial,sans-serif;color:#172033}.app{max-width:520px;min-height:100vh;margin:auto;background:#f7f8fb;padding-bottom:24px}.header{background:#0b4db3;color:#fff;padding:18px}.header h1{font-size:20px;margin:0}.header p{font-size:13px;margin:6px 0 0}.section{padding:14px}.card{background:#fff;border:1px solid #e6eaf0;border-radius:14px;padding:14px;margin:10px 0}.card h2{font-size:18px;margin:0 0 10px;color:#0a2a7a}.row{display:flex;justify-content:space-between;gap:12px;align-items:center}.muted{color:#667085;font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#0b4db3;color:#fff;border-radius:12px;text-align:center;padding:12px 4px}.stat b{display:block;font-size:22px}.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;font-weight:bold}.PENDING{background:#fef0a5}.SUCCESSFUL{background:#bbf7d0}.REJECTED{background:#fecaca}.button{border:0;border-radius:9px;padding:10px 12px;font-weight:bold;cursor:pointer}.primary{background:#0b5cff;color:#fff;width:100%;margin-top:8px}.approve{background:#16a34a;color:#fff;flex:1}.reject{background:#ef4444;color:#fff;flex:1}.actions{display:flex;gap:8px;margin-top:12px}input,select{width:100%;padding:12px;margin:6px 0;border:1px solid #d0d5dd;border-radius:9px;font-size:15px}.item-title{font-weight:bold;overflow-wrap:anywhere}.tabs{display:flex;gap:6px;overflow:auto;margin:10px 0}.tab{border:1px solid #d0d5dd;background:#fff;border-radius:20px;padding:9px 12px;white-space:nowrap;font-weight:bold}.tab.active{background:#0b4db3;color:#fff}.warning{background:#fff7d6;border:1px solid #f3d46a;border-radius:10px;padding:11px;font-size:12px;line-height:1.5}.hidden{display:none!important}
+  </style>
 </head>
 <body>
-<div class="phone">
-<div class="header"><div style="display:flex;gap:8px;align-items:center"><span style="font-size:24px">🛡️</span><div><b>Admin Panel - FlexTopUp</b><br><small>Welcome Admin</small></div></div><div class="avatar">A</div></div>
-<div class="welcome"><span style="font-size:22px">✨</span><div><b>Welcome Admin</b><p>MTN, Glo, Airtel, 9mobile — different price ✨</p></div></div>
-<div id="adminLogin" class="section"><input id="adminPin" type="password" placeholder="Enter Admin PIN - 1234"><button class="main" onclick="adminLogin()">Enter Admin Panel</button><p style="font-size:12px;text-align:center;color:#888">OPay: 6490743519 | WhatsApp: 07078269788</p></div>
-<div id="adminDash" style="display:none">
+  <main class="app">
+    <header class="header"><h1>🛡️ FlexTopUp Admin</h1><p>Review and update pending customer requests</p></header>
+    <section id="login" class="section">
+      <div class="card">
+        <h2>Admin sign-in</h2>
+        <p class="muted">Enter the current admin PIN to open the dashboard.</p>
+        <input id="pin" type="password" inputmode="numeric" placeholder="Admin PIN" autocomplete="current-password">
+        <button class="button primary" id="loginButton">Open Admin Dashboard</button>
+      </div>
+      <div class="warning">Security note: a PIN checked in a static HTML file is not secure. This panel is suitable only for testing on the same browser/device as the customer app; production use needs server-side authentication and a shared database.</div>
+    </section>
 
-<div class="section"><h2>📝 Edit Plans <span class="badgeBlue" id="planCount">0 plans</span></h2>
-<div class="netTabs">
-<button class="netTab active" id="tab-MTN" onclick="setNet('MTN')">🟡 MTN</button>
-<button class="netTab" id="tab-GLO" onclick="setNet('GLO')">🟢 GLO</button>
-<button class="netTab" id="tab-AIRTEL" onclick="setNet('AIRTEL')">🔴 AIRTEL</button>
-<button class="netTab" id="tab-9MOBILE" onclick="setNet('9MOBILE')">🟢 9MOBILE</button>
-</div>
-<div id="plansList"></div>
-<div style="background:#f8f9ff;padding:12px;border-radius:12px;margin-top:12px"><b id="addTitle">+ Add New MTN Plan</b>
-<select id="newNet"><option value="MTN">MTN</option><option value="GLO">GLO</option><option value="AIRTEL">AIRTEL</option><option value="9MOBILE">9MOBILE</option></select>
-<input id="newName" placeholder="e.g 1GB"><input id="newPrice" type="number" placeholder="Price e.g 400"><input id="newValid" placeholder="Validity e.g Valid 2 days"><button class="main" style="background:#00a651" onclick="addPlan()">➕ Add Plan</button></div></div>
+    <section id="dashboard" class="section hidden">
+      <div class="row"><h2 style="margin:0">Dashboard</h2><button class="button" id="refreshButton">🔄 Refresh</button></div>
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><b id="totalCount">0</b><small>Total</small></div>
+        <div class="stat" style="background:#d99400"><b id="pendingCount">0</b><small>Pending</small></div>
+        <div class="stat" style="background:#16a34a"><b id="successCount">0</b><small>Successful</small></div>
+      </div>
 
-<div class="section"><h2>💰 Wallet Funding — Confirm Payment</h2><p style="font-size:12px;color:#666;margin:4px 0">Customer don send money to OPay 6490743519. Accept am, money go enter their wallet.</p><div id="walletList"></div></div>
-<div class="section"><h2>🕐 Orders — Pending Orders</h2><div id="ordersList"></div></div>
-<div class="section"><h2>💱 Airtime to Cash</h2><div id="cashList"></div></div>
-<div class="rule"><div><b>🛡️ One Number One Person rule</b><br><small>Only one account per phone number is allowed</small></div><span style="background:#fff;color:#00a651;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold">i</span></div>
-<div class="section"><h2>Stats 📊</h2></div>
-<div class="statsRow"><div class="stat" style="background:#4aa8ff;color:#fff"><small>Total Orders</small><b id="totalOrders">0</b></div><div class="stat" style="background:#ffd500"><small>Pending</small><b id="pendingCount">0</b></div><div class="stat" style="background:#7ed957"><small>Successful</small><b id="successCount">0</b></div></div>
-<div class="section"><h3>👥 All Users + Wallet</h3><div id="usersList"></div></div>
-<div class="section"><button class="main" style="background:#00a651" onclick="renderAll()">🔄 Refresh</button><button class="main" style="background:#111" onclick="location.reload()">Logout Admin</button><button class="main" style="background:#eee;color:#111" onclick="window.location.href='index.html'">← Back to Customer App</button></div>
-</div>
-</div>
+      <div class="card">
+        <h2>💱 Airtime to Cash</h2>
+        <p class="muted">Review the submitted amount and sender number. Verify the airtime was received before approving; arrange the cash payout separately.</p>
+        <div id="airtimeOrders"></div>
+      </div>
+
+      <div class="card">
+        <h2>💰 Wallet Funding</h2>
+        <div id="walletOrders"></div>
+      </div>
+
+      <div class="card">
+        <h2>📶 Data Orders</h2>
+        <div id="dataOrders"></div>
+      </div>
+
+      <div class="card">
+        <h2>📋 All Requests</h2>
+        <div class="tabs">
+          <button class="tab active" data-filter="ALL">All</button>
+          <button class="tab" data-filter="PENDING">Pending</button>
+          <button class="tab" data-filter="SUCCESSFUL">Successful</button>
+          <button class="tab" data-filter="REJECTED">Rejected</button>
+        </div>
+        <div id="allOrders"></div>
+      </div>
+
+      <div class="card">
+        <h2>📝 Data Plans</h2>
+        <div id="plans"></div>
+        <h3>Add plan</h3>
+        <select id="newNetwork"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select>
+        <input id="newName" placeholder="Plan name, e.g. 1GB">
+        <input id="newPrice" type="number" min="1" placeholder="Price in naira">
+        <input id="newValidity" placeholder="Validity, e.g. Valid 2 days">
+        <button class="button primary" id="addPlan">Add plan</button>
+      </div>
+
+      <button class="button primary" style="background:#111" id="logoutButton">Log out</button>
+    </section>
+  </main>
 <script>
-var currentNet='MTN';
-var defaultPlans=[
-{name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},
-{name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},
-{name:"2GB",price:600,valid:"Valid 4 days",network:"MTN"},
-{name:"5GB",price:1500,valid:"Valid 7 days",network:"MTN"},
-{name:"1GB",price:350,valid:"Valid 2 days",network:"GLO"},
-{name:"2GB",price:550,valid:"Valid 4 days",network:"GLO"},
-{name:"5GB",price:1300,valid:"Valid 7 days",network:"GLO"},
-{name:"1GB",price:450,valid:"Valid 2 days",network:"AIRTEL"},
-{name:"2GB",price:700,valid:"Valid 4 days",network:"AIRTEL"},
-{name:"5GB",price:1600,valid:"Valid 7 days",network:"AIRTEL"},
-{name:"1GB",price:500,valid:"Valid 2 days",network:"9MOBILE"},
-{name:"2GB",price:800,valid:"Valid 4 days",network:"9MOBILE"},
-{name:"5GB",price:1800,valid:"Valid 7 days",network:"9MOBILE"}
-];
-var plans=[];var orders=[];var users=[];var wallets={};
-function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}for(var i=0;i<plans.length;i++){if(!plans[i].network)plans[i].network='MTN'}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}}
-function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
-function getWalletAmt(o){if(o.amount) return o.amount;var m=(o.plan||'').match(/₦([\d,]+)/);return m?parseInt(m[1].replace(/,/g,'')):0}
-function adminLogin(){if(document.getElementById('adminPin').value==='1234'){document.getElementById('adminLogin').style.display='none';document.getElementById('adminDash').style.display='block';renderAll()}else alert('Wrong PIN! PIN na 1234')}
-function savePlans(){localStorage.setItem('ft_plans',JSON.stringify(plans));renderAll();alert('Plan Saved ✅')}
-function setNet(n){currentNet=n;document.querySelectorAll('.netTab').forEach(function(b){b.classList.remove('active')});document.getElementById('tab-'+n).classList.add('active');document.getElementById('addTitle').innerText='+ Add New '+n+' Plan';document.getElementById('newNet').value=n;renderAll();}
-function netIcon(net){if(net==='MTN')return 'netMTN';if(net==='GLO')return 'netGLO';if(net==='AIRTEL')return 'netAIRTEL';return 'net9MOBILE'}
-function netLetter(net){if(net==='MTN')return 'M';if(net==='GLO')return 'G';if(net==='AIRTEL')return 'A';return '9'}
-function renderAll(){
-loadAll();
-var pl=document.getElementById('plansList');pl.innerHTML='';document.getElementById('planCount').innerText=plans.length+' plans total';
-var filtered=[];var filteredIdx=[];
-for(var i=0;i<plans.length;i++){if(plans[i].network===currentNet){filtered.push(plans[i]);filteredIdx.push(i)}}
-if(filtered.length===0)pl.innerHTML='<p style="font-size:13px;color:#888">No '+currentNet+' plans yet. Add one below.</p>';
-for(var k=0;k<filtered.length;k++){var realIdx=filteredIdx[k];pl.innerHTML+='<div class="planRow"><div class="planIcon '+netIcon(filtered[k].network)+'">'+netLetter(filtered[k].network)+'</div><b>'+filtered[k].network+' '+filtered[k].name+' — ₦'+filtered[k].price.toLocaleString()+'<br><small style="font-weight:normal;color:#888">'+filtered[k].valid+'</small></b><button class="editBtn" onclick="editPlan('+realIdx+')">✏️ Edit</button><button class="delBtn" onclick="deletePlan('+realIdx+')">🗑️</button></div>';}
-var wl=document.getElementById('walletList');wl.innerHTML='';
-var wPend=orders.filter(function(o){return o.plan.indexOf('Wallet Fund')!==-1 && o.status==='PENDING'});
-if(wPend.length===0) wl.innerHTML='<p style="font-size:13px;color:#888">No wallet payment waiting. All confirmed ✅</p>';
-for(var w=0;w<wPend.length;w++){var wi=orders.indexOf(wPend[w]);var amt=getWalletAmt(wPend[w]);wl.innerHTML+='<div class="orderCard walletPending"><div style="display:flex;justify-content:space-between"><div><b>💰 '+wPend[w].userPhone+'</b><br><small>Sent: <b>₦'+amt.toLocaleString()+'</b> to OPay 6490743519<br>'+wPend[w].date+'</small></div><span class="pending">• WAITING</span></div><div class="btnRow"><button class="accept" onclick="approveWallet('+wi+')">✓ Accept - Add to Wallet</button><button class="reject" onclick="reject('+wi+')">✕ Reject</button></div></div>';}
-var ol=document.getElementById('ordersList');ol.innerHTML='';
-var pend=orders.filter(function(o){return o.status==='PENDING' && o.plan.indexOf('Wallet Fund')===-1 && o.plan.indexOf('Airtime to Cash')===-1});
-if(pend.length===0) ol.innerHTML='<p style="font-size:13px;color:#888">No pending orders.</p>';
-for(var j=0;j<pend.length;j++){var idx=orders.indexOf(pend[j]);ol.innerHTML+='<div class="orderCard"><div style="display:flex;justify-content:space-between"><div><b>📞 '+pend[j].userPhone+'</b><br><small>Plan: '+pend[j].plan+' → '+pend[j].recipient+'<br>'+pend[j].date+'</small></div><span class="pending">• PENDING</span></div><div class="btnRow"><button class="accept" onclick="approve('+idx+')">✓ Accept</button><button class="reject" onclick="reject('+idx+')">✕ Reject</button></div></div>';}
-var cl=document.getElementById('cashList');cl.innerHTML='';
-var cashPend=orders.filter(function(o){return o.plan.indexOf('Airtime to Cash')!==-1 && o.status==='PENDING'});
-if(cashPend.length===0) cl.innerHTML='<p style="font-size:13px;color:#888">No Airtime to Cash waiting.</p>';
-for(var y=0;y<cashPend.length;y++){var yi=orders.indexOf(cashPend[y]);cl.innerHTML+='<div class="orderCard"><div style="display:flex;justify-content:space-between"><div><b>'+cashPend[y].userPhone+'</b><br><small>'+cashPend[y].plan+'<br>'+cashPend[y].date+'</small></div><span class="pending">• PENDING</span></div><div class="btnRow"><button class="accept" onclick="approve('+yi+')">✓ Paid - Approve</button><button class="reject" onclick="reject('+yi+')">✕ Reject</button></div></div>';}
-document.getElementById('totalOrders').innerText=orders.length;
-document.getElementById('pendingCount').innerText=orders.filter(function(o){return o.status==='PENDING'}).length;
-document.getElementById('successCount').innerText=orders.filter(function(o){return o.status==='SUCCESSFUL'}).length;
-var ul=document.getElementById('usersList');ul.innerHTML='';
-if(users.length===0)ul.innerHTML='<p style="font-size:13px">No users yet.</p>';
-for(var u=0;u<users.length;u++){var bal=wallets[cleanPhone(users[u].phone)]||0;ul.innerHTML+='<div class="planRow"><div class="planIcon" style="background:#00a651">👤</div><b>'+users[u].name+'<br><small style="font-weight:normal">'+users[u].phone+' | Wallet ₦'+bal.toLocaleString()+'</small></b><button class="editBtn" onclick="addMoney(\''+cleanPhone(users[u].phone)+'\')">+ Add</button></div>';}
-}
-function editPlan(i){var np=prompt('New Price for '+plans[i].network+' '+plans[i].name+'? Current ₦'+plans[i].price,plans[i].price);if(!np)return;var nn=prompt('New Name? e.g 1GB',plans[i].name);if(nn)plans[i].name=nn;var nv=prompt('New Validity? e.g Valid 2 days',plans[i].valid);if(nv)plans[i].valid=nv;plans[i].price=parseInt(np);savePlans();}
-function deletePlan(i){if(confirm('Delete '+plans[i].network+' '+plans[i].name+'?')){plans.splice(i,1);savePlans();}}
-function addPlan(){var net=document.getElementById('newNet').value;var n=document.getElementById('newName').value.trim();var p=parseInt(document.getElementById('newPrice').value);var v=document.getElementById('newValid').value.trim()||'Valid 7 days';if(!n||!p){alert('Enter Name and Price');return}plans.push({name:n,price:p,valid:v,network:net});document.getElementById('newName').value='';document.getElementById('newPrice').value='';document.getElementById('newValid').value='';currentNet=net;savePlans();setNet(net);}
-function approveWallet(idx){var amt=getWalletAmt(orders[idx]);var phone=cleanPhone(orders[idx].userPhone);wallets[phone]=(wallets[phone]||0)+amt;localStorage.setItem('ft_wallets',JSON.stringify(wallets));orders[idx].status='SUCCESSFUL';localStorage.setItem('ft_orders',JSON.stringify(orders));var notifs=[];try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){}notifs.push({title:'Wallet Funded ✅',msg:'Admin don confirm your ₦'+amt.toLocaleString()+'! Your wallet balance don update.',phone:orders[idx].userPhone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notifs));renderAll();alert('✅ ₦'+amt+' added to '+orders[idx].userPhone+' wallet!');}
-function approve(idx){orders[idx].status='SUCCESSFUL';localStorage.setItem('ft_orders',JSON.stringify(orders));var notifs=[];try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){}notifs.push({title:'Order Approved ✅',msg:'Your '+orders[idx].plan+' don approve!',phone:orders[idx].userPhone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notifs));renderAll();}
-function reject(idx){orders[idx].status='REJECTED';localStorage.setItem('ft_orders',JSON.stringify(orders));renderAll();}
-function addMoney(phoneClean){var amt=parseFloat(prompt('How much you want add for this user? e.g 1000'));if(!amt)return;wallets[phoneClean]=(wallets[phoneClean]||0)+amt;localStorage.setItem('ft_wallets',JSON.stringify(wallets));renderAll();alert('Added ₦'+amt);}
-loadAll();
+(function(){
+  'use strict';
+  var DEFAULT_PIN = '1234';
+  var filter = 'ALL';
+  var defaults = [
+    {name:'500MB',price:200,valid:'Valid 1 day',network:'MTN'},
+    {name:'1GB',price:400,valid:'Valid 2 days',network:'MTN'},
+    {name:'2GB',price:600,valid:'Valid 4 days',network:'MTN'},
+    {name:'5GB',price:1500,valid:'Valid 7 days',network:'MTN'},
+    {name:'10GB',price:3000,valid:'Valid 30 days',network:'MTN'},
+    {name:'1GB',price:350,valid:'Valid 2 days',network:'GLO'},
+    {name:'2GB',price:550,valid:'Valid 4 days',network:'GLO'},
+    {name:'5GB',price:1300,valid:'Valid 7 days',network:'GLO'},
+    {name:'1GB',price:450,valid:'Valid 2 days',network:'AIRTEL'},
+    {name:'2GB',price:700,valid:'Valid 4 days',network:'AIRTEL'},
+    {name:'5GB',price:1600,valid:'Valid 7 days',network:'AIRTEL'},
+    {name:'1GB',price:500,valid:'Valid 2 days',network:'9MOBILE'},
+    {name:'2GB',price:800,valid:'Valid 4 days',network:'9MOBILE'},
+    {name:'5GB',price:1800,valid:'Valid 7 days',network:'9MOBILE'}
+  ];
+  function read(key, fallback){try{var value=JSON.parse(localStorage.getItem(key));return value===null?fallback:value}catch(e){return fallback}}
+  function getOrders(){var x=read('ft_orders',[]);return Array.isArray(x)?x:[]}
+  function getUsers(){var x=read('ft_users',[]);return Array.isArray(x)?x:[]}
+  function getWallets(){var x=read('ft_wallets',{});return x&&typeof x==='object'?x:{}}
+  function getPlans(){var x=read('ft_plans',null);if(!Array.isArray(x)||!x.length){x=defaults;localStorage.setItem('ft_plans',JSON.stringify(x))}return x}
+  function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
+  function kind(o){var t=(o.type||'').toUpperCase(),p=(o.plan||o.name||'').toLowerCase();if(t==='AIRTIME'||p.indexOf('airtime to cash')!==-1)return 'AIRTIME';if(t==='WALLET'||p.indexOf('wallet fund')!==-1)return 'WALLET';return 'DATA'}
+  function text(tag, value, className){var el=document.createElement(tag);el.textContent=value==null?'':String(value);if(className)el.className=className;return el}
+  function badge(status){return text('span',status||'PENDING','badge '+(status||'PENDING'))}
+  function amountFor(o){if(Number.isFinite(Number(o.amount)))return Number(o.amount);var m=String(o.plan||'').match(/₦\s*([\d,]+)/);return m?Number(m[1].replace(/,/g,'')):0}
+  function notify(phone,title,msg){var notes=read('ft_notifs',[]);if(!Array.isArray(notes))notes=[];notes.push({title:title,msg:msg,phone:phone,date:new Date().toLocaleString()});localStorage.setItem('ft_notifs',JSON.stringify(notes))}
+  function orderCard(o,index,withActions){
+    var card=document.createElement('div');card.className='card';card.style.margin='10px 0';
+    var title=text('div',o.plan||o.name||'Order','item-title');card.appendChild(title);
+    var details=text('p','Customer: '+(o.user||'')+' | Account: '+(o.userPhone||'Not recorded'),'muted');card.appendChild(details);
+    if(kind(o)==='AIRTIME')card.appendChild(text('p','Sender number: '+(o.phone||'Not recorded')+' | Cash amount requested: ₦'+amountFor(o).toLocaleString(),'muted'));
+    if(kind(o)==='WALLET')card.appendChild(text('p','Funding amount: ₦'+amountFor(o).toLocaleString(),'muted'));
+    if(o.createdAt)card.appendChild(text('p','Submitted: '+o.createdAt,'muted'));
+    var row=document.createElement('div');row.className='row';row.appendChild(badge(o.status||'PENDING'));card.appendChild(row);
+    if(withActions && (o.status||'PENDING')==='PENDING'){
+      var actions=document.createElement('div');actions.className='actions';
+      var yes=text('button',kind(o)==='AIRTIME'?'✅ Confirm received':'✅ Approve','button approve');yes.type='button';yes.onclick=function(){updateOrder(index,'SUCCESSFUL')};
+      var no=text('button','❌ Reject','button reject');no.type='button';no.onclick=function(){updateOrder(index,'REJECTED')};
+      actions.appendChild(yes);actions.appendChild(no);card.appendChild(actions);
+    }
+    return card;
+  }
+  function putOrders(id,orders,filterFn){var box=document.getElementById(id);box.replaceChildren();var found=[];orders.forEach(function(o,i){if(filterFn(o))found.push({o:o,i:i})});if(!found.length){box.appendChild(text('p','No requests here.','muted'));return}found.forEach(function(x){box.appendChild(orderCard(x.o,x.i,true))})}
+  function render(){
+    var orders=getOrders();
+    document.getElementById('totalCount').textContent=orders.length;
+    document.getElementById('pendingCount').textContent=orders.filter(function(o){return (o.status||'PENDING')==='PENDING'}).length;
+    document.getElementById('successCount').textContent=orders.filter(function(o){return o.status==='SUCCESSFUL'}).length;
+    putOrders('airtimeOrders',orders,function(o){return kind(o)==='AIRTIME'&&(o.status||'PENDING')==='PENDING'});
+    putOrders('walletOrders',orders,function(o){return kind(o)==='WALLET'&&(o.status||'PENDING')==='PENDING'});
+    putOrders('dataOrders',orders,function(o){return kind(o)==='DATA'&&(o.status||'PENDING')==='PENDING'});
+    putOrders('allOrders',orders,function(o){return filter==='ALL'||(o.status||'PENDING')===filter});
+    renderPlans();
+  }
+  function updateOrder(index,status){
+    var orders=getOrders(),o=orders[index];if(!o||o.status&&o.status!=='PENDING')return;
+    if(status==='SUCCESSFUL'&&kind(o)==='WALLET'){
+      var wallets=getWallets(),key=cleanPhone(o.userPhone);if(!key){alert('Cannot approve: this request has no customer phone number.');return}
+      wallets[key]=(Number(wallets[key])||0)+amountFor(o);localStorage.setItem('ft_wallets',JSON.stringify(wallets));
+    }
+    o.status=status;orders[index]=o;localStorage.setItem('ft_orders',JSON.stringify(orders));
+    var title=kind(o)==='AIRTIME'?'Airtime-to-cash request':kind(o)==='WALLET'?'Wallet funding request':'Data order';
+    var message=status==='SUCCESSFUL'?(kind(o)==='AIRTIME'?'Airtime request approved. Admin should now complete the cash payout.':kind(o)==='WALLET'?'Wallet funding approved and balance credited.':'Data order approved.'):(title+' rejected. Contact support if you need help.');
+    if(o.userPhone)notify(o.userPhone,title,message);
+    render();
+    alert(status==='SUCCESSFUL'&&kind(o)==='AIRTIME'?'Airtime receipt confirmed. Remember to complete the cash payout separately.':'Request '+status.toLowerCase()+'.');
+  }
+  function renderPlans(){
+    var box=document.getElementById('plans');box.replaceChildren();var plans=getPlans();
+    plans.forEach(function(p,i){var row=document.createElement('div');row.className='card';row.style.margin='8px 0';
+      var top=document.createElement('div');top.className='row';top.appendChild(text('b',p.network+' — '+p.name));top.appendChild(text('b','₦'+Number(p.price).toLocaleString()));row.appendChild(top);row.appendChild(text('p',p.valid||'','muted'));
+      var actions=document.createElement('div');actions.className='actions';var edit=text('button','Edit','button');edit.onclick=function(){var price=prompt('New price in naira',p.price);if(price===null)return;var n=Number(price);if(!Number.isFinite(n)||n<=0){alert('Enter a valid price');return}plans[i].price=n;localStorage.setItem('ft_plans',JSON.stringify(plans));render()};
+      var remove=text('button','Delete','button reject');remove.onclick=function(){if(confirm('Delete '+p.network+' '+p.name+'?')){plans.splice(i,1);localStorage.setItem('ft_plans',JSON.stringify(plans));render()}};actions.appendChild(edit);actions.appendChild(remove);row.appendChild(actions);box.appendChild(row);
+    });
+  }
+  document.getElementById('loginButton').addEventListener('click',function(){if(document.getElementById('pin').value!==DEFAULT_PIN){alert('Incorrect PIN.');return}document.getElementById('login').classList.add('hidden');document.getElementById('dashboard').classList.remove('hidden');render()});
+  document.getElementById('pin').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('loginButton').click()});
+  document.getElementById('refreshButton').addEventListener('click',render);
+  document.getElementById('logoutButton').addEventListener('click',function(){location.reload()});
+  document.getElementById('addPlan').addEventListener('click',function(){var network=document.getElementById('newNetwork').value,name=document.getElementById('newName').value.trim(),price=Number(document.getElementById('newPrice').value),valid=document.getElementById('newValidity').value.trim();if(!name||!valid||!Number.isFinite(price)||price<=0){alert('Enter a plan name, valid price, and validity.');return}var plans=getPlans();plans.push({network:network,name:name,price:price,valid:valid});localStorage.setItem('ft_plans',JSON.stringify(plans));document.getElementById('newName').value='';document.getElementById('newPrice').value='';document.getElementById('newValidity').value='';render()});
+  document.querySelectorAll('.tab').forEach(function(button){button.addEventListener('click',function(){filter=button.getAttribute('data-filter');document.querySelectorAll('.tab').forEach(function(b){b.classList.toggle('active',b===button)});render()})});
+})();
 </script>
 </body>
 </html>
