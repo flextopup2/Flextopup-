@@ -1,539 +1,652 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlexTopUp - Buy Data Cheap</title>
-
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#e9edf2;display:flex;justify-content:center}
-.phone{width:100%;max-width:420px;background:#f6f7fb;min-height:100vh;padding-bottom:80px;position:relative}
-.header{background:#0b4db3;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
-.walletCard{background:linear-gradient(135deg,#0b4db3,#00a651);color:#fff;margin:14px;border-radius:16px;padding:16px}
-.walletCard h1{margin:0;font-size:32px}
-.walletCard button{background:#ffd500;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
-.section{padding:0 14px}
-.section h2{color:#0a2a7a;font-size:19px}
-.netTabs{display:flex;gap:6px;margin:10px 0}
-.netTab{flex:1;padding:11px 4px;border-radius:10px;border:1px solid #ddd;background:#fff;font-weight:bold;font-size:13px;cursor:pointer;text-align:center}
-.netTab.active{background:#0b4db3;color:#fff;border-color:#0b4db3}
-.planCard{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.planCard b{font-size:16px}
-.planCard small{color:#888}
-.buyBtn{background:#00a651;color:#fff;border:none;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
-input,select{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:15px;background:#fff}
-button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0b5cff;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:6px}
-.card{background:#fff;border-radius:14px;padding:14px;margin:14px}
-.badge{font-size:11px;padding:4px 8px;border-radius:20px;font-weight:bold}
-.pend{background:#ffd500}.succ{background:#7ed957}.rej{background:#ff9a9a}
-.bottomNav{position:fixed;bottom:0;width:100%;max-width:420px;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;z-index:10;overflow-x:auto}
-.bottomNav div{text-align:center;font-size:11px;cursor:pointer;color:#888;min-width:42px}
-.bottomNav div.active{color:#0b4db3;font-weight:bold}
-.dotMTN{width:36px;height:36px;background:#FFCC00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.dotGLO{width:36px;height:36px;background:#00a651;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.dotAIRTEL{width:36px;height:36px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
-.copyBtn{background:#0b5cff;color:#fff;border:0;padding:9px 12px;border-radius:8px;font-weight:bold;cursor:pointer}
-.receiveBox{background:#e9fff1;padding:12px;border-radius:10px;margin:10px 0}
-.receiveBox h2{color:#00a651;margin:5px 0}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexTopUp - Buy Data Cheap</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial;background:#e9edf2;display:flex;justify-content:center}
+    .phone{width:100%;max-width:420px;background:#f6f7fb;min-height:100vh;padding-bottom:80px;position:relative}
+    .header{background:#0b4db3;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
+    .walletCard{background:linear-gradient(135deg,#0b4db3,#00a651);color:#fff;margin:14px;border-radius:16px;padding:16px}
+    .walletCard h1{margin:0;font-size:32px}
+    .walletCard button{background:#ffd500;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px}
+    .section{padding:0 14px}
+    .section h2{color:#0a2a7a;font-size:19px}
+    .netTabs{display:flex;gap:6px;margin:10px 0}
+    .netTab{flex:1;padding:11px 4px;border-radius:10px;border:1px solid #ddd;background:#fff;font-weight:bold;font-size:13px;cursor:pointer;text-align:center}
+    .netTab.active{background:#0b4db3;color:#fff;border-color:#0b4db3}
+    .planCard{background:#fff;border-radius:14px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+    .planCard b{font-size:16px}
+    .planCard small{color:#888}
+    .buyBtn{background:#00a651;color:#fff;border:none;padding:10px 16px;border-radius:20px;font-weight:bold;cursor:pointer}
+    input,select{width:100%;padding:12px;margin:6px 0;border-radius:10px;border:1px solid #ddd;font-size:15px;background:#fff}
+    button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0b5cff;color:#fff;font-weight:bold;font-size:15px;cursor:pointer;margin-top:6px}
+    .card{background:#fff;border-radius:14px;padding:14px;margin:14px}
+    .badge{font-size:11px;padding:4px 8px;border-radius:20px;font-weight:bold}
+    .pend{background:#ffd500}.succ{background:#7ed957}.rej{background:#ff9a9a}
+    .bottomNav{position:fixed;bottom:0;width:100%;max-width:420px;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;z-index:10;overflow-x:auto}
+    .bottomNav div{text-align:center;font-size:11px;cursor:pointer;color:#888;min-width:42px}
+    .bottomNav div.active{color:#0b4db3;font-weight:bold}
+    .dotMTN{width:36px;height:36px;background:#FFCC00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+    .dotGLO{width:36px;height:36px;background:#00a651;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+    .dotAIRTEL{width:36px;height:36px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+    .dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+    .supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
+    .copyBtn{background:#0b5cff;color:#fff;border:0;padding:9px 12px;border-radius:8px;font-weight:bold;cursor:pointer}
+    .receiveBox{background:#e9fff1;padding:12px;border-radius:10px;margin:10px 0}
+    .receiveBox h2{color:#00a651;margin:5px 0}
+    .orderItem{background:#fff;border-radius:12px;padding:12px;margin-top:10px;border:1px solid #eee}
+    .tiny{font-size:12px;color:#666}
+  </style>
 </head>
-
 <body>
-<div class="phone">
-
-<div class="header">
-<div><b style="font-size:20px">⚡ FlexTopUp</b><br><small>Buy Data Cheap & Fast</small></div>
-<div onclick="showPage('notif')" style="cursor:pointer;font-size:22px">🔔 <span id="notifCount" style="background:#ff0000;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px">0</span></div>
-</div>
-
-<!-- AUTHENTICATION -->
-<div id="authPage" class="card">
-<h2 style="text-align:center">Welcome to FlexTopUp 👋</h2>
-<p style="text-align:center;font-size:13px;color:#666">One Number = One Person. No double account.</p>
-<input id="authName" placeholder="Your Full Name e.g David">
-<input id="authPhone" placeholder="Phone e.g 07078269788" type="tel">
-<input id="authPass" type="password" placeholder="Create Password (4 digits)">
-<button class="main" onclick="signup()">Create Account / Login</button>
-<p style="font-size:11px;text-align:center;color:#888">If phone don exist, we go login you. If new, we go create am.</p>
-<p style="font-size:12px;text-align:center">OPay: <b>6490743519</b> | WhatsApp: <b>07078269788</b></p>
-</div>
-
-<div id="mainApp" style="display:none">
-
-<!-- WALLET -->
-<div class="walletCard">
-<small>👋 Hi, <span id="userName">User</span> | <span id="userPhoneShow"></span></small>
-<h1>₦<span id="walletBal">0</span></h1>
-<small>Wallet Balance</small><br>
-<button onclick="showPage('fund')">+ Fund Wallet</button>
-<button onclick="showPage('cash')" style="background:#fff">💱 Airtime to Cash</button>
-</div>
-
-<!-- HOME -->
-<div id="page-home" class="section">
-<h2>Buy Data 📶 <span style="font-size:12px;color:#888">Choose Network</span></h2>
-
-<div class="netTabs">
-<button class="netTab active" id="ctab-MTN" onclick="setCustNet('MTN')">🟡 MTN</button>
-<button class="netTab" id="ctab-GLO" onclick="setCustNet('GLO')">🟢 GLO</button>
-<button class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button>
-<button class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button>
-</div>
-
-<p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only — price different for each network.</p>
-
-<div id="plansList"></div>
-
-<div class="card" style="margin:14px 0">
-<b>Enter Number</b>
-<input id="buyPhone" placeholder="Enter Number e.g 0803...">
-</div>
-</div>
-
-<!-- FUND WALLET -->
-<div id="page-fund" class="section" style="display:none">
-<div class="card">
-<h2>💰 Fund Wallet</h2>
-
-<p style="font-size:13px">1. Send money to:</p>
-
-<div style="background:#f0f5ff;padding:12px;border-radius:10px">
-<b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b>
-<button class="copyBtn" onclick="copyNumber('6490743519')">📋 Copy</button>
-<br><small>Name: FlexTopUp</small>
-</div>
-
-<p style="font-size:13px">2. Enter amount you send:</p>
-<input id="fundAmount" type="number" placeholder="Amount e.g 1000">
-
-<button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button>
-
-<p style="font-size:12px;color:#888">Money NO go enter wallet until Admin confirm am. You go get notification.</p>
-</div>
-</div>
-
-<!-- AIRTIME TO CASH -->
-<div id="page-cash" class="section" style="display:none">
-<div class="card">
-
-<h2>💱 Airtime to Cash</h2>
-
-<p style="font-size:13px;color:#555">
-Send airtime to the correct network number below. You will receive 85% of your airtime value after Admin confirmation.
-</p>
-
-<div class="supportRow">
-<div style="flex:1">
-<b>🟡 MTN</b><br>
-<strong>07078269788</strong>
-</div>
-<button class="copyBtn" onclick="copyNumber('07078269788')">📋 Copy</button>
-</div>
-
-<div class="supportRow">
-<div style="flex:1">
-<b>🟢 GLO</b><br>
-<strong>08111275146</strong>
-</div>
-<button class="copyBtn" onclick="copyNumber('08111275146')">📋 Copy</button>
-</div>
-
-<div class="supportRow">
-<div style="flex:1">
-<b>🔴 AIRTEL</b><br>
-<strong style="color:#ff0000">Coming Soon</strong>
-</div>
-</div>
-
-<p style="font-size:12px;color:#888">Select your network:</p>
-
-<select id="cashNet" onchange="calculateCash()">
-<option value="MTN">MTN</option>
-<option value="GLO">GLO</option>
-<option value="AIRTEL">AIRTEL (Coming Soon)</option>
-</select>
-
-<input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000" oninput="calculateCash()">
-
-<div class="receiveBox">
-<b>Amount you will receive (85%):</b>
-<h2>₦<span id="cashReceive">0</span></h2>
-<small>15% service charge</small>
-</div>
-
-<input id="cashPhone" placeholder="Number you send airtime from" type="tel">
-
-<button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button>
-
-<p style="font-size:11px;color:#888">Your request will remain pending until Admin verifies the airtime.</p>
-
-</div>
-</div>
-
-<!-- HISTORY -->
-<div id="page-history" class="section" style="display:none">
-<h2>📜 My Orders</h2>
-<div id="historyList"></div>
-</div>
-
-<!-- NOTIFICATIONS -->
-<div id="page-notif" class="section" style="display:none">
-<h2>🔔 Notifications</h2>
-<div id="notifList"></div>
-</div>
-
-<!-- SETTINGS -->
-<div id="page-settings" class="section" style="display:none">
-
-<div class="card">
-<h2>⚙️ Settings</h2>
-<p><b>Name:</b> <span id="setName"></span><br>
-<b>Phone:</b> <span id="setPhone"></span><br>
-<b>Wallet:</b> ₦<span id="setWallet"></span></p>
-</div>
-
-<div class="card">
-<h3 style="margin:0">🔑 Change Password</h3>
-<p style="font-size:12px;color:#888">Change your login password</p>
-<button class="main" style="background:#ffd500;color:#111" onclick="changePass()">Change My Password</button>
-</div>
-
-<div class="card">
-<h3 style="margin:0">👤 My Account</h3>
-<p style="font-size:13px">One Number = One Person<br>Phone don lock to your account.</p>
-</div>
-
-<button class="main" style="background:#111" onclick="logout()">Logout</button>
-</div>
-
-<!-- SUPPORT -->
-<div id="page-support" class="section" style="display:none">
-
-<div class="card">
-<h2>💬 Support / Help Centre</h2>
-
-<div class="supportRow">
-<span style="font-size:26px">💚</span>
-<div style="flex:1"><b>WhatsApp Us</b><br><small>07078269788</small></div>
-<button style="background:#25D366;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.open('https://wa.me/2347078269788?text=Hello%20FlexTopUp','_blank')">Chat</button>
-</div>
-
-<div class="supportRow">
-<span style="font-size:26px">📧</span>
-<div style="flex:1"><b>Email Us</b><br><small>flextopup2@gmail.com</small></div>
-<button style="background:#0b5cff;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.location.href='mailto:flextopup2@gmail.com?subject=FlexTopUp%20Help'">Email</button>
-</div>
-
-<div class="supportRow">
-<span style="font-size:26px">📞</span>
-<div style="flex:1"><b>Call Us</b><br><small>07078269788</small></div>
-<button style="background:#00a651;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.location.href='tel:07078269788'">Call</button>
-</div>
-
-<div class="supportRow">
-<span style="font-size:26px">💰</span>
-<div style="flex:1"><b>OPay Payment</b><br><small>6490743519 — FlexTopUp</small></div>
-<button class="copyBtn" onclick="copyNumber('6490743519')">Copy</button>
-</div>
-</div>
-
-<div class="card">
-<h3>❓ Common Questions</h3>
-<p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts.</p>
-<p style="font-size:13px"><b>2. I forget password?</b><br>Go Settings → Change Password.</p>
-<p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve.</p>
-<p style="font-size:13px"><b>4. How much will I receive?</b><br>You receive 85% of airtime sent.</p>
-</div>
-</div>
-
-</div>
-
-<!-- BOTTOM NAVIGATION -->
-<div class="bottomNav" id="bottomNav" style="display:none">
-<div id="nav-home" class="active" onclick="showPage('home')">🏠<br>Home</div>
-<div id="nav-fund" onclick="showPage('fund')">💰<br>Fund</div>
-<div id="nav-cash" onclick="showPage('cash')">💱<br>Cash</div>
-<div id="nav-history" onclick="showPage('history')">📜<br>History</div>
-<div id="nav-notif" onclick="showPage('notif')">🔔<br>Alerts</div>
-<div id="nav-settings" onclick="showPage('settings')">⚙️<br>Settings</div>
-<div id="nav-support" onclick="showPage('support')">💬<br>Support</div>
-</div>
-
-</div>
-
-<script>
-
-// DATA PLANS
-var defaultPlans=[
-{name:"500MB",price:200,valid:"Valid 1 day",network:"MTN"},
-{name:"1GB",price:400,valid:"Valid 2 days",network:"MTN"},
-{name:"2GB",price:600,valid:"Valid 4 days",network:"MTN"},
-{name:"5GB",price:1500,valid:"Valid 7 days",network:"MTN"},
-{name:"10GB",price:3000,valid:"Valid 30 days",network:"MTN"},
-
-{name:"1GB",price:350,valid:"Valid 2 days",network:"GLO"},
-{name:"2GB",price:550,valid:"Valid 4 days",network:"GLO"},
-{name:"5GB",price:1300,valid:"Valid 7 days",network:"GLO"},
-
-{name:"1GB",price:450,valid:"Valid 2 days",network:"AIRTEL"},
-{name:"2GB",price:700,valid:"Valid 4 days",network:"AIRTEL"},
-{name:"5GB",price:1600,valid:"Valid 7 days",network:"AIRTEL"},
-
-{name:"1GB",price:500,valid:"Valid 2 days",network:"9MOBILE"},
-{name:"2GB",price:800,valid:"Valid 4 days",network:"9MOBILE"},
-{name:"5GB",price:1800,valid:"Valid 7 days",network:"9MOBILE"}
-];
-
-var custNet='MTN';
-var plans=[];
-var orders=[];
-var users=[];
-var wallets={};
-var notifs=[];
-var currentUser=null;
-
-// COPY FUNCTION
-function copyNumber(number){
-var textArea=document.createElement('textarea');
-textArea.value=number;
-textArea.style.position='fixed';
-textArea.style.opacity='0';
-document.body.appendChild(textArea);
-textArea.select();
-
-try{
-var success=document.execCommand('copy');
-alert(success?'Copied successfully: '+number:'Copy failed. Please copy manually: '+number);
-}catch(e){
-alert('Please copy manually: '+number);
-}
-
-document.body.removeChild(textArea);
-}
-
-// CALCULATE 85%
-function calculateCash(){
-var amount=parseFloat(document.getElementById('cashAmount').value)||0;
-var receive=Math.floor(amount*0.85);
-document.getElementById('cashReceive').innerText=receive.toLocaleString();
-}
-
-// PHONE CLEANING
-function cleanPhone(p){
-return (p||'').replace(/\D/g,'').slice(-10);
-}
-
-// LOAD DATA
-function loadAll(){
-
-try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}
-
-if(!plans){
-plans=defaultPlans;
-localStorage.setItem('ft_plans',JSON.stringify(plans));
-}
-
-for(var i=0;i<plans.length;i++){
-if(!plans[i].network)plans[i].network='MTN';
-}
-
-try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}
-try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}
-try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}
-try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){notifs=[]}
-try{currentUser=JSON.parse(localStorage.getItem('ft_current')||'null')}catch(e){currentUser=null}
-
-}
-
-// WALLET
-function getBalance(){
-if(!currentUser)return 0;
-return wallets[cleanPhone(currentUser.phone)]||0;
-}
-
-function setBalance(v){
-wallets[cleanPhone(currentUser.phone)]=v;
-localStorage.setItem('ft_wallets',JSON.stringify(wallets));
-}
-
-// NOTIFICATIONS
-function addNotif(title,msg){
-if(!currentUser)return;
-
-notifs.push({
-title:title,
-msg:msg,
-phone:currentUser.phone,
-date:new Date().toLocaleString()
-});
-
-localStorage.setItem('ft_notifs',JSON.stringify(notifs));
-}
-
-// SIGN UP / LOGIN
-function signup(){
-
-var name=document.getElementById('authName').value.trim();
-var phone=document.getElementById('authPhone').value.trim();
-var pass=document.getElementById('authPass').value.trim();
-
-if(!phone||!pass){
-alert('Enter Phone and Password');
-return;
-}
-
-loadAll();
-
-var found=null;
-
-for(var i=0;i<users.length;i++){
-if(cleanPhone(users[i].phone)===cleanPhone(phone))found=users[i];
-}
-
-if(found){
-
-if(found.pass&&found.pass!==pass){
-alert('Wrong Password for this number! One Number One Person.');
-return;
-}
-
-currentUser=found;
-
-if(name)currentUser.name=name;
-
-}else{
-
-if(!name){
-alert('Enter Your Name for new account');
-return;
-}
-
-currentUser={name:name,phone:phone,pass:pass};
-
-users.push(currentUser);
-localStorage.setItem('ft_users',JSON.stringify(users));
-
-addNotif('Welcome to FlexTopUp 🎉','Your account don create. Fund wallet to buy data.');
-
-}
-
-localStorage.setItem('ft_current',JSON.stringify(currentUser));
-
-showApp();
-}
-
-// CHANGE PASSWORD
-function changePass(){
-
-var o=prompt('Enter OLD password:');
-
-if(!o)return;
-
-loadAll();
-
-var idx=-1;
-
-for(var i=0;i<users.length;i++){
-if(cleanPhone(users[i].phone)===cleanPhone(currentUser.phone))idx=i;
-}
-
-if(idx===-1){
-alert('Account not found');
-return;
-}
-
-if(users[idx].pass&&users[idx].pass!==o){
-alert('Old password wrong!');
-return;
-}
-
-var np=prompt('Enter NEW password:');
-
-if(!np||np.length<4){
-alert('Min 4 digits');
-return;
-}
-
-var cf=prompt('Confirm NEW password:');
-
-if(np!==cf){
-alert('No match!');
-return;
-}
-
-users[idx].pass=np;
-
-localStorage.setItem('ft_users',JSON.stringify(users));
-
-currentUser.pass=np;
-
-localStorage.setItem('ft_current',JSON.stringify(currentUser));
-
-alert('Password don change!');
-}
-
-// LOGOUT
-function logout(){
-localStorage.removeItem('ft_current');
-location.reload();
-}
-
-// SHOW APP
-function showApp(){
-
-loadAll();
-
-if(!currentUser){
-document.getElementById('authPage').style.display='block';
-document.getElementById('mainApp').style.display='none';
-document.getElementById('bottomNav').style.display='none';
-return;
-}
-
-document.getElementById('authPage').style.display='none';
-document.getElementById('mainApp').style.display='block';
-document.getElementById('bottomNav').style.display='flex';
-
-document.getElementById('userName').innerText=currentUser.name;
-document.getElementById('userPhoneShow').innerText=currentUser.phone;
-
-renderAll();
-showPage('home');
-}
-
-// SELECT NETWORK
-function setCustNet(n){
-
-custNet=n;
-
-document.querySelectorAll('.netTab').forEach(function(b){
-b.classList.remove('active');
-});
-
-document.getElementById('ctab-'+n).classList.add('active');
-
-document.getElementById('custNetLabel').innerText=n;
-
-renderAll();
-}
-
-// NETWORK LOGOS
-function dotClass(net){
-if(net==='MTN')return 'dotMTN';
-if(net==='GLO')return 'dotGLO';
-if(net==='AIRTEL')return 'dotAIRTEL';
-return 'dot9MOBILE';
-}
-
-function dotLetter(net){
-if(net==='MTN')return 'M';
-if(net==='GLO')return 'G';
-if(net==='AIRTEL')return 'A';
-return '9';
-}
-
-//
+  <div class="phone">
+    <div class="header">
+      <div><b style="font-size:20px">⚡ FlexTopUp</b><br><small>Buy Data Cheap & Fast</small></div>
+      <div onclick="showPage('notif')" style="cursor:pointer;font-size:22px">🔔 <span id="notifCount" style="background:#ff0000;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px">0</span></div>
+    </div>
+
+    <div id="authPage" class="card">
+      <h2 style="text-align:center">Welcome to FlexTopUp 👋</h2>
+      <p style="text-align:center;font-size:13px;color:#666">One Number = One Person. No double account.</p>
+      <input id="authName" placeholder="Your Full Name e.g David">
+      <input id="authPhone" placeholder="Phone e.g 07078269788" type="tel">
+      <input id="authPass" type="password" placeholder="Create Password (4 digits)">
+      <button class="main" onclick="signup()">Create Account / Login</button>
+      <p style="font-size:11px;text-align:center;color:#888">If phone don exist, we go login you. If new, we go create am.</p>
+      <p style="font-size:12px;text-align:center">OPay: <b>6490743519</b> | WhatsApp: <b>07078269788</b></p>
+    </div>
+
+    <div id="mainApp" style="display:none">
+      <div class="walletCard">
+        <small>👋 Hi, <span id="userName">User</span> | <span id="userPhoneShow"></span></small>
+        <h1>₦<span id="walletBal">0</span></h1>
+        <small>Wallet Balance</small><br>
+        <button onclick="showPage('fund')">+ Fund Wallet</button>
+        <button onclick="showPage('cash')" style="background:#fff">💱 Airtime to Cash</button>
+      </div>
+
+      <div id="page-home" class="section">
+        <h2>Buy Data 📶 <span style="font-size:12px;color:#888">Choose Network</span></h2>
+        <div class="netTabs">
+          <button class="netTab active" id="ctab-MTN" onclick="setCustNet('MTN')">🟡 MTN</button>
+          <button class="netTab" id="ctab-GLO" onclick="setCustNet('GLO')">🟢 GLO</button>
+          <button class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button>
+          <button class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button>
+        </div>
+        <p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only — price different for each network.</p>
+        <div id="plansList"></div>
+        <div class="card" style="margin:14px 0">
+          <b>Enter Number</b>
+          <input id="buyPhone" placeholder="Enter Number e.g 0803...">
+        </div>
+      </div>
+
+      <div id="page-fund" class="section" style="display:none">
+        <div class="card">
+          <h2>💰 Fund Wallet</h2>
+          <p style="font-size:13px">1. Send money to:</p>
+          <div style="background:#f0f5ff;padding:12px;border-radius:10px">
+            <b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b>
+            <button class="copyBtn" onclick="copyNumber('6490743519')">📋 Copy</button>
+            <br><small>Name: FlexTopUp</small>
+          </div>
+          <p style="font-size:13px">2. Enter amount you send:</p>
+          <input id="fundAmount" type="number" placeholder="Amount e.g 1000">
+          <button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button>
+          <p style="font-size:12px;color:#888">Money NO go enter wallet until Admin confirm am. You go get notification.</p>
+        </div>
+      </div>
+
+      <div id="page-cash" class="section" style="display:none">
+        <div class="card">
+          <h2>💱 Airtime to Cash</h2>
+          <p style="font-size:13px;color:#555">Send airtime to the correct network number below. You will receive 85% of your airtime value after Admin confirmation.</p>
+
+          <div class="supportRow">
+            <div style="flex:1"><b>🟡 MTN</b><br><strong>07078269788</strong></div>
+            <button class="copyBtn" onclick="copyNumber('07078269788')">📋 Copy</button>
+          </div>
+
+          <div class="supportRow">
+            <div style="flex:1"><b>🟢 GLO</b><br><strong>08111275146</strong></div>
+            <button class="copyBtn" onclick="copyNumber('08111275146')">📋 Copy</button>
+          </div>
+
+          <div class="supportRow">
+            <div style="flex:1"><b>🔴 AIRTEL</b><br><strong style="color:#ff0000">Coming Soon</strong></div>
+          </div>
+
+          <p style="font-size:12px;color:#888">Select your network:</p>
+          <select id="cashNet" onchange="calculateCash()">
+            <option value="MTN">MTN</option>
+            <option value="GLO">GLO</option>
+            <option value="AIRTEL">AIRTEL (Coming Soon)</option>
+          </select>
+
+          <input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000" oninput="calculateCash()">
+
+          <div class="receiveBox">
+            <b>Amount you will receive (85%):</b>
+            <h2>₦<span id="cashReceive">0</span></h2>
+            <small>15% service charge</small>
+          </div>
+
+          <input id="cashPhone" placeholder="Number you send airtime from" type="tel">
+          <button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button>
+          <p style="font-size:11px;color:#888">Your request will remain pending until Admin verifies the airtime.</p>
+        </div>
+      </div>
+
+      <div id="page-history" class="section" style="display:none">
+        <h2>📜 My Orders</h2>
+        <div id="historyList"></div>
+      </div>
+
+      <div id="page-notif" class="section" style="display:none">
+        <h2>🔔 Notifications</h2>
+        <div id="notifList"></div>
+      </div>
+
+      <div id="page-settings" class="section" style="display:none">
+        <div class="card">
+          <h2>⚙️ Settings</h2>
+          <p><b>Name:</b> <span id="setName"></span><br>
+          <b>Phone:</b> <span id="setPhone"></span><br>
+          <b>Wallet:</b> ₦<span id="setWallet"></span></p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0">🔑 Change Password</h3>
+          <p style="font-size:12px;color:#888">Change your login password</p>
+          <button class="main" style="background:#ffd500;color:#111" onclick="changePass()">Change My Password</button>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0">👤 My Account</h3>
+          <p style="font-size:13px">One Number = One Person<br>Phone don lock to your account.</p>
+        </div>
+
+        <button class="main" style="background:#111" onclick="logout()">Logout</button>
+      </div>
+
+      <div id="page-support" class="section" style="display:none">
+        <div class="card">
+          <h2>💬 Support / Help Centre</h2>
+
+          <div class="supportRow">
+            <span style="font-size:26px">💚</span>
+            <div style="flex:1"><b>WhatsApp Us</b><br><small>07078269788</small></div>
+            <button style="background:#25D366;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.open('https://wa.me/2347078269788?text=Hello%20FlexTopUp','_blank')">Chat</button>
+          </div>
+
+          <div class="supportRow">
+            <span style="font-size:26px">📧</span>
+            <div style="flex:1"><b>Email Us</b><br><small>flextopup2@gmail.com</small></div>
+            <button style="background:#0b5cff;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.location.href='mailto:flextopup2@gmail.com?subject=FlexTopUp%20Help'">Email</button>
+          </div>
+
+          <div class="supportRow">
+            <span style="font-size:26px">📞</span>
+            <div style="flex:1"><b>Call Us</b><br><small>07078269788</small></div>
+            <button style="background:#00a651;color:#fff;border:none;padding:10px 14px;border-radius:20px" onclick="window.location.href='tel:07078269788'">Call</button>
+          </div>
+
+          <div class="supportRow">
+            <span style="font-size:26px">💰</span>
+            <div style="flex:1"><b>OPay Payment</b><br><small>6490743519 — FlexTopUp</small></div>
+            <button class="copyBtn" onclick="copyNumber('6490743519')">Copy</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>❓ Common Questions</h3>
+          <p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts.</p>
+          <p style="font-size:13px"><b>2. I forget password?</b><br>Go Settings → Change Password.</p>
+          <p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve.</p>
+          <p style="font-size:13px"><b>4. How much will I receive?</b><br>You receive 85% of airtime sent.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottomNav" id="bottomNav" style="display:none">
+      <div id="nav-home" class="active" onclick="showPage('home')">🏠<br>Home</div>
+      <div id="nav-fund" onclick="showPage('fund')">💰<br>Fund</div>
+      <div id="nav-cash" onclick="showPage('cash')">💱<br>Cash</div>
+      <div id="nav-history" onclick="showPage('history')">📜<br>History</div>
+      <div id="nav-notif" onclick="showPage('notif')">🔔<br>Alerts</div>
+      <div id="nav-settings" onclick="showPage('settings')">⚙️<br>Settings</div>
+      <div id="nav-support" onclick="showPage('support')">💬<br>Support</div>
+    </div>
+  </div>
+
+  <script>
+    var defaultPlans = [
+      {name:"500MB", price:200, valid:"Valid 1 day", network:"MTN"},
+      {name:"1GB", price:400, valid:"Valid 2 days", network:"MTN"},
+      {name:"2GB", price:600, valid:"Valid 4 days", network:"MTN"},
+      {name:"5GB", price:1500, valid:"Valid 7 days", network:"MTN"},
+      {name:"10GB", price:3000, valid:"Valid 30 days", network:"MTN"},
+      {name:"1GB", price:350, valid:"Valid 2 days", network:"GLO"},
+      {name:"2GB", price:550, valid:"Valid 4 days", network:"GLO"},
+      {name:"5GB", price:1300, valid:"Valid 7 days", network:"GLO"},
+      {name:"1GB", price:450, valid:"Valid 2 days", network:"AIRTEL"},
+      {name:"2GB", price:700, valid:"Valid 4 days", network:"AIRTEL"},
+      {name:"5GB", price:1600, valid:"Valid 7 days", network:"AIRTEL"},
+      {name:"1GB", price:500, valid:"Valid 2 days", network:"9MOBILE"},
+      {name:"2GB", price:800, valid:"Valid 4 days", network:"9MOBILE"},
+      {name:"5GB", price:1800, valid:"Valid 7 days", network:"9MOBILE"}
+    ];
+
+    var custNet = 'MTN';
+    var plans = [];
+    var orders = [];
+    var users = [];
+    var wallets = {};
+    var notifs = [];
+    var currentUser = null;
+
+    function cleanPhone(p) {
+      return (p || '').replace(/\D/g, '').slice(-10);
+    }
+
+    function copyNumber(number) {
+      var textArea = document.createElement('textarea');
+      textArea.value = number;
+      textArea.style.position = 'fixed';
+      textArea.style.opacity = '0';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        var success = document.execCommand('copy');
+        alert(success ? 'Copied successfully: ' + number : 'Copy failed. Please copy manually: ' + number);
+      } catch (e) {
+        alert('Please copy manually: ' + number);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function calculateCash() {
+      var amount = parseFloat(document.getElementById('cashAmount').value) || 0;
+      var receive = Math.floor(amount * 0.85);
+      document.getElementById('cashReceive').innerText = receive.toLocaleString();
+    }
+
+    function loadAll() {
+      try { plans = JSON.parse(localStorage.getItem('ft_plans') || 'null'); } catch (e) { plans = null; }
+      if (!plans || !plans.length) {
+        plans = defaultPlans;
+        localStorage.setItem('ft_plans', JSON.stringify(plans));
+      }
+
+      try { orders = JSON.parse(localStorage.getItem('ft_orders') || '[]'); } catch (e) { orders = []; }
+      try { users = JSON.parse(localStorage.getItem('ft_users') || '[]'); } catch (e) { users = []; }
+      try { wallets = JSON.parse(localStorage.getItem('ft_wallets') || '{}'); } catch (e) { wallets = {}; }
+      try { notifs = JSON.parse(localStorage.getItem('ft_notifs') || '[]'); } catch (e) { notifs = []; }
+      try { currentUser = JSON.parse(localStorage.getItem('ft_current') || 'null'); } catch (e) { currentUser = null; }
+    }
+
+    function getBalance() {
+      if (!currentUser) return 0;
+      return wallets[cleanPhone(currentUser.phone)] || 0;
+    }
+
+    function setBalance(v) {
+      if (!currentUser) return;
+      wallets[cleanPhone(currentUser.phone)] = v;
+      localStorage.setItem('ft_wallets', JSON.stringify(wallets));
+    }
+
+    function addNotif(title, msg) {
+      if (!currentUser) return;
+      notifs.push({ title: title, msg: msg, phone: currentUser.phone, date: new Date().toLocaleString() });
+      localStorage.setItem('ft_notifs', JSON.stringify(notifs));
+    }
+
+    function showPage(page) {
+      var pages = ['home', 'fund', 'cash', 'history', 'notif', 'settings', 'support'];
+      pages.forEach(function(name) {
+        var el = document.getElementById('page-' + name);
+        if (el) el.style.display = (name === page) ? 'block' : 'none';
+      });
+
+      var navs = ['nav-home', 'nav-fund', 'nav-cash', 'nav-history', 'nav-notif', 'nav-settings', 'nav-support'];
+      navs.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+
+      if (page === 'home') document.getElementById('nav-home').classList.add('active');
+      if (page === 'fund') document.getElementById('nav-fund').classList.add('active');
+      if (page === 'cash') document.getElementById('nav-cash').classList.add('active');
+      if (page === 'history') document.getElementById('nav-history').classList.add('active');
+      if (page === 'notif') document.getElementById('nav-notif').classList.add('active');
+      if (page === 'settings') document.getElementById('nav-settings').classList.add('active');
+      if (page === 'support') document.getElementById('nav-support').classList.add('active');
+    }
+
+    function showApp() {
+      loadAll();
+      if (!currentUser) {
+        document.getElementById('authPage').style.display = 'block';
+        document.getElementById('mainApp').style.display = 'none';
+        document.getElementById('bottomNav').style.display = 'none';
+        return;
+      }
+
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('mainApp').style.display = 'block';
+      document.getElementById('bottomNav').style.display = 'flex';
+
+      document.getElementById('userName').innerText = currentUser.name || 'User';
+      document.getElementById('userPhoneShow').innerText = currentUser.phone;
+      renderAll();
+      showPage('home');
+    }
+
+    function signup() {
+      var name = document.getElementById('authName').value.trim();
+      var phone = document.getElementById('authPhone').value.trim();
+      var pass = document.getElementById('authPass').value.trim();
+
+      if (!phone || !pass) {
+        alert('Enter Phone and Password');
+        return;
+      }
+
+      loadAll();
+
+      var found = null;
+      for (var i = 0; i < users.length; i++) {
+        if (cleanPhone(users[i].phone) === cleanPhone(phone)) found = users[i];
+      }
+
+      if (found) {
+        if (found.pass && found.pass !== pass) {
+          alert('Wrong Password for this number! One Number One Person.');
+          return;
+        }
+        currentUser = found;
+        if (name) currentUser.name = name;
+      } else {
+        if (!name) {
+          alert('Enter Your Name for new account');
+          return;
+        }
+        currentUser = { name: name, phone: phone, pass: pass };
+        users.push(currentUser);
+        localStorage.setItem('ft_users', JSON.stringify(users));
+        addNotif('Welcome to FlexTopUp 🎉', 'Your account don create. Fund wallet to buy data.');
+      }
+
+      localStorage.setItem('ft_current', JSON.stringify(currentUser));
+      showApp();
+    }
+
+    function changePass() {
+      var oldPass = prompt('Enter OLD password:');
+      if (!oldPass) return;
+      loadAll();
+
+      var idx = -1;
+      for (var i = 0; i < users.length; i++) {
+        if (cleanPhone(users[i].phone) === cleanPhone(currentUser.phone)) idx = i;
+      }
+
+      if (idx === -1) {
+        alert('Account not found');
+        return;
+      }
+
+      if (users[idx].pass && users[idx].pass !== oldPass) {
+        alert('Old password wrong!');
+        return;
+      }
+
+      var newPass = prompt('Enter NEW password:');
+      if (!newPass || newPass.length < 4) {
+        alert('Min 4 digits');
+        return;
+      }
+
+      var confirmPass = prompt('Confirm NEW password:');
+      if (newPass !== confirmPass) {
+        alert('No match!');
+        return;
+      }
+
+      users[idx].pass = newPass;
+      localStorage.setItem('ft_users', JSON.stringify(users));
+      currentUser.pass = newPass;
+      localStorage.setItem('ft_current', JSON.stringify(currentUser));
+      alert('Password don change!');
+    }
+
+    function logout() {
+      localStorage.removeItem('ft_current');
+      location.reload();
+    }
+
+    function setCustNet(net) {
+      custNet = net;
+      document.querySelectorAll('.netTab').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+      document.getElementById('ctab-' + net).classList.add('active');
+      document.getElementById('custNetLabel').innerText = net;
+      renderAll();
+    }
+
+    function dotClass(net) {
+      if (net === 'MTN') return 'dotMTN';
+      if (net === 'GLO') return 'dotGLO';
+      if (net === 'AIRTEL') return 'dotAIRTEL';
+      return 'dot9MOBILE';
+    }
+
+    function dotLetter(net) {
+      if (net === 'MTN') return 'M';
+      if (net === 'GLO') return 'G';
+      if (net === 'AIRTEL') return 'A';
+      return '9';
+    }
+
+    function renderPlans() {
+      var list = document.getElementById('plansList');
+      if (!list) return;
+      list.innerHTML = '';
+
+      var filtered = plans.filter(function(item) {
+        return item.network === custNet;
+      });
+
+      if (!filtered.length) {
+        list.innerHTML = '<p class="tiny">No ' + custNet + ' plans yet.</p>';
+        return;
+      }
+
+      filtered.forEach(function(plan) {
+        var row = document.createElement('div');
+        row.className = 'planCard';
+        row.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex:1"><div class="' + dotClass(plan.network) + '" style="width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;">' + dotLetter(plan.network) + '</div><div><b>' + plan.name + '</b><br><small>' + plan.valid + '</small></div></div><div style="text-align:right"><b>₦' + plan.price + '</b><br><button class="buyBtn" onclick="buyPlan(' + JSON.stringify(plan).replace(/"/g, '&quot;') + ')">Buy</button></div>';
+        list.appendChild(row);
+      });
+    }
+
+    function buyPlan(plan) {
+      if (!currentUser) {
+        alert('Please create account first');
+        return;
+      }
+
+      var phoneNumber = document.getElementById('buyPhone').value.trim();
+      if (!phoneNumber) {
+        alert('Enter the number to receive data');
+        return;
+      }
+
+      var order = {
+        id: Date.now(),
+        user: currentUser.name,
+        userPhone: currentUser.phone,
+        phone: phoneNumber,
+        plan: plan.name + ' ' + plan.network + ' — ₦' + plan.price,
+        amount: plan.price,
+        status: 'PENDING',
+        type: 'DATA',
+        createdAt: new Date().toLocaleString()
+      };
+
+      orders.unshift(order);
+      localStorage.setItem('ft_orders', JSON.stringify(orders));
+      addNotif('Data order placed', 'Your ' + plan.name + ' order is pending approval.');
+      renderAll();
+      alert('Data order submitted. Admin will confirm it.');
+    }
+
+    function fundWallet() {
+      if (!currentUser) {
+        alert('Please create account first');
+        return;
+      }
+
+      var amount = parseFloat(document.getElementById('fundAmount').value) || 0;
+      if (!amount || amount <= 0) {
+        alert('Enter valid amount');
+        return;
+      }
+
+      var order = {
+        id: Date.now(),
+        user: currentUser.name,
+        userPhone: currentUser.phone,
+        phone: currentUser.phone,
+        plan: 'Wallet Fund — ₦' + amount,
+        amount: amount,
+        status: 'PENDING',
+        type: 'WALLET',
+        createdAt: new Date().toLocaleString()
+      };
+
+      orders.unshift(order);
+      localStorage.setItem('ft_orders', JSON.stringify(orders));
+      addNotif('Wallet funding request', 'Your wallet funding of ₦' + amount + ' is pending confirmation.');
+      renderAll();
+      alert('Wallet funding submitted. Admin will confirm it.');
+    }
+
+    function airtimeToCash() {
+      if (!currentUser) {
+        alert('Please create account first');
+        return;
+      }
+
+      var amount = parseFloat(document.getElementById('cashAmount').value) || 0;
+      var cashPhone = document.getElementById('cashPhone').value.trim();
+      if (!amount || amount <= 0) {
+        alert('Enter valid airtime amount');
+        return;
+      }
+      if (!cashPhone) {
+        alert('Enter the number the airtime was sent from');
+        return;
+      }
+
+      var receive = Math.floor(amount * 0.85);
+      var order = {
+        id: Date.now(),
+        user: currentUser.name,
+        userPhone: currentUser.phone,
+        phone: cashPhone,
+        plan: 'Airtime to Cash — ₦' + amount + ' → ₦' + receive,
+        amount: receive,
+        status: 'PENDING',
+        type: 'AIRTIME',
+        createdAt: new Date().toLocaleString()
+      };
+
+      orders.unshift(order);
+      localStorage.setItem('ft_orders', JSON.stringify(orders));
+      addNotif('Airtime request', 'Your airtime-to-cash request is pending approval.');
+      renderAll();
+      alert('Airtime request submitted. Admin will check it.');
+    }
+
+    function renderHistory() {
+      var box = document.getElementById('historyList');
+      if (!box) return;
+      box.innerHTML = '';
+
+      var userOrders = orders.filter(function(order) {
+        return cleanPhone(order.userPhone) === cleanPhone(currentUser.phone);
+      });
+
+      if (!userOrders.length) {
+        box.innerHTML = '<p class="tiny">No orders yet.</p>';
+        return;
+      }
+
+      userOrders.forEach(function(order) {
+        var statusClass = order.status === 'PENDING' ? 'pend' : order.status === 'SUCCESSFUL' ? 'succ' : 'rej';
+        var item = document.createElement('div');
+        item.className = 'orderItem';
+        item.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center"><b>' + (order.plan || 'Order') + '</b><span class="badge ' + statusClass + '">' + order.status + '</span></div><div class="tiny">' + (order.createdAt || '') + '</div>';
+        box.appendChild(item);
+      });
+    }
+
+    function renderNotifications() {
+      var box = document.getElementById('notifList');
+      if (!box) return;
+      box.innerHTML = '';
+
+      var userNotifs = notifs.filter(function(n) {
+        return cleanPhone(n.phone) === cleanPhone(currentUser.phone);
+      });
+
+      if (!userNotifs.length) {
+        box.innerHTML = '<p class="tiny">No notifications yet.</p>';
+        return;
+      }
+
+      userNotifs.slice().reverse().forEach(function(n) {
+        var item = document.createElement('div');
+        item.className = 'orderItem';
+        item.innerHTML = '<b>' + n.title + '</b><div class="tiny">' + n.msg + '</div><div class="tiny">' + n.date + '</div>';
+        box.appendChild(item);
+      });
+    }
+
+    function renderSettings() {
+      if (!currentUser) return;
+      document.getElementById('setName').innerText = currentUser.name || 'User';
+      document.getElementById('setPhone').innerText = currentUser.phone;
+      document.getElementById('setWallet').innerText = getBalance().toLocaleString();
+    }
+
+    function renderAll() {
+      loadAll();
+      renderPlans();
+      renderSettings();
+      renderHistory();
+      renderNotifications();
+      document.getElementById('walletBal').innerText = getBalance().toLocaleString();
+      var count = notifs.filter(function(n) {
+        return cleanPhone(n.phone) === cleanPhone(currentUser ? currentUser.phone : '');
+      }).length;
+      document.getElementById('notifCount').innerText = count;
+    }
+
+    loadAll();
+    if (currentUser) {
+      showApp();
+    } else {
+      document.getElementById('authPage').style.display = 'block';
+      document.getElementById('mainApp').style.display = 'none';
+      document.getElementById('bottomNav').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
