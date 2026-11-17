@@ -27,20 +27,32 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 .badge{font-size:11px;padding:4px 8px;border-radius:20px;font-weight:bold}
 .pend{background:#ffd500}.succ{background:#7ed957}.rej{background:#ff9a9a}
 .bottomNav{position:fixed;bottom:0;width:100%;max-width:420px;background:#fff;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;z-index:10}
-.bottomNav div{text-align:center;font-size:12px;cursor:pointer;color:#888}
+.bottomNav div{text-align:center;font-size:10px;cursor:pointer;color:#888}
 .bottomNav div.active{color:#0b4db3;font-weight:bold}
 .dotMTN{width:36px;height:36px;background:#FFCC00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .dotGLO{width:36px;height:36px;background:#00a651;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .dotAIRTEL{width:36px;height:36px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .dot9MOBILE{width:36px;height:36px;background:#006400;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
 .linkBtn{background:none;border:none;color:#0b5cff;font-weight:bold;cursor:pointer;text-decoration:underline;font-size:14px;padding:8px}
+.supportRow{display:flex;gap:10px;align-items:center;padding:12px;background:#f8f9ff;border-radius:12px;margin-top:10px}
+/* SPLASH LOGO */
+#splash{position:fixed;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,#0b4db3,#00a651);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#splash .logo{font-size:70px;background:#fff;width:120px;height:120px;border-radius:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
+
+<!-- SPLASH LOGO SCREEN -->
+<div id="splash">
+<div class="logo">⚡</div>
+<h1 style="font-size:38px;margin:14px 0 0">FlexTopUp</h1>
+<p style="margin:6px 0;font-size:15px;opacity:.9">Buy Data Cheap & Fast</p>
+<p style="font-size:12px;opacity:.7;margin-top:20px">Loading...</p>
+</div>
+
 <div class="phone">
 <div class="header"><div><b style="font-size:20px">⚡ FlexTopUp</b><br><small>Buy Data Cheap & Fast</small></div><div onclick="showPage('notif')" style="cursor:pointer;font-size:22px">🔔 <span id="notifCount" style="background:#ff0000;color:#fff;font-size:11px;padding:2px 6px;border-radius:10px">0</span></div></div>
 
-<!-- LOGIN / SIGNUP -->
 <div id="authPage" class="card">
 <h2 style="text-align:center">Welcome to FlexTopUp 👋</h2>
 <p style="text-align:center;font-size:13px;color:#666">One Number = One Person. No double account.</p>
@@ -49,18 +61,16 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <input id="authPass" type="password" placeholder="Password (4 digits)">
 <button class="main" onclick="signup()">Create Account / Login</button>
 <div style="text-align:center"><button class="linkBtn" onclick="showForgot()">🔑 Forgot Password? Click here to Reset</button></div>
-<!-- FORGOT PASSWORD BOX - HIDDEN -->
 <div id="forgotBox" style="display:none;background:#fffbe6;border:1px solid #ffd500;border-radius:12px;padding:12px;margin-top:10px">
 <b>🔑 Reset Your Password</b>
-<p style="font-size:12px;color:#666;margin:4px 0">Enter your phone number wey you use register, then new password.</p>
 <input id="forgotPhone" placeholder="Your Phone e.g 07078269788" type="tel">
 <input id="forgotNewPass" type="password" placeholder="New Password">
 <input id="forgotConfirmPass" type="password" placeholder="Confirm New Password">
 <button class="main" style="background:#00a651" onclick="resetPassword()">✅ Reset Password Now</button>
 <button class="linkBtn" onclick="hideForgot()">← Back to Login</button>
 </div>
-<p style="font-size:11px;text-align:center;color:#888">If phone don exist, we go login you. If new, we go create am.</p>
-<p style="font-size:12px;text-align:center">OPay: <b>6490743519</b> | WhatsApp: <b>07078269788</b></p>
+<p style="font-size:12px;text-align:center">Need Help? WhatsApp: <b>07078269788</b> | Email: <b>flextopup2@gmail.com</b></p>
+<p style="font-size:11px;text-align:center;color:#888">🔒 Auto Logout: If you no touch app for 1 minute, e go logout for your safety.</p>
 </div>
 
 <div id="mainApp" style="display:none">
@@ -80,27 +90,39 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <button class="netTab" id="ctab-AIRTEL" onclick="setCustNet('AIRTEL')">🔴 AIRTEL</button>
 <button class="netTab" id="ctab-9MOBILE" onclick="setCustNet('9MOBILE')">🟢 9MOBILE</button>
 </div>
-<p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only — price different for each network.</p>
+<p style="font-size:12px;color:#666;margin:0 0 8px">Showing <b id="custNetLabel">MTN</b> plans only.</p>
 <div id="plansList"></div>
-<div class="card" style="margin:14px 0"><b>Buy For Another Number?</b><input id="buyPhone" placeholder="Recipient Number e.g 0803..."><p style="font-size:11px;color:#888;margin:0">Leave empty to buy for yourself. Enter number to buy for another person.</p></div>
+<div class="card" style="margin:14px 0"><b>Buy For Another Number?</b><input id="buyPhone" placeholder="Recipient Number e.g 0803..."><p style="font-size:11px;color:#888;margin:0">Leave empty to buy for yourself.</p></div>
 </div>
 
 <div id="page-fund" class="section" style="display:none">
-<div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><p style="font-size:13px">2. Enter amount you send:</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button><p style="font-size:12px;color:#888">Money NO go enter wallet until Admin confirm am.</p></div>
+<div class="card"><h2>💰 Fund Wallet</h2><p style="font-size:13px">1. Send money to:<br><b style="font-size:18px;color:#0b4db3">OPay: 6490743519</b><br>Name: FlexTopUp</p><input id="fundAmount" type="number" placeholder="Amount e.g 1000"><button class="main" style="background:#00a651" onclick="fundWallet()">✅ I Have Paid — Wait Admin Confirm</button></div>
 </div>
 
 <div id="page-cash" class="section" style="display:none">
-<div class="card"><h2>💱 Airtime to Cash</h2><p style="font-size:13px">Send Airtime to: <b>07078269788 (MTN)</b><br>We go pay you cash to your wallet / OPay.</p><select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000"><input id="cashPhone" placeholder="Number you send from"><button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button></div>
+<div class="card"><h2>💱 Airtime to Cash</h2><p style="font-size:13px">Send Airtime to: <b>07078269788 (MTN)</b></p><select id="cashNet"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select><input id="cashAmount" type="number" placeholder="Airtime Amount e.g 1000"><input id="cashPhone" placeholder="Number you send from"><button class="main" style="background:#00a651" onclick="airtimeToCash()">Submit — Wait Admin</button></div>
 </div>
 
 <div id="page-history" class="section" style="display:none"><h2>📜 My Orders</h2><div id="historyList"></div></div>
 <div id="page-notif" class="section" style="display:none"><h2>🔔 Notifications</h2><div id="notifList"></div></div>
 
-<div class="section" style="padding-bottom:10px">
-<div class="card" style="margin:14px 0"><h3 style="margin:0">⚙️ Settings</h3><p style="font-size:12px;color:#666">Want change password inside app?</p><button class="main" style="background:#ffd500;color:#000" onclick="changePasswordInside()">🔑 Change My Password</button></div>
+<div id="page-settings" class="section" style="display:none">
+<div class="card"><h2>⚙️ Settings</h2><p style="font-size:13px;color:#666">Your account settings only.</p><p><b>Name:</b> <span id="setName"></span><br><b>Phone:</b> <span id="setPhone"></span><br><b>Wallet:</b> ₦<span id="setWallet"></span></p></div>
+<div class="card"><h3 style="margin:0">🔑 Change Password</h3><p style="font-size:12px;color:#666">Change your password anytime.</p><button class="main" style="background:#ffd500;color:#000" onclick="changePasswordInside()">🔑 Change My Password</button></div>
 <button class="main" style="background:#111" onclick="logout()">Logout</button>
-<button class="main" style="background:#eee;color:#111" onclick="window.location.href='admin.html'">Admin Login →</button>
+<p style="font-size:12px;text-align:center;color:#888">Need help? Go to Support tab →</p>
 </div>
+
+<div id="page-support" class="section" style="display:none">
+<div class="card"><h2>💬 Support / Help Centre</h2><p style="font-size:13px;color:#666">Talk to us anytime. We go reply fast.</p>
+<div class="supportRow"><span style="font-size:26px">💚</span><div style="flex:1"><b>WhatsApp Us</b><br><small>07078269788 — Fast reply</small></div><button style="background:#25D366;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.open('https://wa.me/2347078269788?text=Hello%20FlexTopUp%2C%20I%20need%20help','_blank')">Chat</button></div>
+<div class="supportRow"><span style="font-size:26px">📧</span><div style="flex:1"><b>Email Us</b><br><small>flextopup2@gmail.com</small></div><button style="background:#0b5cff;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='mailto:flextopup2@gmail.com?subject=FlexTopUp%20Help'">Email</button></div>
+<div class="supportRow"><span style="font-size:26px">📞</span><div style="flex:1"><b>Call Us</b><br><small>07078269788</small></div><button style="background:#00a651;color:#fff;border:none;padding:10px 14px;border-radius:20px;font-weight:bold;cursor:pointer" onclick="window.location.href='tel:07078269788'">Call</button></div>
+<div class="supportRow"><span style="font-size:26px">💰</span><div style="flex:1"><b>OPay Payment</b><br><small>6490743519 — FlexTopUp</small></div></div>
+</div>
+<div class="card"><h3>❓ Common Questions</h3><p style="font-size:13px"><b>1. I pay, money no enter?</b><br>Wait Admin confirm. Check Alerts. If e pass 10 mins, WhatsApp us.</p><p style="font-size:13px"><b>2. I forget password?</b><br>For Login page, press Forgot Password, reset am.</p><p style="font-size:13px"><b>3. Data no come?</b><br>Check History. If PENDING, Admin never approve. WhatsApp us.</p></div>
+</div>
+
 </div>
 
 <div class="bottomNav" id="bottomNav" style="display:none">
@@ -109,6 +131,8 @@ button.main{width:100%;padding:13px;border:none;border-radius:10px;background:#0
 <div id="nav-cash" onclick="showPage('cash')">💱<br>Cash</div>
 <div id="nav-history" onclick="showPage('history')">📜<br>History</div>
 <div id="nav-notif" onclick="showPage('notif')">🔔<br>Alerts</div>
+<div id="nav-settings" onclick="showPage('settings')">⚙️<br>Settings</div>
+<div id="nav-support" onclick="showPage('support')">💬<br>Support</div>
 </div>
 </div>
 <script>
@@ -129,6 +153,18 @@ var defaultPlans=[
 ];
 var custNet='MTN';
 var plans=[];var orders=[];var users=[];var wallets={};var notifs=[];var currentUser=null;
+var lastActivity=Date.now();
+// AUTO LOGOUT AFTER 1 MINUTE - RESET ON ANY TOUCH
+function resetTimer(){lastActivity=Date.now();}
+['click','touchstart','keydown','scroll'].forEach(function(ev){document.addEventListener(ev,resetTimer,true)});
+setInterval(function(){
+if(currentUser && (Date.now()-lastActivity>60000)){
+alert('🔒 You don stay idle for 1 minute. You don auto logout for security. Login again.');
+logout();
+}
+},5000);
+// SPLASH LOGO - HIDE AFTER 2 SECONDS
+setTimeout(function(){var s=document.getElementById('splash');if(s)s.style.display='none';},2000);
 function loadAll(){try{plans=JSON.parse(localStorage.getItem('ft_plans')||'null')}catch(e){plans=null}if(!plans){plans=defaultPlans;localStorage.setItem('ft_plans',JSON.stringify(plans))}for(var i=0;i<plans.length;i++){if(!plans[i].network)plans[i].network='MTN'}try{orders=JSON.parse(localStorage.getItem('ft_orders')||'[]')}catch(e){orders=[]}try{users=JSON.parse(localStorage.getItem('ft_users')||'[]')}catch(e){users=[]}try{wallets=JSON.parse(localStorage.getItem('ft_wallets')||'{}')}catch(e){wallets={}}try{notifs=JSON.parse(localStorage.getItem('ft_notifs')||'[]')}catch(e){notifs=[]}try{currentUser=JSON.parse(localStorage.getItem('ft_current')||'null')}catch(e){currentUser=null}}
 function cleanPhone(p){return (p||'').replace(/\D/g,'').slice(-10)}
 function getBalance(){if(!currentUser)return 0;return wallets[cleanPhone(currentUser.phone)]||0}
@@ -139,20 +175,20 @@ var name=document.getElementById('authName').value.trim();var phone=document.get
 if(!phone||!pass){alert('Enter Phone and Password');return}
 loadAll();
 var found=null;for(var i=0;i<users.length;i++){if(cleanPhone(users[i].phone)===cleanPhone(phone))found=users[i]}
-if(found){if(found.pass && found.pass!==pass){alert('Wrong Password! Press Forgot Password below to reset am.');return}currentUser=found;if(name)currentUser.name=name;}
+if(found){if(found.pass && found.pass!==pass){alert('Wrong Password! Press Forgot Password below.');return}currentUser=found;if(name)currentUser.name=name;}
 else{if(!name){alert('Enter Your Name for new account');return}currentUser={name:name,phone:phone,pass:pass};users.push(currentUser);localStorage.setItem('ft_users',JSON.stringify(users));addNotif('Welcome to FlexTopUp 🎉','Your account don create. Fund wallet to buy data.');}
-localStorage.setItem('ft_current',JSON.stringify(currentUser));showApp();
+localStorage.setItem('ft_current',JSON.stringify(currentUser));resetTimer();showApp();
 }
 function showForgot(){document.getElementById('forgotBox').style.display='block';var p=document.getElementById('authPhone').value.trim();if(p)document.getElementById('forgotPhone').value=p;}
 function hideForgot(){document.getElementById('forgotBox').style.display='none';}
 function resetPassword(){
 var phone=document.getElementById('forgotPhone').value.trim();var np=document.getElementById('forgotNewPass').value.trim();var cp=document.getElementById('forgotConfirmPass').value.trim();
 if(!phone||!np){alert('Enter Phone and New Password');return}
-if(np!==cp){alert('New Password and Confirm no match! Type am again.');return}
+if(np!==cp){alert('No match!');return}
 if(np.length<4){alert('Password must be at least 4 digits');return}
 loadAll();
 var idx=-1;for(var i=0;i<users.length;i++){if(cleanPhone(users[i].phone)===cleanPhone(phone))idx=i}
-if(idx===-1){alert('This phone number no get account! Check number or Create Account first.');return}
+if(idx===-1){alert('This phone number no get account!');return}
 users[idx].pass=np;localStorage.setItem('ft_users',JSON.stringify(users));
 document.getElementById('forgotNewPass').value='';document.getElementById('forgotConfirmPass').value='';hideForgot();
 alert('✅ Password don change! Now login with your NEW password.');
@@ -175,7 +211,7 @@ function dotClass(net){if(net==='MTN')return 'dotMTN';if(net==='GLO')return 'dot
 function dotLetter(net){if(net==='MTN')return 'M';if(net==='GLO')return 'G';if(net==='AIRTEL')return 'A';return '9'}
 function renderAll(){
 loadAll();
-if(currentUser){document.getElementById('walletBal').innerText=getBalance().toLocaleString()}
+if(currentUser){document.getElementById('walletBal').innerText=getBalance().toLocaleString();var sn=document.getElementById('setName');if(sn){sn.innerText=currentUser.name;document.getElementById('setPhone').innerText=currentUser.phone;document.getElementById('setWallet').innerText=getBalance().toLocaleString()}}
 var pl=document.getElementById('plansList');pl.innerHTML='';
 var filtered=plans.filter(function(p){return p.network===custNet});
 if(filtered.length===0)pl.innerHTML='<p>No '+custNet+' plans yet.</p>';
@@ -191,37 +227,4 @@ if(myN.length===0)nl.innerHTML='<p>No notifications.</p>';
 for(var n2=0;n2<myN.length;n2++){nl.innerHTML+='<div class="card"><b>'+myN[n2].title+'</b><br><small>'+myN[n2].msg+'<br>'+myN[n2].date+'</small></div>'}
 }
 function buyPlan(idx){
-loadAll();var p=plans[idx];var recip=document.getElementById('buyPhone').value.trim()||currentUser.phone;
-if(getBalance()<p.price){alert('Wallet low! Fund wallet first. Balance ₦'+getBalance()+' Need ₦'+p.price);showPage('fund');return}
-if(!confirm('Buy '+p.network+' '+p.name+' for ₦'+p.price+' to '+recip+'?'))return;
-setBalance(getBalance()-p.price);
-var o={plan:p.network+' '+p.name+' — ₦'+p.price,recipient:recip,userPhone:currentUser.phone,status:'PENDING',date:new Date().toLocaleString()};
-orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));
-addNotif('Order Pending ⏳','Your '+p.network+' '+p.name+' to '+recip+' dey wait Admin approve.');
-renderAll();alert('Order sent! Wait Admin approve.');showPage('history');
-}
-function fundWallet(){
-var amt=parseFloat(document.getElementById('fundAmount').value||0);
-if(!amt||amt<100){alert('Enter amount Min ₦100');return}
-var o={plan:'Wallet Fund ₦'+amt,recipient:'Wallet',userPhone:currentUser.phone,status:'PENDING',amount:amt,date:new Date().toLocaleString()};
-orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));
-addNotif('Wallet Funding Pending ⏳','You send ₦'+amt+' to OPay 6490743519. Admin go confirm am, money go enter wallet.');
-alert('✅ You don send ₦'+amt+'! Wait Admin confirm.');showPage('home');renderAll();
-}
-function airtimeToCash(){
-var amt=parseFloat(document.getElementById('cashAmount').value||0);var net=document.getElementById('cashNet').value;var from=document.getElementById('cashPhone').value.trim();
-if(!amt||!from){alert('Enter amount and number you send from');return}
-var o={plan:'Airtime to Cash '+net+' ₦'+amt+' from '+from,recipient:'Cash',userPhone:currentUser.phone,status:'PENDING',date:new Date().toLocaleString()};
-orders.push(o);localStorage.setItem('ft_orders',JSON.stringify(orders));
-addNotif('Airtime to Cash Pending ⏳','Your '+net+' ₦'+amt+' dey wait Admin confirm.');
-alert('Submitted! Admin go confirm and pay you.');showPage('history');renderAll();
-}
-function showPage(p){
-['home','fund','cash','history','notif'].forEach(function(x){document.getElementById('page-'+x).style.display=(x===p?'block':'none')});
-['home','fund','cash','history','notif'].forEach(function(x){var el=document.getElementById('nav-'+x);if(el)el.classList.toggle('active',x===p)});
-window.scrollTo(0,0);
-}
-loadAll();showApp();
-</script>
-</body>
-</html>
+loadAll();var p=plans[idx];var recip=document.getE
