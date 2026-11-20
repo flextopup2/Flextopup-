@@ -1,317 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FlexTopUp</title>
-<script src="https://js.paystack.co/v1/inline.js"></script>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
-.page{display:none;padding:16px;max-width:430px;margin:auto}
-.page.active{display:block}
-.center{text-align:center}
-.logo{width:110px;height:110px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:55px;margin:45px auto 10px}
-h1{color:#22c55e} h2{margin:5px 0} h3{margin:5px 0}
-input,select{width:100%;padding:13px;border-radius:10px;border:none;margin-top:10px;font-size:16px}
-button{width:100%;padding:14px;background:#22c55e;color:#000;font-weight:bold;border:none;border-radius:12px;margin-top:14px;font-size:16px}
-.card{background:#1e293b;padding:16px;border-radius:16px;margin-top:14px}
-.link{color:#22c55e;text-align:center;margin-top:12px;cursor:pointer}
-.small{color:#94a3b8;font-size:13px;text-align:center}
-.price{font-size:22px;color:#facc15;text-align:center;margin:10px 0}
-.topbar{display:flex;justify-content:space-between;align-items:center}
-.iconBtn{background:#1e293b;color:#fff;width:auto;padding:10px 14px;border-radius:10px;margin-top:0}
-.supportBox{background:#065f46;padding:12px;border-radius:12px;text-align:center;margin-top:14px}
-.supportBox a{color:#fff;font-weight:bold;text-decoration:none;display:block;margin-top:5px}
-/* NOTIFICATION BAR */
-#notifBar{background:#facc15;color:#000;padding:10px 12px;border-radius:10px;font-size:14px;display:none;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-#notifBar.show{display:flex}
-#notifBar button{width:auto;background:#000;color:#fff;padding:6px 10px;margin:0;font-size:12px}
-#notifDot{background:#ef4444;color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;margin-left:4px}
-/* DASHBOARD */
-.dashGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.dashBox{background:#1e293b;padding:14px;border-radius:14px;text-align:center}
-.dashBox b{font-size:20px;display:block;color:#22c55e}
-.dashBox span{font-size:12px;color:#94a3b8}
-.txn{border-bottom:1px solid #334155;padding:8px 0;font-size:14px;display:flex;justify-content:space-between}
+*{box-sizing:border-box}body{margin:0;background:#e9edf2;font:15px Arial,sans-serif;color:#172033}.app{max-width:430px;min-height:100vh;margin:auto;background:#f6f7fb;padding-bottom:76px}.header{background:#0b4db3;color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}.section{padding:14px}.card{background:#fff;border-radius:14px;padding:14px;margin:12px 0}.wallet{background:linear-gradient(135deg,#0b4db3,#00a651);color:white;margin:14px;border-radius:16px;padding:16px}.wallet h1{margin:6px 0}.wallet button{border:0;border-radius:20px;padding:9px 13px;font-weight:bold;margin:7px 7px 0 0}h2{font-size:19px;color:#0a2a7a}input,select{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:10px;font-size:15px;background:#fff}.button{width:100%;padding:13px;border:0;border-radius:10px;background:#0b5cff;color:#fff;font-weight:bold;margin-top:8px}.green{background:#16a34a}.pay{display:block;text-align:center;text-decoration:none;background:#f97316;color:white;font-weight:bold;border-radius:10px;padding:14px;margin:12px 0}.tabs{display:flex;gap:5px}.tab{flex:1;padding:9px 2px;border-radius:9px;border:1px solid #ddd;background:#fff;font-weight:bold}.tab.active{background:#0b4db3;color:#fff}.plan,.order{background:#fff;border-radius:12px;padding:12px;margin:8px 0;border:1px solid #eee}.plan{display:flex;align-items:center;justify-content:space-between}.buy{background:#16a34a;color:white;border:0;border-radius:18px;padding:8px 13px;font-weight:bold}.muted{color:#667085;font-size:12px}.nav{position:fixed;bottom:0;width:100%;max-width:430px;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:9px 0}.nav div{text-align:center;font-size:11px;color:#555}.nav .active{color:#0b4db3;font-weight:bold}.hidden{display:none!important}.warning{background:#fff7d6;border-radius:10px;padding:11px;font-size:12px;line-height:1.5;margin:10px 0}
 </style>
 </head>
-<body>
-
-<!-- SPLASH -->
-<div id="splash" class="page active">
-  <div class="logo">⚡</div>
-  <h1 class="center">FlexTopUp</h1>
-  <p class="center">Cheap Data • Fast Delivery</p>
-  <p class="center small">Loading...</p>
+<body><main class="app">
+<header class="header"><div><b style="font-size:20px">⚡ FlexTopUp</b><br><small>Data • Wallet • Airtime to Cash</small></div><div onclick="go('alerts')">🔔 <span id="noticeCount">0</span></div></header>
+<div id="auth" class="section"><div class="card"><h2 style="text-align:center">Welcome to FlexTopUp 👋</h2><p class="muted" style="text-align:center">Create an account or log in using your phone and password.</p><input id="authName" placeholder="Full name"><input id="authPhone" type="tel" placeholder="Phone number"><input id="authPass" type="password" placeholder="Password"><button class="button" onclick="signIn()">Continue</button><p class="muted">New users: enter your name, phone and a password to create an account. Existing users: enter the same phone and password.</p></div><div class="warning">This GitHub Pages version stores demo account/order data in this browser only. Do not use it to store real passwords or payment credentials. Admin/customer data is not shared across devices.</div></div>
+<div id="customer" class="hidden">
+<div class="wallet"><small>👋 Hi, <span id="displayName"></span> • <span id="displayPhone"></span></small><h1>₦<span id="balance">0</span></h1><small>Wallet balance</small><br><button onclick="go('fund')">+ Fund Wallet</button><button onclick="go('cash')">💱 Airtime to Cash</button></div>
+<section id="page-home" class="section"><h2>Buy Data 📶</h2><div class="tabs"><button class="tab active" id="tab-MTN" onclick="network('MTN')">MTN</button><button class="tab" id="tab-GLO" onclick="network('GLO')">GLO</button><button class="tab" id="tab-AIRTEL" onclick="network('AIRTEL')">Airtel</button><button class="tab" id="tab-9MOBILE" onclick="network('9MOBILE')">9Mobile</button></div><p class="muted">Showing <b id="networkLabel">MTN</b> plans</p><div id="plans"></div><label>Number to receive data</label><input id="buyPhone" type="tel" placeholder="080..."></section>
+<section id="page-fund" class="section hidden"><div class="card"><h2>💰 Fund Wallet</h2><p>Pay using your Flutterwave hosted checkout link:</p><a class="pay" href="https://flutterwave.com/pay/ksnkvdgrbi66" target="_blank" rel="noopener noreferrer">Pay with Flutterwave ↗</a><p class="muted">After paying, submit the amount below. An admin must verify the payment before your wallet is credited. The link does not automatically verify or credit your account.</p><input id="fundAmount" type="number" min="1" placeholder="Amount paid in naira"><button class="button green" onclick="submitFunding()">I Have Paid — Submit for Review</button></div></section>
+<section id="page-cash" class="section hidden"><div class="card"><h2>💱 Airtime to Cash</h2><p class="muted">Send airtime to the correct number, then submit your request. Admin verifies receipt and arranges payout separately.</p><p><b>MTN: 07078269788</b><br><b>Glo: 08111275146</b></p><label>Network</label><select id="cashNetwork"><option>MTN</option><option>GLO</option></select><input id="cashAmount" type="number" min="1" placeholder="Airtime amount" oninput="calcCash()"><p class="card">Estimated cash at 85%: ₦<b id="cashReceive">0</b></p><input id="cashPhone" type="tel" placeholder="Number airtime was sent from"><button class="button green" onclick="submitCash()">Submit Airtime Request</button></div></section>
+<section id="page-orders" class="section hidden"><h2>📜 My Orders</h2><div id="orders"></div></section>
+<section id="page-alerts" class="section hidden"><h2>🔔 Notifications</h2><div id="alerts"></div></section>
+<section id="page-help" class="section hidden"><div class="card"><h2>💬 Support</h2><p>WhatsApp: 07078269788</p><a href="https://wa.me/2347078269788" target="_blank" rel="noopener">Chat on WhatsApp</a><p>Email: flextopup2@gmail.com</p><button class="button" onclick="logout()">Log out</button></div></section>
 </div>
-
-<!-- REGISTER -->
-<div id="registerPage" class="page">
-  <div class="logo" style="margin-top:12px">⚡</div>
-  <h1 class="center">Create Account</h1>
-  <div class="card">
-    <input id="regName" placeholder="Full Name">
-    <input id="regPhone" placeholder="Phone Number" maxlength="11">
-    <input id="regPass" type="password" placeholder="Create Password">
-    <input id="regPin" type="password" placeholder="Transaction PIN (4 digits)" maxlength="4" inputmode="numeric">
-    <button onclick="doRegister()">Register</button>
-    <div class="link" onclick="showPage('loginPage')">Already get account? Login</div>
-  </div>
-  <div class="supportBox">📞 Support<br><a href="tel:07078269788">Call: 07078269788</a><a href="https://wa.me/2347078269788">WhatsApp: 07078269788</a><a href="mailto:flextopup2@gmail.com">✉️ flextopup2@gmail.com</a></div>
-</div>
-
-<!-- LOGIN -->
-<div id="loginPage" class="page">
-  <div class="logo" style="margin-top:12px">⚡</div>
-  <h1 class="center">Welcome Back</h1>
-  <div class="card">
-    <input id="logPhone" placeholder="Phone Number" maxlength="11">
-    <input id="logPass" type="password" placeholder="Password">
-    <button onclick="doLogin()">Login</button>
-    <div class="link" onclick="showPage('registerPage')">No account? Register</div>
-    <div class="link" onclick="showPage('resetPage')">Forgot Password? Reset</div>
-  </div>
-  <div class="supportBox">📞 Support<br><a href="tel:07078269788">Call: 07078269788</a><a href="https://wa.me/2347078269788">WhatsApp: 07078269788</a><a href="mailto:flextopup2@gmail.com">✉️ flextopup2@gmail.com</a></div>
-</div>
-
-<!-- RESET -->
-<div id="resetPage" class="page">
-  <h1 class="center">Reset Password</h1>
-  <div class="card">
-    <input id="resetPhone" placeholder="Your Phone Number" maxlength="11">
-    <input id="resetNewPass" type="password" placeholder="New Password">
-    <button onclick="doReset()">Reset Password</button>
-    <div class="link" onclick="showPage('loginPage')">Back to Login</div>
-  </div>
-</div>
-
-<!-- DASHBOARD / HOME -->
-<div id="homePage" class="page">
-  <!-- NOTIFICATION BAR - WORKING -->
-  <div id="notifBar"><span id="notifText">🔔 Welcome to FlexTopUp!</span><button onclick="closeNotif()">Dismiss</button></div>
-
-  <div class="topbar"><h2>⚡ FlexTopUp <span id="notifDot" onclick="openNotif()">1</span></h2><button class="iconBtn" onclick="showPage('settingsPage')">⚙️ Settings</button></div>
-  <p id="welcomeText" style="margin:8px 0">Welcome!</p>
-
-  <!-- FINE DASHBOARD -->
-  <div class="card" style="background:linear-gradient(135deg,#22c55e,#065f46)">
-    <span style="font-size:13px">Wallet Balance</span>
-    <h2 id="walletBal" style="font-size:28px;margin:4px 0">₦0.00</h2>
-    <span style="font-size:13px" id="userPhoneShow">080...</span>
-  </div>
-  <div class="dashGrid">
-    <div class="dashBox"><b id="totalOrders">0</b><span>Total Orders</span></div>
-    <div class="dashBox"><b id="totalSpent">₦0</b><span>Total Spent</span></div>
-    <div class="dashBox"><b>MTN • GLO</b><span>Networks</span></div>
-    <div class="dashBox"><b>24/7</b><span>Support</span></div>
-  </div>
-
-  <!-- BUY DATA -->
-  <div class="card">
-    <h3>Buy Data 💨</h3>
-    <select id="network"><option>MTN</option><option>GLO</option><option>AIRTEL</option><option>9MOBILE</option></select>
-    <select id="plan" onchange="updatePrice()">
-      <option value="500MB|200">500MB - ₦200</option>
-      <option value="1GB|300">1GB - ₦300</option>
-      <option value="2GB|600">2GB - ₦600</option>
-      <option value="5GB|1400">5GB - ₦1,400</option>
-      <option value="10GB|2800">10GB - ₦2,800</option>
-    </select>
-    <input id="buyPhone" placeholder="Phone to receive Data">
-    <input id="txnPin" type="password" placeholder="Transaction PIN (4 digits)" maxlength="4" inputmode="numeric">
-    <div class="price" id="showPrice">Total: ₦300</div>
-    <button onclick="payWithPaystack()">Pay with Paystack 💳</button>
-    <p class="small">Paystack ONLY • Secure • No Opay</p>
-    <div id="status" class="center" style="margin-top:8px"></div>
-  </div>
-
-  <!-- RECENT TRANSACTIONS -->
-  <div class="card">
-    <h3>Recent Transactions</h3>
-    <div id="txnList"><p class="small">No transaction yet. Buy your first Data!</p></div>
-  </div>
-
-  <div class="supportBox">📞 Need Help?<br><a href="tel:07078269788">📞 Call: 07078269788</a><a href="https://wa.me/2347078269788">💬 WhatsApp: 07078269788</a><a href="mailto:flextopup2@gmail.com">✉️ flextopup2@gmail.com</a></div>
-  <!-- NO LOGOUT HERE - LOGOUT NA FOR SETTINGS ONLY -->
-</div>
-
-<!-- SETTINGS - LOGOUT ONLY HERE -->
-<div id="settingsPage" class="page">
-  <h1 class="center">⚙️ Settings</h1>
-  <div class="card">
-    <h3>Change Password</h3>
-    <input id="setOldPass" type="password" placeholder="Old Password">
-    <input id="setNewPass" type="password" placeholder="New Password">
-    <button onclick="changePassword()">Update Password</button>
-  </div>
-  <div class="card">
-    <h3>Change Transaction PIN</h3>
-    <input id="setOldPin" type="password" placeholder="Old PIN" maxlength="4">
-    <input id="setNewPin" type="password" placeholder="New PIN (4 digits)" maxlength="4">
-    <button onclick="changePin()">Update PIN</button>
-  </div>
-  <div class="card">
-    <h3>Support</h3>
-    <p>📞 07078269788 (Call & WhatsApp)</p>
-    <p>✉️ flextopup2@gmail.com</p>
-    <p class="small">Auto Logout: After 1 minute of no activity</p>
-  </div>
-  <button onclick="showPage('homePage')">Back to Dashboard</button>
-  <button onclick="logout()" style="background:#ef4444;color:#fff">Logout</button>
-</div>
-
+<nav id="nav" class="nav hidden"><div id="nav-home" class="active" onclick="go('home')">🏠<br>Home</div><div id="nav-fund" onclick="go('fund')">💰<br>Fund</div><div id="nav-cash" onclick="go('cash')">💱<br>Cash</div><div id="nav-orders" onclick="go('orders')">📜<br>Orders</div><div id="nav-alerts" onclick="go('alerts')">🔔<br>Alerts</div><div id="nav-help" onclick="go('help')">💬<br>Help</div></nav>
+</main>
 <script>
-const PAYSTACK_PUBLIC_KEY = "pk_live_91588004b566ec8067a0ed506c342f4981dbe521";
-const CLUBKONNECT_USERID = "PUT_YOUR_CLUBKONNECT_USERID_HERE";07078269788
-const CLUBKONNECT_APIKEY = "PUT_YOUR_CLUBKONNECT_API_KEY_HERE";951V9SJ78DBT99UP029IWN45QWSK628RP3359J0W035V8A0HVDEKK90L8WZ8BR58
-
-let notifications = ["🔔 Welcome to FlexTopUp! Cheap Data dey available now.", "💥 MTN 1GB now ₦300 - Buy now!", "📞 Support: 07078269788 - Call or WhatsApp anytime"];
-let notifIndex = 0;
-
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  resetTimer();
-}
-function showNotif(msg){
-  document.getElementById('notifText').innerText = msg;
-  document.getElementById('notifBar').classList.add('show');
-  document.getElementById('notifDot').innerText = notifications.length;
-}
-function closeNotif(){ document.getElementById('notifBar').classList.remove('show'); }
-function openNotif(){
-  notifIndex = (notifIndex+1)%notifications.length;
-  showNotif(notifications[notifIndex]);
-}
-setTimeout(()=>{
-  let user=localStorage.getItem('flextopup_user');
-  if(user) showPage('loginPage'); else showPage('registerPage');
-},2500);
-
-function doRegister(){
-  let name=document.getElementById('regName').value.trim();
-  let phone=document.getElementById('regPhone').value.trim();
-  let pass=document.getElementById('regPass').value;
-  let pin=document.getElementById('regPin').value;
-  if(name.length<3){alert("Enter Full Name");return;}
-  if(phone.length!=11){alert("Enter correct number");return;}
-  if(pass.length<4){alert("Password 4+");return;}
-  if(pin.length!=4){alert("PIN must be 4 digits");return;}
-  localStorage.setItem('flextopup_user',JSON.stringify({name,phone,pass,pin}));
-  localStorage.setItem('flextopup_txns',JSON.stringify([]));
-  alert("Welcome "+name+"! Account created.");
-  showPage('loginPage');
-}
-function doLogin(){
-  let phone=document.getElementById('logPhone').value.trim();
-  let pass=document.getElementById('logPass').value;
-  let saved=JSON.parse(localStorage.getItem('flextopup_user')||"{}");
-  if(phone===saved.phone && pass===saved.pass){
-    document.getElementById('welcomeText').innerText="Welcome, "+saved.name+" 👋";
-    document.getElementById('userPhoneShow').innerText=saved.phone;
-    document.getElementById('buyPhone').value=phone;
-    loadDashboard();
-    showPage('homePage');
-    showNotif("🔔 Welcome back "+saved.name+"! Your Dashboard don load.");
-  } else alert("Wrong phone or password.");
-}
-function loadDashboard(){
-  let txns=JSON.parse(localStorage.getItem('flextopup_txns')||"[]");
-  document.getElementById('totalOrders').innerText=txns.length;
-  let spent=txns.reduce((a,b)=>a+b.amount,0);
-  document.getElementById('totalSpent').innerText="₦"+spent;
-  document.getElementById('walletBal').innerText="₦"+spent+" Spent";
-  let list=document.getElementById('txnList');
-  if(txns.length===0) list.innerHTML="<p class='small'>No transaction yet.</p>";
-  else list.innerHTML=txns.slice().reverse().map(t=>`<div class='txn'><span>${t.network} ${t.plan} - ${t.phone}</span><b>₦${t.amount}</b></div>`).join('');
-}
-function addTxn(network,plan,phone,amount){
-  let txns=JSON.parse(localStorage.getItem('flextopup_txns')||"[]");
-  txns.push({network,plan,phone,amount,date:new Date().toLocaleString()});
-  localStorage.setItem('flextopup_txns',JSON.stringify(txns));
-  loadDashboard();
-}
-function doReset(){
-  let phone=document.getElementById('resetPhone').value.trim();
-  let np=document.getElementById('resetNewPass').value;
-  let saved=JSON.parse(localStorage.getItem('flextopup_user')||"{}");
-  if(phone!==saved.phone){alert("Phone not found. Contact 07078269788");return;}
-  if(np.length<4){alert("New password 4+");return;}
-  saved.pass=np; localStorage.setItem('flextopup_user',JSON.stringify(saved));
-  alert("Password reset successful!"); showPage('loginPage');
-}
-function changePassword(){
-  let saved=JSON.parse(localStorage.getItem('flextopup_user')||"{}");
-  let oldP=document.getElementById('setOldPass').value;
-  let newP=document.getElementById('setNewPass').value;
-  if(oldP!==saved.pass){alert("Old password wrong");return;}
-  if(newP.length<4){alert("New password 4+");return;}
-  saved.pass=newP; localStorage.setItem('flextopup_user',JSON.stringify(saved));
-  showNotif("🔔 Password changed successfully!"); alert("Password updated!");
-}
-function changePin(){
-  let saved=JSON.parse(localStorage.getItem('flextopup_user')||"{}");
-  let oldPin=document.getElementById('setOldPin').value;
-  let newPin=document.getElementById('setNewPin').value;
-  if(oldPin!==saved.pin){alert("Old PIN wrong");return;}
-  if(newPin.length!=4){alert("New PIN must be 4 digits");return;}
-  saved.pin=newPin; localStorage.setItem('flextopup_user',JSON.stringify(saved));
-  showNotif("🔔 Transaction PIN changed successfully!"); alert("PIN updated!");
-}
-function logout(){ showPage('loginPage'); alert("Logged out"); }
-function updatePrice(){
-  let p=document.getElementById('plan').value.split('|')[1];
-  document.getElementById('showPrice').innerText="Total: ₦"+p;
-}
-updatePrice();
-let logoutTimer;
-function resetTimer(){
-  clearTimeout(logoutTimer);
-  logoutTimer=setTimeout(()=>{
-    let home=document.getElementById('homePage').classList.contains('active');
-    let settings=document.getElementById('settingsPage').classList.contains('active');
-    if(home||settings){ alert("Auto logged out after 1 minute."); logout(); }
-  },60000);
-}
-['click','keydown','touchstart','mousemove'].forEach(e=>document.addEventListener(e, resetTimer));
-function payWithPaystack(){
-  let phone=document.getElementById('buyPhone').value.trim();
-  let pin=document.getElementById('txnPin').value.trim();
-  let saved=JSON.parse(localStorage.getItem('flextopup_user')||"{}");
-  if(pin!==saved.pin){alert("Wrong Transaction PIN!");return;}
-  let planData=document.getElementById('plan').value.split('|');
-  let amount=parseInt(planData[1])*100;
-  let network=document.getElementById('network').value;
-  if(phone.length!=11){alert("Enter correct phone");return;}
-  let email=phone+"@flextopup.ng";
-  let handler=PaystackPop.setup({
-    key:PAYSTACK_PUBLIC_KEY,email:email,amount:amount,currency:"NGN",
-    ref:"FLEX-"+Math.floor(Math.random()*1000000),
-    metadata:{custom_fields:[{display_name:"Customer",variable_name:"customer",value:saved.name+" - "+phone}]},
-    callback:function(res){
-      document.getElementById('status').innerText="Payment Successful! Sending Data...";
-      addTxn(network,planData[0],phone,parseInt(planData[1]));
-      showNotif("✅ Payment Successful! "+network+" "+planData[0]+" for "+phone+" - Sending Data...");
-      sendData(network,phone,planData[0],res.reference);
-    },
-    onClose:function(){alert("Payment cancelled");}
-  });
-  handler.openIframe();
-}
-async function sendData(network,phone,plan,ref){
-  try{
-    let res=await fetch("https://www.clubkonnect.com/api/buydata.php",{
-      method:"POST",headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({UserID:CLUBKONNECT_USERID,APIKey:CLUBKONNECT_APIKEY,Network:network,Phone:phone,DataPlan:plan,Reference:ref})
-    });
-    let d=await res.json();
-    document.getElementById('status').innerText="Done! "+JSON.stringify(d);
-    showNotif("✅ Data Delivered! "+network+" "+plan+" sent to "+phone);
-    alert("Order Sent!");
-  }catch(e){
-    document.getElementById('status').innerText="Payment received ("+ref+"). Contact 07078269788 with ref.";
-  }
-}
-</script>
-</body>
- </html>
+'use strict';
+var DEFAULT_PLANS=[{name:'500MB',price:200,valid:'Valid 1 day',network:'MTN'},{name:'1GB',price:400,valid:'Valid 2 days',network:'MTN'},{name:'2GB',price:600,valid:'Valid 4 days',network:'MTN'},{name:'5GB',price:1500,valid:'Valid 7 days',network:'MTN'},{name:'10GB',price:3000,valid:'Valid 30 days',network:'MTN'},{name:'1GB',price:350,valid:'Valid 2 days',network:'GLO'},{name:'2GB',price:550,valid:'Valid 4 days',network:'GLO'},{name:'5GB',price:1300,valid:'Valid 7 days',network:'GLO'},{name:'1GB',price:450,valid:'Valid 2 days',network:'AIRTEL'},{name:'2GB',price:700,valid:'Valid 4 days',network:'AIRTEL'},{name:'5GB',price:1600,valid:'Valid 7 days',network:'AIRTEL'},{name:'1GB',price:500,valid:'Valid 2 days',network:'9MOBILE'},{name:'2GB',price:800,valid:'Valid 4 days',network:'9MOBILE'},{name:'5GB',price:1800,valid:'Valid 7 days',network:'9MOBILE'}];
+var current=null,currentNetwork='MTN';
+function read(key,fallback){try{var v=JSON.parse(localStorage.getItem(key));return v===null?fallback:v}catch(e){return fallback}}
+function cleanPhone(p){return(p||'').replace(/\D/g,'').slice(-10)}
+function loadPlans(){var p=read('ft_plans',DEFAULT_PLANS);if(!Array.isArray(p)||!p.length){p=DEFAULT_PLANS;localStorage.setItem('ft_plans',JSON.stringify(p))}return p}
+function signIn(){var name=document.getElementById('authName').value.trim(),phone=document.getElementById('authPhone').value.trim(),pass=document.getElementById('authPass').value;if(!phone||!pass){alert('Enter your phone number and password.');return}var users=read('ft_users',[]);if(!Array.isArray(users))users=[];var found=users.find(function(u){return cleanPhone(u.phone)===cleanPhone(phone)});if(found){if(found.pass&&found.pass!==pass){alert('Incorrect password.');return}current=found;if(name)current.name=name}else{if(!name){alert('Enter your name to register.');return}current={name:name,phone:phone,pass:pass};users.push(current);localStorage.setItem('ft_users',JSON.stringify(users))}localStorage.setItem('ft_current',JSON.stringify(current));start()}
+function start(){current=read('ft_current',null);if(!current){document.getElementById('auth').classList.remove('hidden');document.getElementById('customer').classList.add('hidden');document.getElementById('nav').classList.add('hidden');return}document.getElementById('auth').classList.add('hidden');document.getElementById('customer').classList.remove('hidden');document.getElementById('nav').classList.remove('hidden');document.getElementById('displayName').textContent=current.name||'Customer';document.getElementById('displayPhone').textContent=current.phone||'';render();go('home')}
+function go(id){['home','fund','cash','orders','alerts','help'].forEach(function(x){document.getElementById('page-'+x).classList.toggle('hidden',x!==id);var n=document.getElementById('nav-'+x);if(n)n.classList.toggle('active',x===id)})}
+function network(n){currentNetwork=n;document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active')});document.getElementById('tab-'+n).classList.add('active');document.getElementById('networkLabel').textContent=n;renderPlans()}
+function renderPlans(){var box=document.getElementById('plans');if(!box)return;box.replaceChildren();loadPlans().filter(function(p){return p.network===currentNetwork}).forEach(function(p){var row=document.createElement('div');row.className='plan';var info=document.createElement('div'),detail=document.createElement('small');info.innerHTML='';var title=document.createElement('b');title.textContent=p.name;detail.textContent=p.valid||'';info.appendChild(title);info.appendChild(document.createElement('br'));info.appendChild(detail);var side=document.createElement('div'),price=document.createElement('b');price.textContent='₦'+Number(p.price).toLocaleString();var buy=document.createElement('button');buy.className='buy';buy.textContent='Buy';buy.onclick=function(){buyPlan(p)};side.appendChild(price);side.appendChild(document.createElement('br'));side.appendChild(buy);row.appendChild(info);row.appendChild(side);box.appendChild(row)})}
+function allOrders(){var o=read('ft_orders',[]);return Array.isArray(o)?o:[]}
+function saveOrder(order){var list=allOrders();list.unshift(order);localStorage.setItem('ft_orders',JSON.stringify(list));render()}
+function makeOrder(type,plan,amount,phone){return{id:Date.now(),user:current.name,userPhone:current.phone,phone:phone||current.phone,plan:plan,amount:amount,status:'PENDING',type:type,createdAt:new Date().toLocaleString()}}
+function buyPlan(p){var target=document.getElementById('buyPhone').value.trim();if(!target){alert('Enter the number to receive data.');return}saveOrder(makeOrder('DATA',p.name+' '+p.network+' — ₦'+p.price,p.price,target));alert('Data order submitted for admin review.')}
+function submitFunding(){var amount=Number(document.getElementById('fundAmount').value);if(!amount||amount<1){alert('Enter the amount paid.');return}saveOrder(makeOrder('WALLET','Wallet Fund — ₦'+amount,amount,current.phone));document.getElementById('fundAmount').value='';alert('Funding request sent for admin verification. The wallet will not be credited until verified.')}
+function calcCash(){var amount=Number(document.getElementById('cashAmount').value)||0;document.getElementById('cashReceive').textContent=Math.floor(amount*.85).toLocaleString()}
+function submitCash(){var amount=Number(document.getElementById('cashAmount').value),phone=document.getElementById('cashPhone').value.trim(),net=document.getElementById('cashNetwork').value;if(!amount||amount<1||!phone){alert('Enter a valid airtime amount and sender phone.');return}var receive=Math.floor(amount*.85);saveOrder(makeOrder('AIRTIME','Airtime to Cash '+net+' — ₦'+amount+' → ₦'+receive,receive,phone));document.getElementById('cashAmount').value='';document.getElementById('cashPhone').value='';calcCash();alert('Airtime request submitted. Admin must verify receipt and arrange payout.')}
+function render(){var bal=read('ft_wallets',{});document.getElementById('balance').textContent=(Number(bal[cleanPhone(current.phone)])||0).toLocaleString();renderPlans();var list=allOrders().filter(function(o){return cleanPhone(o.userPhone)===cleanPhone(current.phone)}),box=document.getElementById('orders');box.replaceChildren();if(!list.length)box.textContent='No orders yet.';list.forEach(function(o){var item=document.createElement('div');item.className='order';item.textContent=(o.plan||'Order')+' — '+(o.status||'PENDING')+' · '+(o.createdAt||'');box.appendChild(item)});var notes=read('ft_notifs',[]);if(!Array.isArray(notes))notes=[];notes=notes.filter(function(n){return cleanPhone(n.phone)===cleanPhone(current.phone)});document.getElementById('noticeCount').textContent=notes.length;var alertBox=document.getElementById('alerts');alertBox.replaceChildren();if(!notes.length)alertBox.textContent='No notifications yet.';notes.slice().reverse().forEach(function(n){var item=document.createElement('div');item.className='order';item.textContent=(n.title||'Notification')+': '+(n.msg||'')+' '+(n.date||'');alertBox.appendChild(item)})}
+function logout(){localStorage.removeItem('ft_current');location.reload()}
+start();
+</script></body></html>
